@@ -18,6 +18,3 @@
 //
 
 import Foundation
-
-let program = "(begin (define r 10) (* pi (* r r)))"
-print(tokenize(program))

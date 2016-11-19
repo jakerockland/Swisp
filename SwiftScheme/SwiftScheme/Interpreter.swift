@@ -19,30 +19,35 @@
 
 import Foundation
 
-/**
- Converts a string of characters into an array of tokens.
- 
- - Parameter string: The `String` that we are tokenizing.
- 
- - Returns: A `String` array containing the generated tokens.
- */
-func tokenize(_ string: String) -> [String] {
-    var tokens: [String] = []
-    var temp: String = ""
+// TODO: Add block comment and decide on struct/class decision
+class Interpreter {
     
-    let whitespace: [Character] = [" ", "\n", "\t", "\r"]
-    let padded = string.replacingOccurrences(of: "(", with: " ( ").replacingOccurrences(of: ")", with: " ) ")
-    
-    for char in padded.characters {
-        if whitespace.contains(char) {
-            if temp != "" {
-                tokens.append(temp)
-                temp = ""
+    /**
+     Converts a string of characters into an array of tokens.
+     
+     - Parameter string: The `String` that we are tokenizing.
+     
+     - Returns: A `String` array containing the generated tokens.
+     */
+    static func tokenize(_ string: String) -> [String] {
+        var tokens: [String] = []
+        var temp: String = ""
+        
+        let whitespace: [Character] = [" ", "\n", "\t", "\r"]
+        let padded = string.replacingOccurrences(of: "(", with: " ( ").replacingOccurrences(of: ")", with: " ) ")
+        
+        for char in padded.characters {
+            if whitespace.contains(char) {
+                if temp != "" {
+                    tokens.append(temp)
+                    temp = ""
+                }
+            } else {
+                temp.append(char)
             }
-        } else {
-            temp.append(char)
         }
+        
+        return tokens
     }
     
-    return tokens
 }
