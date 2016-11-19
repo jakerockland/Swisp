@@ -27,6 +27,22 @@ import Foundation
  - Returns: A `String` array containing the generated tokens.
  */
 func tokenize(_ string: String) -> [String] {
-    return string.replacingOccurrences(of: "(", with: " ( ").replacingOccurrences(of: ")", with: " ) ").components(separatedBy: " ")
+    var tokens: [String] = []
+    var temp: String = ""
+    
+    let whitespace: [Character] = [" ", "\n", "\t", "\r"]
+    let padded = string.replacingOccurrences(of: "(", with: " ( ").replacingOccurrences(of: ")", with: " ) ")
+    
+    for char in padded.characters {
+        if whitespace.contains(char) {
+            if temp != "" {
+                tokens.append(temp)
+                temp = ""
+            }
+        } else {
+            temp.append(char)
+        }
+    }
+    
+    return tokens
 }
-
