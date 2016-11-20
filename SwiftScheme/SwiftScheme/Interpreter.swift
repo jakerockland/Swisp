@@ -147,11 +147,11 @@ class Interpreter {
             "ceil":     ceil,
             "copysign": copysign,
             "fabs":     fabs,
-            //            "factorial": factorial,
+            // "factorial": factorial, // TODO
             "floor":    floor,
             "fmod":     fmod,
             "frexp":    frexp,
-            //            "fsum": fsum,
+            // "fsum": fsum, // TODO
             "isinf":    isinf,
             "isnan":    isnan,
             "ldexp":    ldexp,
@@ -173,8 +173,8 @@ class Interpreter {
             "sin":      sin,
             "tan":      tan,
             // Angular conversion
-            //            "degrees": degrees,
-            //            "radians": radians,
+            // "degrees": degrees, // TODO
+            // "radians": radians, // TODO
             // Hyperbolic functions
             "acosh":    acosh,
             "asinh":    asinh,
@@ -204,8 +204,8 @@ class Interpreter {
             "=":        { $0 = $1 },
             // Misc.
             "abs": abs,
-            //            "append": op.add,
-            //            "apply": apply,
+            // "append": op.add, // TODO
+            // "apply": apply, // TODO
             "begin":    { $0[-1] },
             "car":      { $0[0] },
             "cdr":      { $0.dropFirst() },
@@ -215,7 +215,7 @@ class Interpreter {
             "length":   { $0.count },
             "list":     { List($0) },
             "list?":    { $0 is List },
-            //            "map":     map,
+            // "map":     map, // TODO
             "max":      max,
             "min":      min,
             "not":      { !$0 },
