@@ -242,7 +242,7 @@ class Interpreter {
      */
     static func eval(_ x: Any, withEnvironment env: inout Env) -> Any? {
         if let _x = x as? Symbol { // variable reference
-            return env![_x] as Any
+            return env[_x] as Any
         } else if !(x is List) { // constant literal
             return x
         } else if let _x = x as? List, _x.first == "if" { // conditional
@@ -256,7 +256,7 @@ class Interpreter {
             let `var` = _x[1]
             let exp = _x[2]
             
-            env![`var`] = eval(exp, withEnvironment: &env)
+            env[`var`] = eval(exp, withEnvironment: &env)
             return nil
         } else { // procedure call
             // FIXME
