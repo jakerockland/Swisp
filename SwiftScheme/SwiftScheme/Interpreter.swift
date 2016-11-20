@@ -31,10 +31,14 @@ typealias Number = (Int, Float)
 // TODO: Add block comment and decide on struct/class decision
 class Interpreter {
     
+    // MARK: - Error Definitions
+    
     // TODO: Add block comment
     enum InterpreterError: Error {
         case SyntaxError(_: String)
     }
+    
+    // MARK: - Parser Methods
     
     /**
      Converts a string of characters into an array of tokens.
@@ -120,5 +124,7 @@ class Interpreter {
         }
         
     }
+    
+    // MARK: - Environment Methods
 
 }
