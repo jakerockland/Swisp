@@ -317,7 +317,7 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 6C937DV3U8;
-				INFOPLIST_FILE = SwiftSchemeTests/Info.plist;
+				INFOPLIST_FILE = SwispTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = rockland.SwiftSchemeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -331,7 +331,7 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 6C937DV3U8;
-				INFOPLIST_FILE = SwiftSchemeTests/Info.plist;
+				INFOPLIST_FILE = SwispTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = rockland.SwiftSchemeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
