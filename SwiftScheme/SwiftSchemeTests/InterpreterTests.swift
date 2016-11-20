@@ -37,31 +37,71 @@ class InterpreterTests: XCTestCase {
         }
     }
     
+    // TODO: Add block comment
     func testParse() {
         let parsed = ["begin", ["define", "r", 10], ["*", "pi", ["*", "r", "r"]]] as [Any]
-//        let program = "(begin (define r 10) (* pi (* r r)))"
-        let program = "(())"
+        let program = "(begin (define r 10) (* pi (* r r)))"
         for (a, b) in zip(parsed, Interpreter.parse(program)) {
             
             if let _a = a as? Int, let _b = b as? Int {
                 if _a != _b {
                     XCTFail()
                 }
-            }
-            else if let _a = a as? Float, let _b = b as? Float {
+            } else if let _a = a as? Float, let _b = b as? Float {
                 if _a != _b {
                     XCTFail()
                 }
-            }
-            else if let _a = a as? String, let _b = b as? String {
+            } else if let _a = a as? String, let _b = b as? String {
                 if _a != _b {
                     XCTFail()
                 }
-            }
-            else {
-                // not a type we expected
+            } else if let _a = a as? [Any], let _b = b as? [Any] {
+                for (c, d) in zip(_a, _b) {
+                    if let _c = c as? Int, let _d = d as? Int {
+                        if _c != _d {
+                            XCTFail()
+                        }
+                    } else if let _c = c as? Float, let _d = d as? Float {
+                        if _c != _d {
+                            XCTFail()
+                        }
+                    } else if let _c = c as? String, let _d = d as? String {
+                        if _c != _d {
+                            XCTFail()
+                        }
+                    } else if let _c = c as? [Any], let _d = d as? [Any] {
+                        for (e, f) in zip(_c, _d) {
+                            if let _e = e as? Int, let _f = f as? Int {
+                                if _e != _f {
+                                    XCTFail()
+                                }
+                            } else if let _e = e as? Float, let _f = f as? Float {
+                                if _e != _f {
+                                    XCTFail()
+                                }
+                            } else if let _e = e as? String, let _f = f as? String {
+                                if _e != _f {
+                                    XCTFail()
+                                }
+                            } else {
+                                XCTFail()
+                            }
+                        }
+                    } else {
+                        XCTFail()
+                    }
+                }
+            } else {
                 XCTFail()
             }
+        }
+    }
+    
+    // TODO: Add block comment
+    func testParsePerformance() {
+        let program = "(begin (define r 10) (* pi (* r r)))"
+        self.measure {
+            _ = Interpreter.parse(program)
         }
     }
     

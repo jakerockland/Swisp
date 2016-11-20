@@ -63,7 +63,8 @@ class Interpreter {
      - Returns: TODO
      */
     static func parse(_ program: String) -> [Any] {
-        return try! readFromTokens(tokenize(program)) as! [Any] // FIXME: Take another look at the error handling effects here
+        var tokens = tokenize(program)
+        return try! readFromTokens(&tokens) as! [Any] // FIXME: Take another look at the error handling effects here
     }
     
     /**
@@ -73,9 +74,7 @@ class Interpreter {
      
      - Returns: TODO
      */
-    static func readFromTokens(_ tokens: [String]) throws -> Any {
-        var tokens = tokens
-        
+    static func readFromTokens(_ tokens: inout [String]) throws -> Any {        
         if tokens.count == 0 {
             throw InterpreterError.SyntaxError("unexpected EOF while reading")
         }
@@ -84,7 +83,7 @@ class Interpreter {
         if token == "(" {
             var list: [Any] = []
             while tokens.first != ")" {
-                try! list.append(readFromTokens(tokens)) // FIXME: Take another look at the error handling effects here
+                try! list.append(readFromTokens(&tokens)) // FIXME: Take another look at the error handling effects here
             }
             tokens.removeFirst() // pop the corresponding ")"
             return list
