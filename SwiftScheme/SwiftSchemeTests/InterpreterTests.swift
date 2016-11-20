@@ -37,4 +37,32 @@ class InterpreterTests: XCTestCase {
         }
     }
     
+    func testParse() {
+        let parsed = ["begin", ["define", "r", 10], ["*", "pi", ["*", "r", "r"]]] as [Any]
+//        let program = "(begin (define r 10) (* pi (* r r)))"
+        let program = "(())"
+        for (a, b) in zip(parsed, Interpreter.parse(program)) {
+            
+            if let _a = a as? Int, let _b = b as? Int {
+                if _a != _b {
+                    XCTFail()
+                }
+            }
+            else if let _a = a as? Float, let _b = b as? Float {
+                if _a != _b {
+                    XCTFail()
+                }
+            }
+            else if let _a = a as? String, let _b = b as? String {
+                if _a != _b {
+                    XCTFail()
+                }
+            }
+            else {
+                // not a type we expected
+                XCTFail()
+            }
+        }
+    }
+    
 }
