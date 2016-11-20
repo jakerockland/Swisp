@@ -32,7 +32,7 @@
 		D5DB0A581DE109BA001C7E48 /* SwispTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwispTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5DB0A5A1DE109BA001C7E48 /* InterpreterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterpreterTests.swift; sourceTree = "<group>"; };
 		D5DB0A5C1DE109BA001C7E48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D5DB0A631DE18685001C7E48 /* SwiftScheme-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftScheme-Bridging-Header.h"; sourceTree = "<group>"; };
+		D5DB0A631DE18685001C7E48 /* Swisp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Swisp-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,8 +56,8 @@
 		D5DB0A3F1DE0F075001C7E48 = {
 			isa = PBXGroup;
 			children = (
-				D5DB0A4A1DE0F075001C7E48 /* SwiftScheme */,
-				D5DB0A591DE109BA001C7E48 /* SwiftSchemeTests */,
+				D5DB0A4A1DE0F075001C7E48 /* Swisp */,
+				D5DB0A591DE109BA001C7E48 /* SwispTests */,
 				D5DB0A491DE0F075001C7E48 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -71,23 +71,23 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D5DB0A4A1DE0F075001C7E48 /* SwiftScheme */ = {
+		D5DB0A4A1DE0F075001C7E48 /* Swisp */ = {
 			isa = PBXGroup;
 			children = (
 				D5DB0A4B1DE0F075001C7E48 /* main.swift */,
 				D5DB0A521DE0F0A8001C7E48 /* Interpreter.swift */,
-				D5DB0A631DE18685001C7E48 /* SwiftScheme-Bridging-Header.h */,
+				D5DB0A631DE18685001C7E48 /* Swisp-Bridging-Header.h */,
 			);
-			path = SwiftScheme;
+			path = Swisp;
 			sourceTree = "<group>";
 		};
-		D5DB0A591DE109BA001C7E48 /* SwiftSchemeTests */ = {
+		D5DB0A591DE109BA001C7E48 /* SwispTests */ = {
 			isa = PBXGroup;
 			children = (
 				D5DB0A5A1DE109BA001C7E48 /* InterpreterTests.swift */,
 				D5DB0A5C1DE109BA001C7E48 /* Info.plist */,
 			);
-			path = SwiftSchemeTests;
+			path = SwispTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -294,7 +294,7 @@
 				DEVELOPMENT_TEAM = 6C937DV3U8;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "SwiftScheme/SwiftScheme-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftScheme/Swisp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -307,7 +307,7 @@
 				DEVELOPMENT_TEAM = 6C937DV3U8;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "SwiftScheme/SwiftScheme-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftScheme/Swisp-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

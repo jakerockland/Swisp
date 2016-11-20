@@ -1,6 +1,6 @@
 //
 //  InterpreterTests.swift
-//  SwiftSchemeTests
+//  SwispTests
 //
 //  Copyright (c) 2016 Jake Rockland (http://jakerockland.com)
 //

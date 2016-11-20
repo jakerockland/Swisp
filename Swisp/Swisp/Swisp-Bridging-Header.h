@@ -1,6 +1,6 @@
 //
-//  main.swift
-//  SwiftScheme
+//  Swisp-Bridging-Header.h
+//  Swisp
 //
 //  Copyright (c) 2016 Jake Rockland (http://jakerockland.com)
 //
@@ -17,5 +17,4 @@
 //  limitations under the License.
 //
 
-import Foundation
-
+import <math.h>
