@@ -23,22 +23,18 @@ import Foundation
 typealias Symbol = String
 
 /// A Scheme List is implemented as a Swift `[Any]` array
-typealias List = [Any]
+typealias List = [Symbol]
 
 /// A Scheme Number is implemented as a Swift `Int` or `Float`
 typealias Number = (Int, Float)
 
 /// A Scheme Env is implemented as a Swift `[String: Any]` dictionary
-typealias Env = [String: Any]
+typealias Env = [Symbol: Any]
 
 /**
  A simple Scheme interpreter written in Swift
  */
 class Interpreter {
-    
-    // MARK: - Interpreter Properties
-    
-    let globalEnv = standardEnv()
     
     // MARK: - Error Definitions
     
@@ -46,6 +42,10 @@ class Interpreter {
     enum InterpreterError: Error {
         case SyntaxError(_: String)
     }
+    
+    // MARK: - Interpreter Properties
+    
+    static var globalEnv: Env = Interpreter.standardEnv()
     
     // MARK: - Parser Methods
     
@@ -143,50 +143,50 @@ class Interpreter {
      */
     static func standardEnv() -> Env {
         let env = [
-            // Number-theoretic and representation functions
-            "ceil":     ceil,
-            "copysign": copysign,
-            "fabs":     fabs,
-            // "factorial": factorial, // TODO
-            "floor":    floor,
-            "fmod":     fmod,
-            "frexp":    frexp,
-            // "fsum": fsum, // TODO
-            "isinf":    isinf,
-            "isnan":    isnan,
-            "ldexp":    ldexp,
-            "trunc":    trunc,
-            // Power and logarithmic functions
-            "exp":      exp,
-            "log":      log,
-            "log1p":    log1p,
-            "log10":    log10,
-            "pow":      pow,
-            "sqrt":     sqrt,
-            // Trigonometric functions
-            "acos":     acos,
-            "asin":     asin,
-            "atan":     atan,
-            "atan2":    atan2,
-            "cos":      cos,
-            "hypot":    hypot,
-            "sin":      sin,
-            "tan":      tan,
-            // Angular conversion
-            // "degrees": degrees, // TODO
-            // "radians": radians, // TODO
-            // Hyperbolic functions
-            "acosh":    acosh,
-            "asinh":    asinh,
-            "atanh":    atanh,
-            "cosh":     cosh,
-            "sinh":     sinh,
-            "tanh":     tanh,
-            // Special functions
-            "erf":      erf,
-            "erfc":     erfc,
-            "gamma":    gamma,
-            "lgamma":   lgamma,
+//            // Number-theoretic and representation functions
+//            "ceil":     ceil,
+//            "copysign": copysign,
+//            "fabs":     fabs,
+//            // "factorial": factorial, // TODO
+//            "floor":    floor,
+//            "fmod":     fmod,
+//            "frexp":    frexp,
+//            // "fsum": fsum, // TODO
+//            "isinf":    isinf,
+//            "isnan":    isnan,
+//            "ldexp":    ldexp,
+//            "trunc":    trunc,
+//            // Power and logarithmic functions
+//            "exp":      exp,
+//            "log":      log,
+//            "log1p":    log1p,
+//            "log10":    log10,
+//            "pow":      pow,
+//            "sqrt":     sqrt,
+//            // Trigonometric functions
+//            "acos":     acos,
+//            "asin":     asin,
+//            "atan":     atan,
+//            "atan2":    atan2,
+//            "cos":      cos,
+//            "hypot":    hypot,
+//            "sin":      sin,
+//            "tan":      tan,
+//            // Angular conversion
+//            // "degrees": degrees, // TODO
+//            // "radians": radians, // TODO
+//            // Hyperbolic functions
+//            "acosh":    acosh,
+//            "asinh":    asinh,
+//            "atanh":    atanh,
+//            "cosh":     cosh,
+//            "sinh":     sinh,
+//            "tanh":     tanh,
+//            // Special functions
+//            "erf":      erf,
+//            "erfc":     erfc,
+//            "gamma":    gamma,
+//            "lgamma":   lgamma,
             // Constants
             "π":        3.1415926535897932384626433832795,
             "pi":       3.1415926535897932384626433832795,
@@ -202,30 +202,30 @@ class Interpreter {
             ">=":       { $0 >= $1 },
             "<=":       { $0 <= $1 },
             "=":        { $0 = $1 },
-            // Misc.
-            "abs": abs,
-            // "append": op.add, // TODO
-            // "apply": apply, // TODO
-            "begin":    { $0[-1] },
-            "car":      { $0[0] },
-            "cdr":      { $0.dropFirst() },
-            "cons":     { [$0] + $1 },
-            "eq?":      { $0 === $1 },
-            "equal?":   { $0 == $1 },
-            "length":   { $0.count },
-            "list":     { List($0) },
-            "list?":    { $0 is List },
-            // "map":     map, // TODO
-            "max":      max,
-            "min":      min,
-            "not":      { !$0 },
-            "null?":    { $0 == nil },
-            "number?":  { $0 is Number },
-            "procedure?": { String(type(of: $0)).containsString("->") },
-            "round":   round,
+//            // Misc.
+//            "abs": abs,
+//            "append":   { $0 + $1 },
+//            // "apply": apply, // [TODO](https://www.drivenbycode.com/the-missing-apply-function-in-swift/)
+//            "begin":    { $0[-1] },
+//            "car":      { $0[0] },
+//            "cdr":      { $0.dropFirst() },
+//            "cons":     { [$0] + $1 },
+//            "eq?":      { $0 === $1 },
+//            "equal?":   { $0 == $1 },
+//            "length":   { $0.count },
+//            "list":     { List($0) },
+//            "list?":    { $0 is List },
+//            // "map":     map, // [TODO](https://www.weheartswift.com/higher-order-functions-map-filter-reduce-and-more/)
+//            "max":      max,
+//            "min":      min,
+//            "not":      { !$0 },
+//            "null?":    { $0 == nil },
+//            "number?":  { $0 is Number },
+//            "procedure?": { String(type(of: $0)).containsString("->") },
+//            "round":   round,
             "symbol?":  { $0 is Symbol }
         ]
-        
+
         return env as Env
     }
     
@@ -240,18 +240,29 @@ class Interpreter {
      
      - Returns: The evaluated statement.
      */
-    static func eval(_ x: Any, withEnvironment env: Env) -> Any {
-        if x is Symbol { // variable reference
-            return env[x]
+    static func eval(_ x: Any, withEnvironment env: inout Env) -> Any? {
+        if let _x = x as? Symbol { // variable reference
+            return env![_x] as Any
         } else if !(x is List) { // constant literal
             return x
-        } else if x.first == "if" { // conditional
-            // FIXME
-        } else if x.first == "define" { //definition
-            // FIXME
+        } else if let _x = x as? List, _x.first == "if" { // conditional
+            let test = _x[1]
+            let conseq = _x[2]
+            let alt = _x[3]
+            
+            let exp = (eval(test, withEnvironment: &env) as? Bool)! ? conseq : alt // FIXME: Verify this behaviour
+            return eval(exp, withEnvironment: &env)
+        } else if let _x = x as? List, _x.first == "define" { //definition
+            let `var` = _x[1]
+            let exp = _x[2]
+            
+            env![`var`] = eval(exp, withEnvironment: &env)
+            return nil
         } else { // procedure call
             // FIXME
         }
+        
+        return nil // should never be called
     }
     
 }
