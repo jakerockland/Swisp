@@ -19,6 +19,15 @@
 
 import Foundation
 
+/// A Scheme Symbol is implemented as a Swift `String`
+typealias Symbol = String
+
+/// A Scheme List is implemented as a Swift `Any` array
+typealias List = [Any]
+
+/// A Scheme Number is implemented as a Swift `Int` or `Float`
+typealias Number = (Int, Float)
+
 // TODO: Add block comment and decide on struct/class decision
 class Interpreter {
     
@@ -107,7 +116,7 @@ class Interpreter {
         } else if let float = Float(token) {
             return float
         } else {
-            return token
+            return token as Symbol
         }
         
     }
