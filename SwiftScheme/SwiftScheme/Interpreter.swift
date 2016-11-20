@@ -229,4 +229,29 @@ class Interpreter {
         return env as Env
     }
     
+    // MARK: - Evaluation Methods
+    
+    /**
+     Evaluate an expression in an environment.
+     
+     - Parameter x: The statement to be evaluated.
+     
+     - Parameter env: The environment with which to evaluate the expression (default is the global environment)
+     
+     - Returns: The evaluated statement.
+     */
+    static func eval(_ x: Any, withEnvironment env: Env) -> Any {
+        if x is Symbol { // variable reference
+            return env[x]
+        } else if !(x is List) { // constant literal
+            return x
+        } else if x.first == "if" { // conditional
+            // FIXME
+        } else if x.first == "define" { //definition
+            // FIXME
+        } else { // procedure call
+            // FIXME
+        }
+    }
+    
 }
