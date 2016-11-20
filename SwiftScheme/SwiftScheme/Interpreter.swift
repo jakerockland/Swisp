@@ -22,11 +22,14 @@ import Foundation
 /// A Scheme Symbol is implemented as a Swift `String`
 typealias Symbol = String
 
-/// A Scheme List is implemented as a Swift `Any` array
+/// A Scheme List is implemented as a Swift `[Any]` array
 typealias List = [Any]
 
 /// A Scheme Number is implemented as a Swift `Int` or `Float`
 typealias Number = (Int, Float)
+
+/// A Scheme Env is implemented as a Swift `[String: Any]` dictionary
+typealias Env = [String: Any]
 
 /**
  A simple Scheme interpreter written in Swift
@@ -116,7 +119,7 @@ class Interpreter {
      
      - Returns: TODO
      */
-    static func atom(_ token: String) -> Any {
+    static func atom(_ token: String) -> AnyHashable {
         if let int = Int(token) {
             return int
         } else if let float = Float(token) {
@@ -128,5 +131,7 @@ class Interpreter {
     }
     
     // MARK: - Environment Methods
+    
+    
 
 }
