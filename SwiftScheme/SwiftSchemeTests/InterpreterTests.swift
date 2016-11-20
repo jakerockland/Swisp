@@ -19,25 +19,14 @@
 
 import XCTest
 
-// TODO: Add block comment
+/**
+ Simple tests for a simple Scheme interpreter written in Swift
+ */
 class InterpreterTests: XCTestCase {
     
-    // TODO: Add block comment
-    func testTokenize() {
-        let tokenized = ["(", "begin", "(", "define", "r", "10", ")", "(", "*", "pi", "(", "*", "r", "r", ")", ")", ")"]
-        let program = "(begin (define r 10) (* pi (* r r)))"
-        XCTAssertEqual(tokenized, Interpreter.tokenize(program))
-    }
-    
-    // TODO: Add block comment
-    func testTokenizePerformance() {
-        let program = "(begin (define r 10) (* pi (* r r)))"
-        self.measure {
-            _ = Interpreter.tokenize(program)
-        }
-    }
-    
-    // TODO: Add block comment
+    /**
+     Tests our parsing method
+     */
     func testParse() {
         let parsed = ["begin", ["define", "r", 10], ["*", "pi", ["*", "r", "r"]]] as [Any]
         let program = "(begin (define r 10) (* pi (* r r)))"
@@ -97,11 +86,79 @@ class InterpreterTests: XCTestCase {
         }
     }
     
-    // TODO: Add block comment
+    /**
+     Checks performance of our parsing method
+     */
     func testParsePerformance() {
         let program = "(begin (define r 10) (* pi (* r r)))"
         self.measure {
             _ = Interpreter.parse(program)
+        }
+    }
+    
+    /**
+     Tests our token generation method
+     */
+    func testTokenize() {
+        let tokenized = ["(", "begin", "(", "define", "r", "10", ")", "(", "*", "pi", "(", "*", "r", "r", ")", ")", ")"]
+        let program = "(begin (define r 10) (* pi (* r r)))"
+        XCTAssertEqual(tokenized, Interpreter.tokenize(program))
+    }
+    
+    /**
+     Checks performance of our token generation method
+     */
+    func testTokenizePerformance() {
+        let program = "(begin (define r 10) (* pi (* r r)))"
+        self.measure {
+            _ = Interpreter.tokenize(program)
+        }
+    }
+    
+    /**
+     Tests our abstract syntax tree generation method
+     */
+    func testReadFromTokens() {
+        var eof = Interpreter.tokenize("(")
+        do {
+            try _ = Interpreter.readFromTokens(&eof)
+            XCTAssertTrue(false)
+        } catch {
+            XCTAssertTrue(true)
+        }
+        
+        var unexpected = Interpreter.tokenize(")")
+        do {
+            try _ = Interpreter.readFromTokens(&unexpected)
+            XCTAssertTrue(false)
+        } catch {
+            XCTAssertTrue(true)
+        }
+    }
+    
+    /**
+     Tests our atomizer
+     */
+    func testAtom() {
+        let int = "69"
+        if let atom = Interpreter.atom(int) as? Int, atom == 69 {
+            XCTAssertTrue(true)
+        } else {
+            XCTAssertTrue(false)
+        }
+        
+        let float = "8.3066"
+        if let atom = Interpreter.atom(float) as? Float, atom == 8.3066 {
+            XCTAssertTrue(true)
+        } else {
+            XCTAssertTrue(false)
+        }
+        
+        let symbol = "something"
+        if let atom = Interpreter.atom(symbol) as? Symbol, atom == "something" {
+            XCTAssertTrue(true)
+        } else {
+            XCTAssertTrue(false)
         }
     }
     

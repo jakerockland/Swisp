@@ -28,7 +28,9 @@ typealias List = [Any]
 /// A Scheme Number is implemented as a Swift `Int` or `Float`
 typealias Number = (Int, Float)
 
-// TODO: Add block comment and decide on struct/class decision
+/**
+ A simple Scheme interpreter written in Swift
+ */
 class Interpreter {
     
     // MARK: - Error Definitions
@@ -39,6 +41,18 @@ class Interpreter {
     }
     
     // MARK: - Parser Methods
+    
+    /**
+     Numbers become numbers; every other token is a symbol.
+     
+     - Parameter program: The text content of the program to be parsed.
+     
+     - Returns: The abstract syntax tree of the associated program.
+     */
+    static func parse(_ program: String) -> [Any] {
+        var tokens = tokenize(program)
+        return try! readFromTokens(&tokens) as! [Any]
+    }
     
     /**
      Converts a string of characters into an array of tokens.
@@ -69,23 +83,11 @@ class Interpreter {
     }
     
     /**
-     Numbers become numbers; every other token is a symbol.
-     
-     - Parameter program: TODO
-     
-     - Returns: TODO
-     */
-    static func parse(_ program: String) -> [Any] {
-        var tokens = tokenize(program)
-        return try! readFromTokens(&tokens) as! [Any] // FIXME: Take another look at the error handling effects here
-    }
-    
-    /**
      Read an expression from a sequence of tokens.
      
      - Parameter tokens: The `String` array containing a sequence of tokens.
      
-     - Returns: TODO
+     - Returns: A nested array representation of the corresponding abstract syntax tree.
      */
     static func readFromTokens(_ tokens: inout [String]) throws -> Any {        
         if tokens.count == 0 {
@@ -96,7 +98,7 @@ class Interpreter {
         if token == "(" {
             var list: [Any] = []
             while tokens.first != ")" {
-                try! list.append(readFromTokens(&tokens)) // FIXME: Take another look at the error handling effects here
+                try list.append(readFromTokens(&tokens))
             }
             tokens.removeFirst() // pop the corresponding ")"
             return list
