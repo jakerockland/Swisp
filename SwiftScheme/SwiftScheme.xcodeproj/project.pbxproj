@@ -32,6 +32,7 @@
 		D5DB0A581DE109BA001C7E48 /* SwiftSchemeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftSchemeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5DB0A5A1DE109BA001C7E48 /* InterpreterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterpreterTests.swift; sourceTree = "<group>"; };
 		D5DB0A5C1DE109BA001C7E48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D5DB0A631DE18685001C7E48 /* SwiftScheme-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftScheme-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +76,7 @@
 			children = (
 				D5DB0A4B1DE0F075001C7E48 /* main.swift */,
 				D5DB0A521DE0F0A8001C7E48 /* Interpreter.swift */,
+				D5DB0A631DE18685001C7E48 /* SwiftScheme-Bridging-Header.h */,
 			);
 			path = SwiftScheme;
 			sourceTree = "<group>";
@@ -137,6 +139,7 @@
 					D5DB0A471DE0F075001C7E48 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = 6C937DV3U8;
+						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 					};
 					D5DB0A571DE109BA001C7E48 = {
@@ -287,8 +290,12 @@
 		D5DB0A501DE0F075001C7E48 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 6C937DV3U8;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftScheme/SwiftScheme-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -296,8 +303,11 @@
 		D5DB0A511DE0F075001C7E48 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 6C937DV3U8;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftScheme/SwiftScheme-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

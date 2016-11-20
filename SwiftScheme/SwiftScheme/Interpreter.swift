@@ -36,6 +36,10 @@ typealias Env = [String: Any]
  */
 class Interpreter {
     
+    // MARK: - Interpreter Properties
+    
+    let globalEnv = standardEnv()
+    
     // MARK: - Error Definitions
     
     // TODO: Add block comment
@@ -92,7 +96,7 @@ class Interpreter {
      
      - Returns: A nested array representation of the corresponding abstract syntax tree.
      */
-    static func readFromTokens(_ tokens: inout [String]) throws -> Any {        
+    static func readFromTokens(_ tokens: inout [String]) throws -> Any {
         if tokens.count == 0 {
             throw InterpreterError.SyntaxError("unexpected EOF while reading")
         }
@@ -132,6 +136,97 @@ class Interpreter {
     
     // MARK: - Environment Methods
     
+    /**
+     Generates the Scheme standard environment.
+     
+     - Returns: An environment with some Scheme standard procedures.
+     */
+    static func standardEnv() -> Env {
+        let env = [
+            // Number-theoretic and representation functions
+            "ceil":     ceil,
+            "copysign": copysign,
+            "fabs":     fabs,
+            //            "factorial": factorial,
+            "floor":    floor,
+            "fmod":     fmod,
+            "frexp":    frexp,
+            //            "fsum": fsum,
+            "isinf":    isinf,
+            "isnan":    isnan,
+            "ldexp":    ldexp,
+            "trunc":    trunc,
+            // Power and logarithmic functions
+            "exp":      exp,
+            "log":      log,
+            "log1p":    log1p,
+            "log10":    log10,
+            "pow":      pow,
+            "sqrt":     sqrt,
+            // Trigonometric functions
+            "acos":     acos,
+            "asin":     asin,
+            "atan":     atan,
+            "atan2":    atan2,
+            "cos":      cos,
+            "hypot":    hypot,
+            "sin":      sin,
+            "tan":      tan,
+            // Angular conversion
+            //            "degrees": degrees,
+            //            "radians": radians,
+            // Hyperbolic functions
+            "acosh":    acosh,
+            "asinh":    asinh,
+            "atanh":    atanh,
+            "cosh":     cosh,
+            "sinh":     sinh,
+            "tanh":     tanh,
+            // Special functions
+            "erf":      erf,
+            "erfc":     erfc,
+            "gamma":    gamma,
+            "lgamma":   lgamma,
+            // Constants
+            "π":        3.1415926535897932384626433832795,
+            "pi":       3.1415926535897932384626433832795,
+            "𝑒":        2.7182818284590452353602874713527,
+            "e":        2.7182818284590452353602874713527,
+            // Operators
+            "+":        { $0 + $1 },
+            "-":        { $0 - $1 },
+            "*":        { $0 * $1 },
+            "/":        { $0 / $1 },
+            ">":        { $0 > $1 },
+            "<":        { $0 < $1 },
+            ">=":       { $0 >= $1 },
+            "<=":       { $0 <= $1 },
+            "=":        { $0 = $1 },
+            // Misc.
+            "abs": abs,
+            //            "append": op.add,
+            //            "apply": apply,
+            "begin":    { $0[-1] },
+            "car":      { $0[0] },
+            "cdr":      { $0.dropFirst() },
+            "cons":     { [$0] + $1 },
+            "eq?":      { $0 === $1 },
+            "equal?":   { $0 == $1 },
+            "length":   { $0.count },
+            "list":     { List($0) },
+            "list?":    { $0 is List },
+            //            "map":     map,
+            "max":      max,
+            "min":      min,
+            "not":      { !$0 },
+            "null?":    { $0 == nil },
+            "number?":  { $0 is Number },
+            "procedure?": { String(type(of: $0)).containsString("->") },
+            "round":   round,
+            "symbol?":  { $0 is Symbol }
+        ]
+        
+        return env as Env
+    }
     
-
 }
