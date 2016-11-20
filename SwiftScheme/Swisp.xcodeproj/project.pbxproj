@@ -26,10 +26,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		D5DB0A481DE0F075001C7E48 /* SwiftScheme */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SwiftScheme; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5DB0A481DE0F075001C7E48 /* Swisp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Swisp; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5DB0A4B1DE0F075001C7E48 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		D5DB0A521DE0F0A8001C7E48 /* Interpreter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interpreter.swift; sourceTree = "<group>"; };
-		D5DB0A581DE109BA001C7E48 /* SwiftSchemeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftSchemeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5DB0A581DE109BA001C7E48 /* SwispTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwispTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5DB0A5A1DE109BA001C7E48 /* InterpreterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterpreterTests.swift; sourceTree = "<group>"; };
 		D5DB0A5C1DE109BA001C7E48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D5DB0A631DE18685001C7E48 /* SwiftScheme-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftScheme-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -65,8 +65,8 @@
 		D5DB0A491DE0F075001C7E48 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D5DB0A481DE0F075001C7E48 /* SwiftScheme */,
-				D5DB0A581DE109BA001C7E48 /* SwiftSchemeTests.xctest */,
+				D5DB0A481DE0F075001C7E48 /* Swisp */,
+				D5DB0A581DE109BA001C7E48 /* SwispTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -93,9 +93,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D5DB0A471DE0F075001C7E48 /* SwiftScheme */ = {
+		D5DB0A471DE0F075001C7E48 /* Swisp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D5DB0A4F1DE0F075001C7E48 /* Build configuration list for PBXNativeTarget "SwiftScheme" */;
+			buildConfigurationList = D5DB0A4F1DE0F075001C7E48 /* Build configuration list for PBXNativeTarget "Swisp" */;
 			buildPhases = (
 				D5DB0A441DE0F075001C7E48 /* Sources */,
 				D5DB0A451DE0F075001C7E48 /* Frameworks */,
@@ -105,14 +105,14 @@
 			);
 			dependencies = (
 			);
-			name = SwiftScheme;
+			name = Swisp;
 			productName = SwiftScheme;
-			productReference = D5DB0A481DE0F075001C7E48 /* SwiftScheme */;
+			productReference = D5DB0A481DE0F075001C7E48 /* Swisp */;
 			productType = "com.apple.product-type.tool";
 		};
-		D5DB0A571DE109BA001C7E48 /* SwiftSchemeTests */ = {
+		D5DB0A571DE109BA001C7E48 /* SwispTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D5DB0A5D1DE109BA001C7E48 /* Build configuration list for PBXNativeTarget "SwiftSchemeTests" */;
+			buildConfigurationList = D5DB0A5D1DE109BA001C7E48 /* Build configuration list for PBXNativeTarget "SwispTests" */;
 			buildPhases = (
 				D5DB0A541DE109BA001C7E48 /* Sources */,
 				D5DB0A551DE109BA001C7E48 /* Frameworks */,
@@ -122,9 +122,9 @@
 			);
 			dependencies = (
 			);
-			name = SwiftSchemeTests;
+			name = SwispTests;
 			productName = SwiftSchemeTests;
-			productReference = D5DB0A581DE109BA001C7E48 /* SwiftSchemeTests.xctest */;
+			productReference = D5DB0A581DE109BA001C7E48 /* SwispTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -149,7 +149,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D5DB0A431DE0F075001C7E48 /* Build configuration list for PBXProject "SwiftScheme" */;
+			buildConfigurationList = D5DB0A431DE0F075001C7E48 /* Build configuration list for PBXProject "Swisp" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -161,8 +161,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D5DB0A471DE0F075001C7E48 /* SwiftScheme */,
-				D5DB0A571DE109BA001C7E48 /* SwiftSchemeTests */,
+				D5DB0A471DE0F075001C7E48 /* Swisp */,
+				D5DB0A571DE109BA001C7E48 /* SwispTests */,
 			);
 		};
 /* End PBXProject section */
@@ -343,7 +343,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D5DB0A431DE0F075001C7E48 /* Build configuration list for PBXProject "SwiftScheme" */ = {
+		D5DB0A431DE0F075001C7E48 /* Build configuration list for PBXProject "Swisp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D5DB0A4D1DE0F075001C7E48 /* Debug */,
@@ -352,21 +352,23 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D5DB0A4F1DE0F075001C7E48 /* Build configuration list for PBXNativeTarget "SwiftScheme" */ = {
+		D5DB0A4F1DE0F075001C7E48 /* Build configuration list for PBXNativeTarget "Swisp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D5DB0A501DE0F075001C7E48 /* Debug */,
 				D5DB0A511DE0F075001C7E48 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
-		D5DB0A5D1DE109BA001C7E48 /* Build configuration list for PBXNativeTarget "SwiftSchemeTests" */ = {
+		D5DB0A5D1DE109BA001C7E48 /* Build configuration list for PBXNativeTarget "SwispTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D5DB0A5E1DE109BA001C7E48 /* Debug */,
 				D5DB0A5F1DE109BA001C7E48 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:SwiftScheme.xcodeproj">
+      location = "self:/Users/jakeinthesun/Code/SwiftScheme/SwiftScheme/Swisp.xcodeproj">
    </FileRef>
 </Workspace>
