@@ -190,8 +190,12 @@ class InterpreterTests: XCTestCase {
      Tests our evalutaion function
      */
     func testEval() {
-        let _ = Interpreter.eval(Interpreter.parse("(define r 10)"), withEnvironment: &interpreter!.globalEnv)
-        let result = Interpreter.eval(Interpreter.parse("(* pi (* r r))"), withEnvironment: &interpreter!.globalEnv)
+        var parsed: Any
+        parsed = Interpreter.parse("(define r 10)")
+        let _ = Interpreter.eval(&parsed, withEnvironment: &interpreter!.globalEnv)
+        print("$$$$$$$$$$")
+        parsed = Interpreter.parse("(* pi (* r r))")
+        let result = Interpreter.eval(&parsed, withEnvironment: &interpreter!.globalEnv)
         XCTAssertEqual(result as? Double, π * 100)
     }
     

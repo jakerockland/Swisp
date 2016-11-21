@@ -143,89 +143,89 @@ class Interpreter {
      */
     static func standardEnv() -> Env {
         let env = [
-//            // Number-theoretic and representation functions
-//            "ceil":     ceil,
-//            "copysign": copysign,
-//            "fabs":     fabs,
-//            // "factorial": factorial, // TODO
-//            "floor":    floor,
-//            "fmod":     fmod,
-//            "frexp":    frexp,
-//            // "fsum": fsum, // TODO
-//            "isinf":    isinf,
-//            "isnan":    isnan,
-//            "ldexp":    ldexp,
-//            "trunc":    trunc,
-//            // Power and logarithmic functions
-//            "exp":      exp,
-//            "log":      log,
-//            "log1p":    log1p,
-//            "log10":    log10,
-//            "pow":      pow,
-//            "sqrt":     sqrt,
-//            // Trigonometric functions
-//            "acos":     acos,
-//            "asin":     asin,
-//            "atan":     atan,
-//            "atan2":    atan2,
-//            "cos":      cos,
-//            "hypot":    hypot,
-//            "sin":      sin,
-//            "tan":      tan,
-//            // Angular conversion
-//            // "degrees": degrees, // TODO
-//            // "radians": radians, // TODO
-//            // Hyperbolic functions
-//            "acosh":    acosh,
-//            "asinh":    asinh,
-//            "atanh":    atanh,
-//            "cosh":     cosh,
-//            "sinh":     sinh,
-//            "tanh":     tanh,
-//            // Special functions
-//            "erf":      erf,
-//            "erfc":     erfc,
-//            "gamma":    gamma,
-//            "lgamma":   lgamma,
+            //            // Number-theoretic and representation functions
+            //            "ceil":     ceil,
+            //            "copysign": copysign,
+            //            "fabs":     fabs,
+            //            // "factorial": factorial, // TODO
+            //            "floor":    floor,
+            //            "fmod":     fmod,
+            //            "frexp":    frexp,
+            //            // "fsum": fsum, // TODO
+            //            "isinf":    isinf,
+            //            "isnan":    isnan,
+            //            "ldexp":    ldexp,
+            //            "trunc":    trunc,
+            //            // Power and logarithmic functions
+            //            "exp":      exp,
+            //            "log":      log,
+            //            "log1p":    log1p,
+            //            "log10":    log10,
+            //            "pow":      pow,
+            //            "sqrt":     sqrt,
+            //            // Trigonometric functions
+            //            "acos":     acos,
+            //            "asin":     asin,
+            //            "atan":     atan,
+            //            "atan2":    atan2,
+            //            "cos":      cos,
+            //            "hypot":    hypot,
+            //            "sin":      sin,
+            //            "tan":      tan,
+            //            // Angular conversion
+            //            // "degrees": degrees, // TODO
+            //            // "radians": radians, // TODO
+            //            // Hyperbolic functions
+            //            "acosh":    acosh,
+            //            "asinh":    asinh,
+            //            "atanh":    atanh,
+            //            "cosh":     cosh,
+            //            "sinh":     sinh,
+            //            "tanh":     tanh,
+            //            // Special functions
+            //            "erf":      erf,
+            //            "erfc":     erfc,
+            //            "gamma":    gamma,
+            //            "lgamma":   lgamma,
             // Constants
             "π":        { 3.1415926535897932384626433832795 },
             "pi":       { 3.1415926535897932384626433832795 },
             "𝑒":        { 2.7182818284590452353602874713527 },
             "e":        { 2.7182818284590452353602874713527 },
-//            // Operators
-//            "+":        { $0 + $1 },
-//            "-":        { $0 - $1 },
+            //            // Operators
+            //            "+":        { $0 + $1 },
+            //            "-":        { $0 - $1 },
             "*":        multiply//,
-//            "/":        { $0 / $1 },
-//            ">":        { $0 > $1 },
-//            "<":        { $0 < $1 },
-//            ">=":       { $0 >= $1 },
-//            "<=":       { $0 <= $1 },
-//            "=":        { $0 = $1 },
-//            // Misc.
-//            "abs": abs,
-//            "append":   { $0 + $1 },
-//            // "apply": apply, // [TODO](https://www.drivenbycode.com/the-missing-apply-function-in-swift/)
-//            "begin":    { $0[-1] },
-//            "car":      { $0[0] },
-//            "cdr":      { $0.dropFirst() },
-//            "cons":     { [$0] + $1 },
-//            "eq?":      { $0 === $1 },
-//            "equal?":   { $0 == $1 },
-//            "length":   { $0.count },
-//            "list":     { List($0) },
-//            "list?":    { $0 is List },
-//            // "map":     map, // [TODO](https://www.weheartswift.com/higher-order-functions-map-filter-reduce-and-more/)
-//            "max":      max,
-//            "min":      min,
-//            "not":      { !$0 },
-//            "null?":    { $0 == nil },
-//            "number?":  { $0 is Number },
-//            "procedure?": { String(type(of: $0)).containsString("->") },
-//            "round":   round,
-//            "symbol?":  { $0 is Symbol }
-        ] as Env
-
+            //            "/":        { $0 / $1 },
+            //            ">":        { $0 > $1 },
+            //            "<":        { $0 < $1 },
+            //            ">=":       { $0 >= $1 },
+            //            "<=":       { $0 <= $1 },
+            //            "=":        { $0 = $1 },
+            //            // Misc.
+            //            "abs": abs,
+            //            "append":   { $0 + $1 },
+            //            // "apply": apply, // [TODO](https://www.drivenbycode.com/the-missing-apply-function-in-swift/)
+            //            "begin":    { $0[-1] },
+            //            "car":      { $0[0] },
+            //            "cdr":      { $0.dropFirst() },
+            //            "cons":     { [$0] + $1 },
+            //            "eq?":      { $0 === $1 },
+            //            "equal?":   { $0 == $1 },
+            //            "length":   { $0.count },
+            //            "list":     { List($0) },
+            //            "list?":    { $0 is List },
+            //            // "map":     map, // [TODO](https://www.weheartswift.com/higher-order-functions-map-filter-reduce-and-more/)
+            //            "max":      max,
+            //            "min":      min,
+            //            "not":      { !$0 },
+            //            "null?":    { $0 == nil },
+            //            "number?":  { $0 is Number },
+            //            "procedure?": { String(type(of: $0)).containsString("->") },
+            //            "round":   round,
+            //            "symbol?":  { $0 is Symbol }
+            ] as Env
+        
         return env
     }
     
@@ -240,7 +240,7 @@ class Interpreter {
      
      - Returns: The evaluated statement.
      */
-    static func eval(_ x: Any, withEnvironment env: inout Env) -> Any? {
+    static func eval(_ x: inout Any, withEnvironment env: inout Env) -> Any? {
         if let _x = x as? Symbol { // variable reference
             print("variable reference")
             return env[_x] as Any
@@ -249,29 +249,57 @@ class Interpreter {
             return x
         } else if let _x = x as? List, _x.first as? Symbol == "if" { // conditional
             print("conditional")
-            let test = _x[1]
+            var test = _x[1]
             let conseq = _x[2]
             let alt = _x[3]
             
-            let exp = (eval(test, withEnvironment: &env) as? Bool)! ? conseq : alt // FIXME: Verify this behaviour
-            return eval(exp, withEnvironment: &env)
+            var exp = (eval(&test, withEnvironment: &env) as? Bool)! ? conseq : alt // FIXME: Verify this behaviour
+            return eval(&exp, withEnvironment: &env)
         } else if let _x = x as? List, _x.first as? Symbol == "define" { // definition
             print("definition")
             let `var` = _x[1] as! Symbol
-            let exp = _x[2]
+            var exp = _x[2]
             
-            env[`var`] = eval(exp, withEnvironment: &env)
+            env[`var`] = eval(&exp, withEnvironment: &env)
             return nil
         } else if let _x = x as? List { // procedure call
             print("procedure call")
-            let `func` = eval(_x[0], withEnvironment: &env) as! ((Any) -> Any)
             var args: [Any] = []
+            var exp = _x[0]
+                
             let _ = _x.dropFirst()
             for arg in _x {
-                args.append(eval(arg, withEnvironment: &env)!)
+                var arg = arg
+                args.append(eval(&arg, withEnvironment: &env)!)
             }
             
-            return `func`(args)
+            if let `func` = eval(&exp, withEnvironment: &env) as? (() -> Any) {
+                switch args.count {
+                case 0: return `func`()
+                default: return nil
+                }
+            } else if let `func` = eval(&exp, withEnvironment: &env) as? ((Any?) -> Any) {
+                switch args.count {
+                case 0: return `func`(nil)
+                case 1: return `func`(args.first)
+                default: return `func`(args)
+                }
+            } else if let `func` = eval(&exp, withEnvironment: &env) as? ((Any?...) -> Any) {
+                switch args.count {
+                case 0: return `func`(nil)
+                case 1: return `func`(args.first)
+                case 2: return `func`(args[0], args[1])
+                case 3: return `func`(args[0], args[1], args[2])
+                default: return `func`(args)
+                }
+            } else if let `func` = eval(&exp, withEnvironment: &env) as? ((Any?, Any?) -> Any) {
+                switch args.count {
+                    
+                case 0: return `func`(nil, nil)
+                case 2: return `func`(args[0], args[1])
+                default: return nil
+                }
+            }
         }
         
         return nil // should never be called
