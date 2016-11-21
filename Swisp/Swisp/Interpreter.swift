@@ -23,7 +23,7 @@ import Foundation
 typealias Symbol = String
 
 /// A Scheme List is implemented as a Swift `[Any]` array
-typealias List = [Symbol]
+typealias List = [Any]
 
 /// A Scheme Number is implemented as a Swift `Int` or `Float`
 typealias Number = (Int, Float)
@@ -45,7 +45,7 @@ class Interpreter {
     
     // MARK: - Interpreter Properties
     
-    static var globalEnv: Env = Interpreter.standardEnv()
+    var globalEnv: Env = Interpreter.standardEnv()
     
     // MARK: - Parser Methods
     
@@ -188,14 +188,14 @@ class Interpreter {
 //            "gamma":    gamma,
 //            "lgamma":   lgamma,
             // Constants
-            "π":        3.1415926535897932384626433832795,
-            "pi":       3.1415926535897932384626433832795,
-            "𝑒":        2.7182818284590452353602874713527,
-            "e":        2.7182818284590452353602874713527,
+            "π":        { 3.1415926535897932384626433832795 },
+            "pi":       { 3.1415926535897932384626433832795 },
+            "𝑒":        { 2.7182818284590452353602874713527 },
+            "e":        { 2.7182818284590452353602874713527 },
 //            // Operators
 //            "+":        { $0 + $1 },
 //            "-":        { $0 - $1 },
-//            "*":        { $0 * $1 },
+            "*":        multiply//,
 //            "/":        { $0 / $1 },
 //            ">":        { $0 > $1 },
 //            "<":        { $0 < $1 },
@@ -223,7 +223,7 @@ class Interpreter {
 //            "number?":  { $0 is Number },
 //            "procedure?": { String(type(of: $0)).containsString("->") },
 //            "round":   round,
-            "symbol?":  { $0 is Symbol }
+//            "symbol?":  { $0 is Symbol }
         ] as Env
 
         return env
@@ -242,24 +242,36 @@ class Interpreter {
      */
     static func eval(_ x: Any, withEnvironment env: inout Env) -> Any? {
         if let _x = x as? Symbol { // variable reference
+            print("variable reference")
             return env[_x] as Any
         } else if !(x is List) { // constant literal
+            print("constant literal")
             return x
-        } else if let _x = x as? List, _x.first == "if" { // conditional
+        } else if let _x = x as? List, _x.first as? Symbol == "if" { // conditional
+            print("conditional")
             let test = _x[1]
             let conseq = _x[2]
             let alt = _x[3]
             
             let exp = (eval(test, withEnvironment: &env) as? Bool)! ? conseq : alt // FIXME: Verify this behaviour
             return eval(exp, withEnvironment: &env)
-        } else if let _x = x as? List, _x.first == "define" { //definition
-            let `var` = _x[1]
+        } else if let _x = x as? List, _x.first as? Symbol == "define" { // definition
+            print("definition")
+            let `var` = _x[1] as! Symbol
             let exp = _x[2]
             
             env[`var`] = eval(exp, withEnvironment: &env)
             return nil
-        } else { // procedure call
-            // FIXME
+        } else if let _x = x as? List { // procedure call
+            print("procedure call")
+            let `func` = eval(_x[0], withEnvironment: &env) as! ((Any) -> Any)
+            var args: [Any] = []
+            let _ = _x.dropFirst()
+            for arg in _x {
+                args.append(eval(arg, withEnvironment: &env)!)
+            }
+            
+            return `func`(args)
         }
         
         return nil // should never be called

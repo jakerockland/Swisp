@@ -32,6 +32,20 @@ class InterpreterTests: XCTestCase {
     /// Value of mathematical constant 𝑒
     let 𝑒 = 2.7182818284590452353602874713527
     
+    // MARK: - Testing Properties
+    
+    var interpreter: Interpreter?
+    
+    // MARK: - Set Up Methods
+    
+    /**
+     Called before every test method
+     */
+    override func setUp() {
+        super.setUp()
+        interpreter = Interpreter()
+    }
+    
     // MARK: - Testing Methods
     
     /**
@@ -176,8 +190,8 @@ class InterpreterTests: XCTestCase {
      Tests our evalutaion function
      */
     func testEval() {
-        let _ = Interpreter.eval(Interpreter.parse("(define r 10)"), withEnvironment: &Interpreter.globalEnv)
-        let result = Interpreter.eval(Interpreter.parse("(* pi (* r r))"), withEnvironment: &Interpreter.globalEnv)
+        let _ = Interpreter.eval(Interpreter.parse("(define r 10)"), withEnvironment: &interpreter!.globalEnv)
+        let result = Interpreter.eval(Interpreter.parse("(* pi (* r r))"), withEnvironment: &interpreter!.globalEnv)
         XCTAssertEqual(result as? Double, π * 100)
     }
     
