@@ -23,21 +23,21 @@ import XCTest
  Simple tests for a simple Scheme interpreter written in Swift
  */
 class InterpreterTests: XCTestCase {
-    
+
     // MARK: - Testing Constants
-    
+
     /// Value of mathematical constant π
     let π = 3.1415926535897932384626433832795
 
     /// Value of mathematical constant 𝑒
     let 𝑒 = 2.7182818284590452353602874713527
-    
+
     // MARK: - Testing Properties
-    
+
     var interpreter: Interpreter?
-    
+
     // MARK: - Set Up Methods
-    
+
     /**
      Called before every test method
      */
@@ -45,9 +45,9 @@ class InterpreterTests: XCTestCase {
         super.setUp()
         interpreter = Interpreter()
     }
-    
+
     // MARK: - Testing Methods
-    
+
     /**
      Tests our parsing method
      */
@@ -55,7 +55,7 @@ class InterpreterTests: XCTestCase {
         let parsed = ["begin", ["define", "r", 10], ["*", "pi", ["*", "r", "r"]]] as [Any]
         let program = "(begin (define r 10) (* pi (* r r)))"
         for (a, b) in zip(parsed, Interpreter.parse(program)) {
-            
+
             if let _a = a as? Int, let _b = b as? Int {
                 if _a != _b {
                     XCTFail()
@@ -109,7 +109,7 @@ class InterpreterTests: XCTestCase {
             }
         }
     }
-    
+
     /**
      Checks performance of our parsing method
      */
@@ -119,7 +119,7 @@ class InterpreterTests: XCTestCase {
             _ = Interpreter.parse(program)
         }
     }
-    
+
     /**
      Tests our token generation method
      */
@@ -128,7 +128,7 @@ class InterpreterTests: XCTestCase {
         let program = "(begin (define r 10) (* pi (* r r)))"
         XCTAssertEqual(tokenized, Interpreter.tokenize(program))
     }
-    
+
     /**
      Checks performance of our token generation method
      */
@@ -138,7 +138,7 @@ class InterpreterTests: XCTestCase {
             _ = Interpreter.tokenize(program)
         }
     }
-    
+
     /**
      Tests our abstract syntax tree generation method
      */
@@ -150,7 +150,7 @@ class InterpreterTests: XCTestCase {
         } catch {
             XCTAssertTrue(true)
         }
-        
+
         var unexpected = Interpreter.tokenize(")")
         do {
             try _ = Interpreter.readFromTokens(&unexpected)
@@ -159,7 +159,7 @@ class InterpreterTests: XCTestCase {
             XCTAssertTrue(true)
         }
     }
-    
+
     /**
      Tests our atomizer
      */
@@ -170,14 +170,14 @@ class InterpreterTests: XCTestCase {
         } else {
             XCTAssertTrue(false)
         }
-        
+
         let float = "8.3066"
         if let atom = Interpreter.atom(float) as? Float, atom == 8.3066 {
             XCTAssertTrue(true)
         } else {
             XCTAssertTrue(false)
         }
-        
+
         let symbol = "something"
         if let atom = Interpreter.atom(symbol) as? Symbol, atom == "something" {
             XCTAssertTrue(true)
@@ -185,7 +185,7 @@ class InterpreterTests: XCTestCase {
             XCTAssertTrue(false)
         }
     }
-    
+
     /**
      Tests our evalutaion function
      */

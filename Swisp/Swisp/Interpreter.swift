@@ -35,46 +35,46 @@ typealias Env = [Symbol: Any]
  A simple Scheme interpreter written in Swift
  */
 class Interpreter {
-    
+
     // MARK: - Error Definitions
-    
+
     // TODO: Add block comment
     enum InterpreterError: Error {
         case SyntaxError(_: String)
     }
-    
+
     // MARK: - Interpreter Properties
-    
+
     var globalEnv: Env = Interpreter.standardEnv()
-    
+
     // MARK: - Parser Methods
-    
+
     /**
      Numbers become numbers; every other token is a symbol.
-     
+
      - Parameter program: The text content of the program to be parsed.
-     
+
      - Returns: The abstract syntax tree of the associated program.
      */
     static func parse(_ program: String) -> [Any] {
         var tokens = tokenize(program)
         return try! readFromTokens(&tokens) as! [Any]
     }
-    
+
     /**
      Converts a string of characters into an array of tokens.
-     
+
      - Parameter string: The `String` that we are tokenizing.
-     
+
      - Returns: A `String` array containing the generated tokens.
      */
     static func tokenize(_ string: String) -> [String] {
         var tokens: [String] = []
         var temp: String = ""
-        
+
         let whitespace: [Character] = [" ", "\n", "\t", "\r"]
         let padded = string.replacingOccurrences(of: "(", with: " ( ").replacingOccurrences(of: ")", with: " ) ")
-        
+
         for char in padded.characters {
             if whitespace.contains(char) {
                 if temp != "" {
@@ -85,22 +85,22 @@ class Interpreter {
                 temp.append(char)
             }
         }
-        
+
         return tokens
     }
-    
+
     /**
      Read an expression from a sequence of tokens.
-     
+
      - Parameter tokens: The `String` array containing a sequence of tokens.
-     
+
      - Returns: A nested array representation of the corresponding abstract syntax tree.
      */
     static func readFromTokens(_ tokens: inout [String]) throws -> Any {
         if tokens.count == 0 {
             throw InterpreterError.SyntaxError("unexpected EOF while reading")
         }
-        
+
         let token = tokens.removeFirst()
         if token == "(" {
             var list: [Any] = []
@@ -115,12 +115,12 @@ class Interpreter {
             return atom(token)
         }
     }
-    
+
     /**
      Numbers become numbers; every other token is left as a `String`.
-     
+
      - Parameter token: TODO
-     
+
      - Returns: TODO
      */
     static func atom(_ token: String) -> AnyHashable {
@@ -131,14 +131,14 @@ class Interpreter {
         } else {
             return token as Symbol
         }
-        
+
     }
-    
+
     // MARK: - Environment Methods
-    
+
     /**
      Generates the Scheme standard environment.
-     
+
      - Returns: An environment with some Scheme standard procedures.
      */
     static func standardEnv() -> Env {
@@ -225,19 +225,19 @@ class Interpreter {
             //            "round":   round,
             //            "symbol?":  { $0 is Symbol }
             ] as Env
-        
+
         return env
     }
-    
+
     // MARK: - Evaluation Methods
-    
+
     /**
      Evaluate an expression in an environment.
-     
+
      - Parameter x: The statement to be evaluated.
-     
+
      - Parameter env: The environment with which to evaluate the expression (default is the global environment)
-     
+
      - Returns: The evaluated statement.
      */
     static func eval(_ x: inout Any, withEnvironment env: inout Env) -> Any? {
@@ -252,27 +252,27 @@ class Interpreter {
             var test = _x[1]
             let conseq = _x[2]
             let alt = _x[3]
-            
+
             var exp = (eval(&test, withEnvironment: &env) as? Bool)! ? conseq : alt // FIXME: Verify this behaviour
             return eval(&exp, withEnvironment: &env)
         } else if let _x = x as? List, _x.first as? Symbol == "define" { // definition
             print("definition")
             let `var` = _x[1] as! Symbol
             var exp = _x[2]
-            
+
             env[`var`] = eval(&exp, withEnvironment: &env)
             return nil
         } else if let _x = x as? List { // procedure call
             print("procedure call")
             var args: [Any] = []
             var exp = _x[0]
-                
+
             let _ = _x.dropFirst()
             for arg in _x {
                 var arg = arg
                 args.append(eval(&arg, withEnvironment: &env)!)
             }
-            
+
             if let `func` = eval(&exp, withEnvironment: &env) as? (() -> Any) {
                 switch args.count {
                 case 0: return `func`()
@@ -294,15 +294,15 @@ class Interpreter {
                 }
             } else if let `func` = eval(&exp, withEnvironment: &env) as? ((Any?, Any?) -> Any) {
                 switch args.count {
-                    
+
                 case 0: return `func`(nil, nil)
                 case 2: return `func`(args[0], args[1])
                 default: return nil
                 }
             }
         }
-        
+
         return nil // should never be called
     }
-    
+
 }
