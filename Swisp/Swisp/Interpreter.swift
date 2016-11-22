@@ -43,9 +43,11 @@ class Interpreter {
         case SyntaxError(_: String)
     }
 
+
     // MARK: - Interpreter Properties
 
     var globalEnv: Env = Interpreter.standardEnv()
+
 
     // MARK: - Parser Methods
 
@@ -133,6 +135,7 @@ class Interpreter {
         }
 
     }
+
 
     // MARK: - Environment Methods
 
@@ -229,6 +232,7 @@ class Interpreter {
         return env
     }
 
+    
     // MARK: - Evaluation Methods
 
     /**

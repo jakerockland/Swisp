@@ -32,9 +32,11 @@ class InterpreterTests: XCTestCase {
     /// Value of mathematical constant 𝑒
     let 𝑒 = 2.7182818284590452353602874713527
 
+
     // MARK: - Testing Properties
 
     var interpreter: Interpreter?
+
 
     // MARK: - Set Up Methods
 
@@ -46,6 +48,7 @@ class InterpreterTests: XCTestCase {
         interpreter = Interpreter()
     }
 
+    
     // MARK: - Testing Methods
 
     /**
