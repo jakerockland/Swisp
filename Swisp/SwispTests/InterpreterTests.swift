@@ -195,6 +195,7 @@ class InterpreterTests: XCTestCase {
         let _ = Interpreter.eval(&parsed, withEnvironment: &interpreter!.globalEnv)
         print("$$$$$$$$$$")
         parsed = Interpreter.parse("(* pi (* r r))")
+        print(parsed)
         let result = Interpreter.eval(&parsed, withEnvironment: &interpreter!.globalEnv)
         XCTAssertEqual(result as? Double, π * 100)
     }
