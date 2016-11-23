@@ -19,17 +19,94 @@
 
 import Foundation
 
-func multiply(left: Any, right: Any) -> Any {
-    switch (left, right) {
-    case let (first as Int, second as Int):
-        return first * second
-    case let (first as Double, second as Double):
-        return first * second
-    case let (first as Int, second as Double):
-        return Double(first) * second
-    case let (first as Double, second as Int):
-        return first * Double(second)
-    default:
-        return 0
+/**
+ Provides the following basic operators as static functions:
+ - `+`
+ - `-`
+ - `*`
+ - `/`
+ - `>`
+ - `<`
+ - `>=`
+ - `<=`
+ - `=`
+ */
+struct Operators {
+
+    /**
+     Static function for `+` operator
+     */
+    static func add(left: Any, right: Any) -> Any {
+        switch (left, right) {
+        case let (first as String, second as String):
+            return first + second
+        case let (first as Int, second as Int):
+            return first + second
+        case let (first as Double, second as Double):
+            return first + second
+        case let (first as Int, second as Double):
+            return Double(first) + second
+        case let (first as Double, second as Int):
+            return first + Double(second)
+        default:
+            return 0
+        }
     }
+
+    /**
+     Static function for `-` operator
+     */
+    static func subtract(left: Any, right: Any) -> Any {
+        switch (left, right) {
+        case let (first as Int, second as Int):
+            return first - second
+        case let (first as Double, second as Double):
+            return first - second
+        case let (first as Int, second as Double):
+            return Double(first) - second
+        case let (first as Double, second as Int):
+            return first - Double(second)
+        default:
+            return 0
+        }
+    }
+
+    /**
+     Static function for `/` operator
+     */
+    static func divide(left: Any, right: Any) -> Any {
+        switch (left, right) {
+        case let (first as Int, second as Int):
+            return first / second
+        case let (first as Double, second as Double):
+            return first / second
+        case let (first as Int, second as Double):
+            return Double(first) / second
+        case let (first as Double, second as Int):
+            return first / Double(second)
+        default:
+            return 0
+        }
+    }
+
+    /**
+     Static function for `*` operator
+     */
+    static func multiply(left: Any, right: Any) -> Any {
+        switch (left, right) {
+        case let (first as Int, second as Int):
+            return first * second
+        case let (first as Double, second as Double):
+            return first * second
+        case let (first as Int, second as Double):
+            return Double(first) * second
+        case let (first as Double, second as Int):
+            return first * Double(second)
+        default:
+            return 0
+        }
+    }
+
 }
+
+

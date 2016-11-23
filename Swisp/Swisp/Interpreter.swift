@@ -146,6 +146,21 @@ class Interpreter {
      */
     static func standardEnv() -> Env {
         let env = [
+            // Constants
+            "π":        3.1415926535897932384626433832795,
+            "pi":       3.1415926535897932384626433832795,
+            "𝑒":        2.7182818284590452353602874713527,
+            "e":        2.7182818284590452353602874713527,
+            // Operators
+            "+":        Operators.add,
+            "-":        Operators.subtract,
+            "*":        Operators.multiply,
+            "/":        Operators.divide,
+            //            ">":        { $0 > $1 },
+            //            "<":        { $0 < $1 },
+            //            ">=":       { $0 >= $1 },
+            //            "<=":       { $0 <= $1 },
+            //            "=":        { $0 = $1 },
             //            // Number-theoretic and representation functions
             //            "ceil":     ceil,
             //            "copysign": copysign,
@@ -190,21 +205,6 @@ class Interpreter {
             //            "erfc":     erfc,
             //            "gamma":    gamma,
             //            "lgamma":   lgamma,
-            // Constants
-            "π":        3.1415926535897932384626433832795,
-            "pi":       3.1415926535897932384626433832795,
-            "𝑒":        2.7182818284590452353602874713527,
-            "e":        2.7182818284590452353602874713527,
-            //            // Operators
-            //            "+":        { $0 + $1 },
-            //            "-":        { $0 - $1 },
-            "*":        multiply,
-            //            "/":        { $0 / $1 },
-            //            ">":        { $0 > $1 },
-            //            "<":        { $0 < $1 },
-            //            ">=":       { $0 >= $1 },
-            //            "<=":       { $0 <= $1 },
-            //            "=":        { $0 = $1 },
             //            // Misc.
             //            "abs": abs,
             //            "append":   { $0 + $1 },
@@ -232,7 +232,7 @@ class Interpreter {
         return env
     }
 
-    
+
     // MARK: - Evaluation Methods
 
     /**
@@ -310,5 +310,5 @@ class Interpreter {
         }
         throw InterpreterError.SyntaxError("Should never occur!")
     }
-
+    
 }
