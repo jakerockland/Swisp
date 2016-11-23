@@ -1,4 +1,4 @@
-## Useful Readings 
+### Useful Readings 
 
 - [Functional programming with Swift](http://mislavjavor.github.io/2016/11/14/Functional-programming-with-Swift-3.html)
 
