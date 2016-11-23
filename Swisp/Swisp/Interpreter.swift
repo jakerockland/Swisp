@@ -25,8 +25,8 @@ typealias Symbol = String
 /// A Scheme List is implemented as a Swift `[Any]` array
 typealias List = [Any]
 
-/// A Scheme Number is implemented as a Swift `Int` or `Float`
-typealias Number = (Int, Float)
+/// A Scheme Number is implemented as a Swift `Int` or `Double`
+typealias Number = (Int, Double)
 
 /// A Scheme Env is implemented as a Swift `[String: Any]` dictionary
 typealias Env = [Symbol: Any]
@@ -128,7 +128,7 @@ class Interpreter {
     static func atom(_ token: String) -> AnyHashable {
         if let int = Int(token) {
             return int
-        } else if let float = Float(token) {
+        } else if let float = Double(token) {
             return float
         } else {
             return token as Symbol
@@ -191,14 +191,14 @@ class Interpreter {
             //            "gamma":    gamma,
             //            "lgamma":   lgamma,
             // Constants
-            "π":        { 3.1415926535897932384626433832795 },
-            "pi":       { 3.1415926535897932384626433832795 },
-            "𝑒":        { 2.7182818284590452353602874713527 },
-            "e":        { 2.7182818284590452353602874713527 },
+            "π":        3.1415926535897932384626433832795,
+            "pi":       3.1415926535897932384626433832795,
+            "𝑒":        2.7182818284590452353602874713527,
+            "e":        2.7182818284590452353602874713527,
             //            // Operators
             //            "+":        { $0 + $1 },
             //            "-":        { $0 - $1 },
-            "*":        multiply//,
+            "*":        multiply,
             //            "/":        { $0 / $1 },
             //            ">":        { $0 > $1 },
             //            "<":        { $0 < $1 },
@@ -244,69 +244,78 @@ class Interpreter {
 
      - Returns: The evaluated statement.
      */
-    static func eval(_ x: inout Any, withEnvironment env: inout Env) -> Any? {
+    static func eval(_ x: inout Any, withEnvironment env: inout Env) throws -> Any {
+        print(x)
         if let _x = x as? Symbol { // variable reference
             print("variable reference")
             return env[_x] as Any
         } else if !(x is List) { // constant literal
             print("constant literal")
-            return x
+            if let int = x as? Int {
+                return int
+            } else if let float = x as? Double {
+                return float
+            } else {
+                return x as! Symbol
+            }
         } else if let _x = x as? List, _x.first as? Symbol == "if" { // conditional
             print("conditional")
             var test = _x[1]
             let conseq = _x[2]
             let alt = _x[3]
 
-            var exp = (eval(&test, withEnvironment: &env) as? Bool)! ? conseq : alt // FIXME: Verify this behaviour
-            return eval(&exp, withEnvironment: &env)
+            var exp = (try! eval(&test, withEnvironment: &env) as? Bool)! ? conseq : alt // FIXME: Verify this behaviour
+            return try! eval(&exp, withEnvironment: &env)
         } else if let _x = x as? List, _x.first as? Symbol == "define" { // definition
             print("definition")
             let `var` = _x[1] as! Symbol
             var exp = _x[2]
 
-            env[`var`] = eval(&exp, withEnvironment: &env)
-            return nil
-        } else if let _x = x as? List { // procedure call
+            env[`var`] = try! eval(&exp, withEnvironment: &env)
+            return 0
+        } else { // procedure call
             print("procedure call")
-            var args: [Any] = []
-            var exp = _x[0]
 
-            let _ = _x.dropFirst()
-            for arg in _x {
-                var arg = arg
-                args.append(eval(&arg, withEnvironment: &env)!)
-            }
+            if let _x = x as? List {
+                var args: [Any] = []
+                var exp = _x[0]
 
-            if let `func` = eval(&exp, withEnvironment: &env) as? (() -> Any) {
-                switch args.count {
-                case 0: return `func`()
-                default: return nil
-                }
-            } else if let `func` = eval(&exp, withEnvironment: &env) as? ((Any?) -> Any) {
-                switch args.count {
-                case 0: return `func`(nil)
-                case 1: return `func`(args.first)
-                default: return `func`(args)
-                }
-            } else if let `func` = eval(&exp, withEnvironment: &env) as? ((Any?...) -> Any) {
-                switch args.count {
-                case 0: return `func`(nil)
-                case 1: return `func`(args.first)
-                case 2: return `func`(args[0], args[1])
-                case 3: return `func`(args[0], args[1], args[2])
-                default: return `func`(args)
-                }
-            } else if let `func` = eval(&exp, withEnvironment: &env) as? ((Any?, Any?) -> Any) {
-                switch args.count {
+                let proc = try! eval(&exp, withEnvironment: &env)
 
-                case 0: return `func`(nil, nil)
-                case 2: return `func`(args[0], args[1])
-                default: return nil
+                for arg in _x.dropFirst() {
+                    var arg = arg
+                    args.append(try! eval(&arg, withEnvironment: &env))
                 }
+
+                switch args.count {
+                case 0:
+                    return proc
+                case 1:
+                    guard let proc = proc as? (Any)->Any else {
+                        throw InterpreterError.SyntaxError("Unexpected behavior with single parameter function!")
+                    }
+                    return proc(args.first!)
+                case 2:
+                    guard let proc = proc as? (Any, Any)->Any else {
+                        throw InterpreterError.SyntaxError("Unexpected behavior with two parameter function!")
+                    }
+                    return proc(args[0], args[1])
+                default:
+                    throw InterpreterError.SyntaxError("Unexpected behavior!")
+                }
+
+//                } else if let `func` = eval(&exp, withEnvironment: &env) as? ((Any?...) -> Any) {
+//                    switch args.count {
+//                    case 0: return `func`(nil)
+//                    case 1: return `func`(args.first)
+//                    case 2: return `func`(args[0], args[1])
+//                    case 3: return `func`(args[0], args[1], args[2])
+//                    default: return `func`(args)
+//                    }
+//                }
             }
         }
-
-        return nil // should never be called
+        throw InterpreterError.SyntaxError("Should never occur!")
     }
 
 }

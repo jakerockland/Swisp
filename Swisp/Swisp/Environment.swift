@@ -19,12 +19,16 @@
 
 import Foundation
 
-func multiply(expressions: Any...) -> Any {
-    switch (expressions[0], expressions[1]) {
+func multiply(left: Any, right: Any) -> Any {
+    switch (left, right) {
     case let (first as Int, second as Int):
         return first * second
-    case let (first as Float, second as Float):
+    case let (first as Double, second as Double):
         return first * second
+    case let (first as Int, second as Double):
+        return Double(first) * second
+    case let (first as Double, second as Int):
+        return first * Double(second)
     default:
         return 0
     }

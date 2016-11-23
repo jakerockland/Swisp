@@ -63,7 +63,7 @@ class InterpreterTests: XCTestCase {
                 if _a != _b {
                     XCTFail()
                 }
-            } else if let _a = a as? Float, let _b = b as? Float {
+            } else if let _a = a as? Double, let _b = b as? Double {
                 if _a != _b {
                     XCTFail()
                 }
@@ -77,7 +77,7 @@ class InterpreterTests: XCTestCase {
                         if _c != _d {
                             XCTFail()
                         }
-                    } else if let _c = c as? Float, let _d = d as? Float {
+                    } else if let _c = c as? Double, let _d = d as? Double {
                         if _c != _d {
                             XCTFail()
                         }
@@ -91,7 +91,7 @@ class InterpreterTests: XCTestCase {
                                 if _e != _f {
                                     XCTFail()
                                 }
-                            } else if let _e = e as? Float, let _f = f as? Float {
+                            } else if let _e = e as? Double, let _f = f as? Double {
                                 if _e != _f {
                                     XCTFail()
                                 }
@@ -175,7 +175,7 @@ class InterpreterTests: XCTestCase {
         }
 
         let float = "8.3066"
-        if let atom = Interpreter.atom(float) as? Float, atom == 8.3066 {
+        if let atom = Interpreter.atom(float) as? Double, atom == 8.3066 {
             XCTAssertTrue(true)
         } else {
             XCTAssertTrue(false)
@@ -190,17 +190,36 @@ class InterpreterTests: XCTestCase {
     }
 
     /**
-     Tests our evalutaion function
+     Tests our evaluation function
      */
     func testEval() {
         var parsed: Any
         parsed = Interpreter.parse("(define r 10)")
-        let _ = Interpreter.eval(&parsed, withEnvironment: &interpreter!.globalEnv)
-        print("$$$$$$$$$$")
+        let _ = try! Interpreter.eval(&parsed, withEnvironment: &interpreter!.globalEnv)
+
+        parsed = Interpreter.parse("(r)")
+        do {
+            let r = try Interpreter.eval(&parsed, withEnvironment: &interpreter!.globalEnv)
+            XCTAssertEqual(r as? Int, 10)
+        } catch {
+            XCTFail()
+        }
+
+        parsed = Interpreter.parse("(* r r)")
+        do {
+            let rr = try Interpreter.eval(&parsed, withEnvironment: &interpreter!.globalEnv)
+            XCTAssertEqual(rr as? Int, 100)
+        } catch {
+            XCTFail()
+        }
+
         parsed = Interpreter.parse("(* pi (* r r))")
-        print(parsed)
-        let result = Interpreter.eval(&parsed, withEnvironment: &interpreter!.globalEnv)
-        XCTAssertEqual(result as? Double, π * 100)
+        do {
+            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter!.globalEnv)
+            XCTAssertEqual(result as? Double, π * 100)
+        } catch {
+            XCTFail()
+        }
     }
-    
+
 }
