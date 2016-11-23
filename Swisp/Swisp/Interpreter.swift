@@ -301,18 +301,11 @@ class Interpreter {
                     }
                     return proc(args[0], args[1])
                 default:
-                    throw InterpreterError.SyntaxError("Unexpected behavior!")
+                    guard let proc = proc as? (Any...)->Any else {
+                        throw InterpreterError.SyntaxError("Unexpected behavior with variadic parameter function!")
+                    }
+                    return proc(args)
                 }
-
-//                } else if let `func` = eval(&exp, withEnvironment: &env) as? ((Any?...) -> Any) {
-//                    switch args.count {
-//                    case 0: return `func`(nil)
-//                    case 1: return `func`(args.first)
-//                    case 2: return `func`(args[0], args[1])
-//                    case 3: return `func`(args[0], args[1], args[2])
-//                    default: return `func`(args)
-//                    }
-//                }
             }
         }
         throw InterpreterError.SyntaxError("Should never occur!")
