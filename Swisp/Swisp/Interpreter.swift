@@ -273,39 +273,37 @@ class Interpreter {
 
             env[`var`] = try! eval(&exp, withEnvironment: &env)
             return 0
-        } else { // procedure call
+        } else if let _x = x as? List { // procedure call
             print("procedure call")
 
-            if let _x = x as? List {
-                var args: [Any] = []
-                var exp = _x[0]
+            var args: [Any] = []
+            var exp = _x[0]
 
-                let proc = try! eval(&exp, withEnvironment: &env)
+            let proc = try! eval(&exp, withEnvironment: &env)
 
-                for arg in _x.dropFirst() {
-                    var arg = arg
-                    args.append(try! eval(&arg, withEnvironment: &env))
+            for arg in _x.dropFirst() {
+                var arg = arg
+                args.append(try! eval(&arg, withEnvironment: &env))
+            }
+
+            switch args.count {
+            case 0:
+                return proc
+            case 1:
+                guard let proc = proc as? (Any)->Any else {
+                    throw InterpreterError.SyntaxError("Unexpected behavior with single parameter function!")
                 }
-
-                switch args.count {
-                case 0:
-                    return proc
-                case 1:
-                    guard let proc = proc as? (Any)->Any else {
-                        throw InterpreterError.SyntaxError("Unexpected behavior with single parameter function!")
-                    }
-                    return proc(args.first!)
-                case 2:
-                    guard let proc = proc as? (Any, Any)->Any else {
-                        throw InterpreterError.SyntaxError("Unexpected behavior with two parameter function!")
-                    }
-                    return proc(args[0], args[1])
-                default:
-                    guard let proc = proc as? (Any...)->Any else {
-                        throw InterpreterError.SyntaxError("Unexpected behavior with variadic parameter function!")
-                    }
-                    return proc(args)
+                return proc(args.first!)
+            case 2:
+                guard let proc = proc as? (Any, Any)->Any else {
+                    throw InterpreterError.SyntaxError("Unexpected behavior with two parameter function!")
                 }
+                return proc(args[0], args[1])
+            default:
+                guard let proc = proc as? (Any...)->Any else {
+                    throw InterpreterError.SyntaxError("Unexpected behavior with variadic parameter function!")
+                }
+                return proc(args)
             }
         }
         throw InterpreterError.SyntaxError("Should never occur!")

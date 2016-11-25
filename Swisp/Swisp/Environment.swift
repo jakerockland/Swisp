@@ -107,6 +107,38 @@ struct Operators {
         }
     }
 
-}
+    // TODO: Make extendable to more comparable objects
+    /**
+     Static function for `>` operator
+     */
+    static func greaterThan(left: Any, right: Any) -> Bool {
+        switch (left, right) {
+        case let (first as Int, second as Int):
+            return first > second
+        case let (first as Double, second as Double):
+            return first > second
+        case let (first as String, second as String):
+            return first > second
+        default:
+            return false
+        }
+    }
 
+    // TODO: Make extendable to more comparable objects
+    /**
+     Static function for `<` operator
+     */
+    static func lessThan(left: Any, right: Any) -> Bool {
+        switch (left, right) {
+        case let (first as Int, second as Int):
+            return first < second
+        case let (first as Double, second as Double):
+            return first < second
+        case let (first as String, second as String):
+            return first < second
+        default:
+            return false
+        }
+    }
+}
 
