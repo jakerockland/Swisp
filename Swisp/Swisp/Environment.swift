@@ -2,7 +2,7 @@
 //  Environment.swift
 //  Swisp
 //
-//  Copyright (c) 2016 Jake Rockland (http://jakerockland.com)
+//  Copyrhs (c) 2016 Jake Rockland (http://jakerockland.com)
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -36,18 +36,18 @@ struct Operators {
     /**
      Static function for `+` operator
      */
-    static func add(left: Any, right: Any) -> Any {
-        switch (left, right) {
-        case let (first as String, second as String):
-            return first + second
-        case let (first as Int, second as Int):
-            return first + second
-        case let (first as Double, second as Double):
-            return first + second
-        case let (first as Int, second as Double):
-            return Double(first) + second
-        case let (first as Double, second as Int):
-            return first + Double(second)
+    static func add(lhs: Any, rhs: Any) -> Any {
+        switch (lhs, rhs) {
+        case let (_lhs as String, _rhs as String):
+            return _lhs + _rhs
+        case let (_lhs as Int, _rhs as Int):
+            return _lhs + _rhs
+        case let (_lhs as Double, _rhs as Double):
+            return _lhs + _rhs
+        case let (_lhs as Int, _rhs as Double):
+            return Double(_lhs) + _rhs
+        case let (_lhs as Double, _rhs as Int):
+            return _lhs + Double(_rhs)
         default:
             return 0
         }
@@ -56,16 +56,16 @@ struct Operators {
     /**
      Static function for `-` operator
      */
-    static func subtract(left: Any, right: Any) -> Any {
-        switch (left, right) {
-        case let (first as Int, second as Int):
-            return first - second
-        case let (first as Double, second as Double):
-            return first - second
-        case let (first as Int, second as Double):
-            return Double(first) - second
-        case let (first as Double, second as Int):
-            return first - Double(second)
+    static func subtract(lhs: Any, rhs: Any) -> Any {
+        switch (lhs, rhs) {
+        case let (_lhs as Int, _rhs as Int):
+            return _lhs - _rhs
+        case let (_lhs as Double, _rhs as Double):
+            return _lhs - _rhs
+        case let (_lhs as Int, _rhs as Double):
+            return Double(_lhs) - _rhs
+        case let (_lhs as Double, _rhs as Int):
+            return _lhs - Double(_rhs)
         default:
             return 0
         }
@@ -74,16 +74,16 @@ struct Operators {
     /**
      Static function for `/` operator
      */
-    static func divide(left: Any, right: Any) -> Any {
-        switch (left, right) {
-        case let (first as Int, second as Int):
-            return first / second
-        case let (first as Double, second as Double):
-            return first / second
-        case let (first as Int, second as Double):
-            return Double(first) / second
-        case let (first as Double, second as Int):
-            return first / Double(second)
+    static func divide(lhs: Any, rhs: Any) -> Any {
+        switch (lhs, rhs) {
+        case let (_lhs as Int, _rhs as Int):
+            return _lhs / _rhs
+        case let (_lhs as Double, _rhs as Double):
+            return _lhs / _rhs
+        case let (_lhs as Int, _rhs as Double):
+            return Double(_lhs) / _rhs
+        case let (_lhs as Double, _rhs as Int):
+            return _lhs / Double(_rhs)
         default:
             return 0
         }
@@ -92,16 +92,16 @@ struct Operators {
     /**
      Static function for `*` operator
      */
-    static func multiply(left: Any, right: Any) -> Any {
-        switch (left, right) {
-        case let (first as Int, second as Int):
-            return first * second
-        case let (first as Double, second as Double):
-            return first * second
-        case let (first as Int, second as Double):
-            return Double(first) * second
-        case let (first as Double, second as Int):
-            return first * Double(second)
+    static func multiply(lhs: Any, rhs: Any) -> Any {
+        switch (lhs, rhs) {
+        case let (_lhs as Int, _rhs as Int):
+            return _lhs * _rhs
+        case let (_lhs as Double, _rhs as Double):
+            return _lhs * _rhs
+        case let (_lhs as Int, _rhs as Double):
+            return Double(_lhs) * _rhs
+        case let (_lhs as Double, _rhs as Int):
+            return _lhs * Double(_rhs)
         default:
             return 0
         }
@@ -111,14 +111,14 @@ struct Operators {
     /**
      Static function for `>` operator
      */
-    static func greaterThan(left: Any, right: Any) -> Bool {
-        switch (left, right) {
-        case let (first as Int, second as Int):
-            return first > second
-        case let (first as Double, second as Double):
-            return first > second
-        case let (first as String, second as String):
-            return first > second
+    static func greaterThan(lhs: Any, rhs: Any) -> Bool {
+        switch (lhs, rhs) {
+        case let (_lhs as Int, _rhs as Int):
+            return _lhs > _rhs
+        case let (_lhs as Double, _rhs as Double):
+            return _lhs > _rhs
+        case let (_lhs as String, _rhs as String):
+            return _lhs > _rhs
         default:
             return false
         }
@@ -128,14 +128,65 @@ struct Operators {
     /**
      Static function for `<` operator
      */
-    static func lessThan(left: Any, right: Any) -> Bool {
-        switch (left, right) {
-        case let (first as Int, second as Int):
-            return first < second
-        case let (first as Double, second as Double):
-            return first < second
-        case let (first as String, second as String):
-            return first < second
+    static func lessThan(lhs: Any, rhs: Any) -> Bool {
+        switch (lhs, rhs) {
+        case let (_lhs as Int, _rhs as Int):
+            return _lhs < _rhs
+        case let (_lhs as Double, _rhs as Double):
+            return _lhs < _rhs
+        case let (_lhs as String, _rhs as String):
+            return _lhs < _rhs
+        default:
+            return false
+        }
+    }
+
+    // TODO: Make extendable to more comparable objects
+    /**
+     Static function for `>=` operator
+     */
+    static func greaterThanEqual(lhs: Any, rhs: Any) -> Bool {
+        switch (lhs, rhs) {
+        case let (_lhs as Int, _rhs as Int):
+            return _lhs >= _rhs
+        case let (_lhs as Double, _rhs as Double):
+            return _lhs >= _rhs
+        case let (_lhs as String, _rhs as String):
+            return _lhs >= _rhs
+        default:
+            return false
+        }
+    }
+
+    // TODO: Make extendable to more comparable objects
+    /**
+     Static function for `<=` operator
+     */
+    static func lessThanEqual(lhs: Any, rhs: Any) -> Bool {
+        switch (lhs, rhs) {
+        case let (_lhs as Int, _rhs as Int):
+            return _lhs <= _rhs
+        case let (_lhs as Double, _rhs as Double):
+            return _lhs <= _rhs
+        case let (_lhs as String, _rhs as String):
+            return _lhs <= _rhs
+        default:
+            return false
+        }
+    }
+
+    // TODO: Make extendable to more comparable objects
+    /**
+     Static function for `=` operator
+     */
+    static func equal(lhs: Any, rhs: Any) -> Bool {
+        switch (lhs, rhs) {
+        case let (_lhs as Int, _rhs as Int):
+            return _lhs == _rhs
+        case let (_lhs as Double, _rhs as Double):
+            return _lhs == _rhs
+        case let (_lhs as String, _rhs as String):
+            return _lhs == _rhs
         default:
             return false
         }
