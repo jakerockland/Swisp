@@ -322,5 +322,30 @@ class Interpreter {
         }
         throw InterpreterError.SyntaxError("Should never occur!")
     }
+
+
+    // MARK: - REPL Methods
+
+    /**
+     A prompt-read-eval-print loop.
+     
+     - Parameter prompt: The prompt string to display in the print loop.
+     */
+     func repl(_ prompt: String = "Swisp > ") {
+        while true {
+            guard let input = readLine() else {
+                print("\(prompt) No valid input to interpret...")
+                continue
+            }
+
+            do {
+                var parsed = Interpreter.parse(input) as Any
+                let val = try Interpreter.eval(&parsed, withEnvironment: &self.globalEnv)
+                print(val)
+            } catch {
+                print("\(prompt) Interpretter error!")
+            }
+        }
+    }
     
 }

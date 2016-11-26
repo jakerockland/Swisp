@@ -300,7 +300,7 @@
 				DEVELOPMENT_TEAM = 6C937DV3U8;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "SwiftScheme/Swisp-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Swisp/Swisp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -313,7 +313,7 @@
 				DEVELOPMENT_TEAM = 6C937DV3U8;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "SwiftScheme/Swisp-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Swisp/Swisp-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
