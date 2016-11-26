@@ -104,16 +104,17 @@ class Interpreter {
         }
 
         let token = tokens.removeFirst()
-        if token == "(" {
+        switch token {
+        case "(":
             var list: [Any] = []
             while tokens.first != ")" {
                 try list.append(readFromTokens(&tokens))
             }
             tokens.removeFirst() // pop the corresponding ")"
             return list
-        } else if token == ")" {
+        case ")":
             throw InterpreterError.SyntaxError("unexpected )")
-        } else {
+        default:
             return atom(token)
         }
     }
@@ -205,8 +206,8 @@ class Interpreter {
             //            "erfc":     erfc,
             //            "gamma":    gamma,
             //            "lgamma":   lgamma,
-            //            // Misc.
-            //            "abs": abs,
+            // Misc.
+            "abs":      Library.abs,
             //            "append":   { $0 + $1 },
             //            // "apply": apply, // [TODO](https://www.drivenbycode.com/the-missing-apply-function-in-swift/)
             //            "begin":    { $0[-1] },
@@ -245,47 +246,60 @@ class Interpreter {
      - Returns: The evaluated statement.
      */
     static func eval(_ x: inout Any, withEnvironment env: inout Env) throws -> Any {
-        print(x)
-        if let _x = x as? Symbol { // variable reference
+        if let x = x as? Symbol { // variable reference
             print("variable reference")
-            return env[_x] as Any
+
+            guard env[x] != nil else {
+                return x
+            }
+
+            return env[x] as Any
         } else if !(x is List) { // constant literal
             print("constant literal")
-            if let int = x as? Int {
-                return int
-            } else if let float = x as? Double {
-                return float
-            } else {
+
+            switch x {
+            case let x as Int:
+                return x
+            case let x as Double:
+                return x
+            case let x as Bool:
+                return x
+            default:
                 return x as! Symbol
             }
-        } else if let _x = x as? List, _x.first as? Symbol == "if" { // conditional
+        } else if let x = x as? List, x.first as? Symbol == "if" { // conditional
             print("conditional")
-            var test = _x[1]
-            let conseq = _x[2]
-            let alt = _x[3]
+            var test = x[1]
+            let conseq = x[2]
+            let alt = x[3]
 
-            var exp = (try! eval(&test, withEnvironment: &env) as? Bool)! ? conseq : alt // FIXME: Verify this behaviour
+            guard let bool = try! eval(&test, withEnvironment: &env) as? Bool else {
+                throw InterpreterError.SyntaxError("Invalid conditional statement!")
+            }
+
+            var exp = bool ? conseq : alt // FIXME: Verify this behaviour
             return try! eval(&exp, withEnvironment: &env)
-        } else if let _x = x as? List, _x.first as? Symbol == "define" { // definition
+        } else if let x = x as? List, x.first as? Symbol == "define" { // definition
             print("definition")
-            let `var` = _x[1] as! Symbol
-            var exp = _x[2]
+            let `var` = x[1] as! Symbol
+            var exp = x[2]
 
             env[`var`] = try! eval(&exp, withEnvironment: &env)
             return 0
-        } else if let _x = x as? List { // procedure call
+        } else if let x = x as? List { // procedure call
             print("procedure call")
 
             var args: [Any] = []
-            var exp = _x[0]
+            var exp = x[0]
 
             let proc = try! eval(&exp, withEnvironment: &env)
 
-            for arg in _x.dropFirst() {
+            for arg in x.dropFirst() {
                 var arg = arg
                 args.append(try! eval(&arg, withEnvironment: &env))
             }
 
+            // TODO: Can these checks be implemented with generics?
             switch args.count {
             case 0:
                 return proc

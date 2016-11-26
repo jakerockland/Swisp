@@ -45,10 +45,24 @@ class InterpreterTests: XCTestCase {
      */
     override func setUp() {
         super.setUp()
+
+        // Initialize our interpreter
         interpreter = Interpreter()
+
+        // Define some test values
+        var parsed: Any
+
+        parsed = Interpreter.parse("(define ten 10)")
+        let _ = try! Interpreter.eval(&parsed, withEnvironment: &interpreter!.globalEnv)
+
+        parsed = Interpreter.parse("(define pass pass)")
+        let _ = try! Interpreter.eval(&parsed, withEnvironment: &interpreter!.globalEnv)
+
+        parsed = Interpreter.parse("(define fail fail)")
+        let _ = try! Interpreter.eval(&parsed, withEnvironment: &interpreter!.globalEnv)
     }
 
-    
+
     // MARK: - Testing Methods
 
     /**
@@ -194,10 +208,24 @@ class InterpreterTests: XCTestCase {
      */
     func testEval() {
         var parsed: Any
-        parsed = Interpreter.parse("(define r 10)")
-        let _ = try! Interpreter.eval(&parsed, withEnvironment: &interpreter!.globalEnv)
 
-        parsed = Interpreter.parse("(r)")
+        parsed = Interpreter.parse("(abs -10)")
+        do {
+            let absolute = try Interpreter.eval(&parsed, withEnvironment: &interpreter!.globalEnv)
+            XCTAssertEqual(absolute as? Int, 10)
+        } catch {
+            XCTFail()
+        }
+
+        parsed = Interpreter.parse("(- 15 (+ (* 2 3) (/ 8 2)))")
+        do {
+            let math = try Interpreter.eval(&parsed, withEnvironment: &interpreter!.globalEnv)
+            XCTAssertEqual(math as? Int, 5)
+        } catch {
+            XCTFail()
+        }
+
+        parsed = Interpreter.parse("(ten)")
         do {
             let r = try Interpreter.eval(&parsed, withEnvironment: &interpreter!.globalEnv)
             XCTAssertEqual(r as? Int, 10)
@@ -205,7 +233,7 @@ class InterpreterTests: XCTestCase {
             XCTFail()
         }
 
-        parsed = Interpreter.parse("(* r r)")
+        parsed = Interpreter.parse("(* ten ten)")
         do {
             let rr = try Interpreter.eval(&parsed, withEnvironment: &interpreter!.globalEnv)
             XCTAssertEqual(rr as? Int, 100)
@@ -213,13 +241,45 @@ class InterpreterTests: XCTestCase {
             XCTFail()
         }
 
-        parsed = Interpreter.parse("(* pi (* r r))")
+        parsed = Interpreter.parse("(* pi (* ten ten))")
         do {
             let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter!.globalEnv)
             XCTAssertEqual(result as? Double, π * 100)
         } catch {
             XCTFail()
         }
-    }
 
+        parsed = Interpreter.parse("(pass)")
+        do {
+            let pass = try Interpreter.eval(&parsed, withEnvironment: &interpreter!.globalEnv)
+            XCTAssertEqual(pass as? Symbol, "pass")
+        } catch {
+            XCTFail()
+        }
+
+        parsed = Interpreter.parse("(if (> 1 0) pass fail)")
+        do {
+            let greater = try Interpreter.eval(&parsed, withEnvironment: &interpreter!.globalEnv)
+            XCTAssertEqual(greater as? Symbol, "pass")
+        } catch {
+            XCTFail()
+        }
+
+        parsed = Interpreter.parse("(if (< 1 0) pass fail)")
+        do {
+            let less = try Interpreter.eval(&parsed, withEnvironment: &interpreter!.globalEnv)
+            XCTAssertEqual(less as? Symbol, "fail")
+        } catch {
+            XCTFail()
+        }
+
+        parsed = Interpreter.parse("(if (= 1 0) pass fail)")
+        do {
+            let equal = try Interpreter.eval(&parsed, withEnvironment: &interpreter!.globalEnv)
+            XCTAssertEqual(equal as? Symbol, "fail")
+        } catch {
+            XCTFail()
+        }
+    }
+    
 }
