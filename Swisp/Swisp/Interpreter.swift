@@ -328,10 +328,10 @@ class Interpreter {
 
     /**
      A prompt-read-eval-print loop.
-     
+
      - Parameter prompt: The prompt string to display in the print loop.
      */
-     func repl(_ prompt: String = "Swisp > ") {
+    func repl(_ prompt: String = "Swisp > ") {
         while true {
             guard let input = readLine() else {
                 print("\(prompt) No valid input to interpret...")
@@ -341,11 +341,24 @@ class Interpreter {
             do {
                 var parsed = Interpreter.parse(input) as Any
                 let val = try Interpreter.eval(&parsed, withEnvironment: &self.globalEnv)
-                print(val)
+                print(Interpreter.schemeString(val))
             } catch {
                 print("\(prompt) Interpretter error!")
             }
         }
+    }
+    
+    /**
+     Convert a Swift array back into a Scheme-readable string.
+     
+     - Parameter exp: Expression being evaluated and converted to a string.
+     */
+    static func schemeString(_ exp: Any) -> String {
+        guard let lis = exp as? List else {
+            return String(describing: exp)
+        }
+
+        return "( \(lis.map(schemeString)) )"
     }
     
 }
