@@ -108,6 +108,18 @@ struct Operators {
     }
 
     /**
+     Static function for `%` operator
+     */
+    static func mod(lhs: Any, rhs: Any) -> Any {
+        switch (lhs, rhs) {
+        case let (_lhs as Int, _rhs as Int):
+            return _lhs % _rhs
+        default:
+            return 0
+        }
+    }
+
+    /**
      Static function for `>` operator
      */
     static func greaterThan(lhs: Any, rhs: Any) -> Any {

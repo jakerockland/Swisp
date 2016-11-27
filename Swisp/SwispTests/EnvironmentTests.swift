@@ -260,6 +260,29 @@ class EnvironmentTests: XCTestCase {
     }
 
     /**
+     Tests our `%` function
+     */
+    func testMod() {
+        var parsed: Any
+
+        do {
+            parsed = try Interpreter.parse("(% 9 3)")
+            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Int, 0)
+        } catch {
+            XCTFail()
+        }
+
+        do {
+            parsed = try Interpreter.parse("(% 9 5)")
+            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Int, 4)
+        } catch {
+            XCTFail()
+        }
+    }
+
+    /**
      Tests our `>` function
      */
     func testGreaterThan() {

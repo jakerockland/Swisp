@@ -161,6 +161,7 @@ struct Interpreter {
             "-":        Operators.subtract,
             "*":        Operators.multiply,
             "/":        Operators.divide,
+            "%":        Operators.mod,
             ">":        Operators.greaterThan,
             "<":        Operators.lessThan,
             ">=":       Operators.greaterThanEqual,
