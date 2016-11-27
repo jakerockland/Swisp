@@ -19,22 +19,22 @@
 
 import Foundation
 
-/// A Scheme Symbol is implemented as a Swift `String`
+/// A Scheme Symbol is implemented as a Swift `String`.
 typealias Symbol = String
 
-/// A Scheme List is implemented as a Swift `[Any]` array
+/// A Scheme List is implemented as a Swift `[Any]` array.
 typealias List = [Any]
 
-/// A Scheme Number is implemented as a Swift `Int` or `Double`
+/// A Scheme Number is implemented as a Swift `Int` or `Double`.
 typealias Number = (Int, Double)
 
-/// A Scheme Env is implemented as a Swift `[String: Any]` dictionary
+/// A Scheme Env is implemented as a Swift `[String: Any]` dictionary.
 typealias Env = [Symbol: Any]
 
 /**
  A simple Scheme interpreter written in Swift
  */
-class Interpreter {
+struct Interpreter {
 
     // MARK: - Error Definitions
 
@@ -323,7 +323,7 @@ class Interpreter {
 
      - Parameter prompt: The prompt string to display in the print loop.
      */
-    func repl(_ prompt: String = "Swisp > ") {
+    mutating func repl(_ prompt: String = "Swisp > ") {
         while true {
             print(prompt, separator: "", terminator: "")
 
