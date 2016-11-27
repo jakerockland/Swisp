@@ -48,18 +48,45 @@ class EnvironmentTests: XCTestCase {
 
         // Initialize our interpreter
         interpreter = Interpreter()
+    }
 
-        // Define some test values
+    /**
+    Tests our math constants for appropriate values
+     */
+    func testMathConstants() {
         var parsed: Any
 
-        parsed = try! Interpreter.parse("(define ten 10)")
-        let _ = try! Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+        do {
+            parsed = try Interpreter.parse("(pi)")
+            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, π)
+        } catch {
+            XCTFail()
+        }
 
-        parsed = try! Interpreter.parse("(define pass pass)")
-        let _ = try! Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+        do {
+            parsed = try Interpreter.parse("(π)")
+            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, π)
+        } catch {
+            XCTFail()
+        }
 
-        parsed = try! Interpreter.parse("(define fail fail)")
-        let _ = try! Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+        do {
+            parsed = try Interpreter.parse("(e)")
+            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 𝑒)
+        } catch {
+            XCTFail()
+        }
+
+        do {
+            parsed = try Interpreter.parse("(𝑒)")
+            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 𝑒)
+        } catch {
+            XCTFail()
+        }
     }
 
     /**
