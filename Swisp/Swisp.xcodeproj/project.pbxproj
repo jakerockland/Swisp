@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D53C5BEC1DEB8B35006856F6 /* EnvironmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53C5BEB1DEB8B35006856F6 /* EnvironmentTests.swift */; };
 		D57E1B8D1DE2D41800A1A9C6 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57E1B8C1DE2D41800A1A9C6 /* Environment.swift */; };
 		D57E1B8E1DE2D4E200A1A9C6 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57E1B8C1DE2D41800A1A9C6 /* Environment.swift */; };
 		D5DB0A4C1DE0F075001C7E48 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DB0A4B1DE0F075001C7E48 /* main.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D53C5BEB1DEB8B35006856F6 /* EnvironmentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentTests.swift; sourceTree = "<group>"; };
 		D57E1B8C1DE2D41800A1A9C6 /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		D5DB0A481DE0F075001C7E48 /* Swisp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Swisp; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5DB0A4B1DE0F075001C7E48 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				D5DB0A5A1DE109BA001C7E48 /* InterpreterTests.swift */,
+				D53C5BEB1DEB8B35006856F6 /* EnvironmentTests.swift */,
 				D5DB0A5C1DE109BA001C7E48 /* Info.plist */,
 			);
 			path = SwispTests;
@@ -197,6 +200,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5DB0A601DE10AAB001C7E48 /* Interpreter.swift in Sources */,
+				D53C5BEC1DEB8B35006856F6 /* EnvironmentTests.swift in Sources */,
 				D57E1B8E1DE2D4E200A1A9C6 /* Environment.swift in Sources */,
 				D5DB0A5B1DE109BA001C7E48 /* InterpreterTests.swift in Sources */,
 			);

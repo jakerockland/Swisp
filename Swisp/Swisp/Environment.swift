@@ -72,24 +72,6 @@ struct Operators {
     }
 
     /**
-     Static function for `/` operator
-     */
-    static func divide(lhs: Any, rhs: Any) -> Any {
-        switch (lhs, rhs) {
-        case let (_lhs as Int, _rhs as Int):
-            return _lhs / _rhs
-        case let (_lhs as Double, _rhs as Double):
-            return _lhs / _rhs
-        case let (_lhs as Int, _rhs as Double):
-            return Double(_lhs) / _rhs
-        case let (_lhs as Double, _rhs as Int):
-            return _lhs / Double(_rhs)
-        default:
-            return 0
-        }
-    }
-
-    /**
      Static function for `*` operator
      */
     static func multiply(lhs: Any, rhs: Any) -> Any {
@@ -102,6 +84,24 @@ struct Operators {
             return Double(_lhs) * _rhs
         case let (_lhs as Double, _rhs as Int):
             return _lhs * Double(_rhs)
+        default:
+            return 0
+        }
+    }
+
+    /**
+     Static function for `/` operator
+     */
+    static func divide(lhs: Any, rhs: Any) -> Any {
+        switch (lhs, rhs) {
+        case let (_lhs as Int, _rhs as Int):
+            return _lhs / _rhs
+        case let (_lhs as Double, _rhs as Double):
+            return _lhs / _rhs
+        case let (_lhs as Int, _rhs as Double):
+            return Double(_lhs) / _rhs
+        case let (_lhs as Double, _rhs as Int):
+            return _lhs / Double(_rhs)
         default:
             return 0
         }
