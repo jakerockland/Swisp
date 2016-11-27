@@ -259,7 +259,7 @@ struct Library {
  Provides the following basic math operations as static functions:
 - `ceil`
 - `copysign`
- "fabs":     fabs,
+-  `fabs`
  // "factorial": factorial, // TODO
 - `floor`
  "fmod":     fmod,
@@ -285,18 +285,6 @@ struct Math {
     }
 
     /**
-     Static function for `floor` operation
-     */
-    static func floor(val: Any) -> Any {
-        switch (val) {
-        case let (_val as Double):
-            return Foundation.floor(_val)
-        default:
-            return 0
-        }
-    }
-
-    /**
      Static function for `copysign` operation
      */
     static func copysign(lhs: Any, rhs: Any) -> Any {
@@ -309,6 +297,30 @@ struct Math {
             return Foundation.copysign(Double(_lhs), _rhs)
         case let (_lhs as Double, _rhs as Int):
             return Foundation.copysign(_lhs, Double(_rhs))
+        default:
+            return 0
+        }
+    }
+
+    /**
+     Static function for `fabs` operation
+     */
+    static func fabs(val: Any) -> Any {
+        switch (val) {
+        case let (_val as Double):
+            return Foundation.fabs(_val)
+        default:
+            return 0
+        }
+    }
+
+    /**
+     Static function for `floor` operation
+     */
+    static func floor(val: Any) -> Any {
+        switch (val) {
+        case let (_val as Double):
+            return Foundation.floor(_val)
         default:
             return 0
         }

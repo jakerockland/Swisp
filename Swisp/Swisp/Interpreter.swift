@@ -169,7 +169,7 @@ struct Interpreter {
             // Number-theoretic and representation functions
             "ceil":     Math.ceil,
             "copysign": Math.copysign,
-            //            "fabs":     fabs,
+            "fabs":     Math.fabs,
             //            // "factorial": factorial, // TODO
             "floor":    Math.floor,
             //            "fmod":     fmod,

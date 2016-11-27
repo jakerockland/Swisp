@@ -24,7 +24,7 @@ import XCTest
  */
 class EnvironmentTests: XCTestCase {
 
-    // MARK: - Testing Constants
+    // MARK: - Constant Values
 
     /// Value of mathematical constant π
     let π = 3.1415926535897932384626433832795
@@ -49,6 +49,9 @@ class EnvironmentTests: XCTestCase {
         // Initialize our interpreter
         interpreter = Interpreter()
     }
+
+
+    // MARK: - Constant Testing
 
     /**
     Tests our math constants for appropriate values
@@ -88,6 +91,9 @@ class EnvironmentTests: XCTestCase {
             XCTFail()
         }
     }
+
+
+    // MARK: - Operator Testing
 
     /**
      Tests our `+` function
@@ -408,6 +414,9 @@ class EnvironmentTests: XCTestCase {
         }
     }
 
+
+    // MARK: - Library Testing
+
     /**
      Tests our `abs` function
      */
@@ -431,6 +440,9 @@ class EnvironmentTests: XCTestCase {
         }
     }
 
+
+    // MARK: - Math Testing
+
     /**
      Tests our `ceil` function
      */
@@ -449,29 +461,6 @@ class EnvironmentTests: XCTestCase {
             parsed = try Interpreter.parse("(ceil 9.1)")
             let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, 10.0)
-        } catch {
-            XCTFail()
-        }
-    }
-
-    /**
-     Tests our `floor` function
-     */
-    func testFloor() {
-        var parsed: Any
-
-        do {
-            parsed = try Interpreter.parse("(floor -9.1)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
-            XCTAssertEqual(result as? Double, -10.0)
-        } catch {
-            XCTFail()
-        }
-
-        do {
-            parsed = try Interpreter.parse("(floor 9.1)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
-            XCTAssertEqual(result as? Double, 9.0)
         } catch {
             XCTFail()
         }
@@ -535,6 +524,52 @@ class EnvironmentTests: XCTestCase {
             parsed = try Interpreter.parse("(copysign -5 1.0)")
             let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, 5.0)
+        } catch {
+            XCTFail()
+        }
+    }
+
+    /**
+     Tests our `floor` function
+     */
+    func testFloor() {
+        var parsed: Any
+
+        do {
+            parsed = try Interpreter.parse("(floor -9.1)")
+            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, -10.0)
+        } catch {
+            XCTFail()
+        }
+
+        do {
+            parsed = try Interpreter.parse("(floor 9.1)")
+            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 9.0)
+        } catch {
+            XCTFail()
+        }
+    }
+
+    /**
+     Tests our `fabs` function
+     */
+    func testFabs() {
+        var parsed: Any
+
+        do {
+            parsed = try Interpreter.parse("(fabs -9.1)")
+            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 9.1)
+        } catch {
+            XCTFail()
+        }
+
+        do {
+            parsed = try Interpreter.parse("(fabs 9.1)")
+            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 9.1)
         } catch {
             XCTFail()
         }
