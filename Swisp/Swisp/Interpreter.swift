@@ -58,9 +58,9 @@ class Interpreter {
 
      - Returns: The abstract syntax tree of the associated program.
      */
-    static func parse(_ program: String) -> [Any] {
+    static func parse(_ program: String) throws -> [Any] {
         var tokens = tokenize(program)
-        return try! readFromTokens(&tokens) as! [Any]
+        return try readFromTokens(&tokens) as! [Any]
     }
 
     /**
@@ -247,7 +247,7 @@ class Interpreter {
      */
     static func eval(_ x: inout Any, withEnvironment env: inout Env) throws -> Any {
         if let x = x as? Symbol { // variable reference
-            print("variable reference")
+//            print("variable reference")
 
             guard env[x] != nil else {
                 return x
@@ -255,7 +255,7 @@ class Interpreter {
 
             return env[x] as Any
         } else if !(x is List) { // constant literal
-            print("constant literal")
+//            print("constant literal")
 
             switch x {
             case let x as Int:
@@ -268,7 +268,7 @@ class Interpreter {
                 return x as! Symbol
             }
         } else if let x = x as? List, x.first as? Symbol == "if" { // conditional
-            print("conditional")
+//            print("conditional")
             var test = x[1]
             let conseq = x[2]
             let alt = x[3]
@@ -280,14 +280,14 @@ class Interpreter {
             var exp = bool ? conseq : alt // FIXME: Verify this behaviour
             return try! eval(&exp, withEnvironment: &env)
         } else if let x = x as? List, x.first as? Symbol == "define" { // definition
-            print("definition")
+//            print("definition")
             let `var` = x[1] as! Symbol
             var exp = x[2]
 
             env[`var`] = try! eval(&exp, withEnvironment: &env)
             return 0
         } else if let x = x as? List { // procedure call
-            print("procedure call")
+//            print("procedure call")
 
             var args: [Any] = []
             var exp = x[0]
@@ -333,13 +333,15 @@ class Interpreter {
      */
     func repl(_ prompt: String = "Swisp > ") {
         while true {
+            print(prompt, separator: "", terminator: "")
+
             guard let input = readLine() else {
                 print("\(prompt) No valid input to interpret...")
                 continue
             }
 
             do {
-                var parsed = Interpreter.parse(input) as Any
+                var parsed = try Interpreter.parse(input) as Any
                 let val = try Interpreter.eval(&parsed, withEnvironment: &self.globalEnv)
                 print(Interpreter.schemeString(val))
             } catch {

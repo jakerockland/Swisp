@@ -19,3 +19,8 @@
 
 import Foundation
 
+// Create interpreter instantiation
+let interpreter = Interpreter()
+
+// Launch read-eval-print loop
+interpreter.repl()
