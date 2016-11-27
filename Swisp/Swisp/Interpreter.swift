@@ -247,16 +247,12 @@ class Interpreter {
      */
     static func eval(_ x: inout Any, withEnvironment env: inout Env) throws -> Any {
         if let x = x as? Symbol { // variable reference
-            //            print("variable reference")
-
             guard env[x] != nil else {
                 return x
             }
 
             return env[x] as Any
         } else if !(x is List) { // constant literal
-            //            print("constant literal")
-
             switch x {
             case let x as Int:
                 return x
@@ -268,7 +264,6 @@ class Interpreter {
                 return x as! Symbol
             }
         } else if let x = x as? List, x.first as? Symbol == "if" { // conditional
-            //            print("conditional")
             var test = x[1]
             let conseq = x[2]
             let alt = x[3]
@@ -277,18 +272,15 @@ class Interpreter {
                 throw InterpreterError.SyntaxError("Invalid conditional statement!")
             }
 
-            var exp = bool ? conseq : alt // FIXME: Verify this behaviour
+            var exp = bool ? conseq : alt
             return try! eval(&exp, withEnvironment: &env)
         } else if let x = x as? List, x.first as? Symbol == "define" { // definition
-            //            print("definition")
             let `var` = x[1] as! Symbol
             var exp = x[2]
 
             env[`var`] = try! eval(&exp, withEnvironment: &env)
             return 0
         } else if let x = x as? List { // procedure call
-            //            print("procedure call")
-
             var args: [Any] = []
             var exp = x[0]
 
