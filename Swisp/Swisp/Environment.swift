@@ -258,7 +258,7 @@ struct Library {
 /**
  Provides the following basic math operations as static functions:
 - `ceil`
- "copysign": copysign,
+- `copysign`
  "fabs":     fabs,
  // "factorial": factorial, // TODO
 - `floor`
