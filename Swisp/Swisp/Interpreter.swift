@@ -166,12 +166,12 @@ struct Interpreter {
             ">=":       Operators.greaterThanEqual,
             "<=":       Operators.lessThanEqual,
             "=":        Operators.equal,
-            //            // Number-theoretic and representation functions
-            //            "ceil":     ceil,
-            //            "copysign": copysign,
+            // Number-theoretic and representation functions
+            "ceil":     Math.ceil,
+            "copysign": Math.copysign,
             //            "fabs":     fabs,
             //            // "factorial": factorial, // TODO
-            //            "floor":    floor,
+            "floor":    Math.floor,
             //            "fmod":     fmod,
             //            "frexp":    frexp,
             //            // "fsum": fsum, // TODO

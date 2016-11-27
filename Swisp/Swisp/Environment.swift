@@ -254,3 +254,64 @@ struct Library {
     }
 
 }
+
+/**
+ Provides the following basic math operations as static functions:
+- `ceil`
+ "copysign": copysign,
+ "fabs":     fabs,
+ // "factorial": factorial, // TODO
+- `floor`
+ "fmod":     fmod,
+ "frexp":    frexp,
+ // "fsum": fsum, // TODO
+ "isinf":    isinf,
+ "isnan":    isnan,
+ "ldexp":    ldexp,
+ "trunc":    trunc,
+ */
+struct Math {
+
+    /**
+     Static function for `ceil` operation
+     */
+    static func ceil(val: Any) -> Any {
+        switch (val) {
+        case let (_val as Double):
+            return Foundation.ceil(_val)
+        default:
+            return 0
+        }
+    }
+
+    /**
+     Static function for `floor` operation
+     */
+    static func floor(val: Any) -> Any {
+        switch (val) {
+        case let (_val as Double):
+            return Foundation.floor(_val)
+        default:
+            return 0
+        }
+    }
+
+    /**
+     Static function for `copysign` operation
+     */
+    static func copysign(lhs: Any, rhs: Any) -> Any {
+        switch (lhs, rhs) {
+        case let (_lhs as Double, _rhs as Double):
+            return Foundation.copysign(_lhs, _rhs)
+        case let (_lhs as Int, _rhs as Int):
+            return Int(Foundation.copysign(Double(_lhs), Double(_rhs)))
+        case let (_lhs as Int, _rhs as Double):
+            return Foundation.copysign(Double(_lhs), _rhs)
+        case let (_lhs as Double, _rhs as Int):
+            return Foundation.copysign(_lhs, Double(_rhs))
+        default:
+            return 0
+        }
+    }
+    
+}

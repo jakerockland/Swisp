@@ -416,16 +416,125 @@ class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(abs -10)")
-            let absolute = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
-            XCTAssertEqual(absolute as? Int, 10)
+            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Int, 10)
         } catch {
             XCTFail()
         }
 
         do {
             parsed = try Interpreter.parse("(abs -10.0)")
-            let absolute = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
-            XCTAssertEqual(absolute as? Double, 10.0)
+            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 10.0)
+        } catch {
+            XCTFail()
+        }
+    }
+
+    /**
+     Tests our `ceil` function
+     */
+    func testCeil() {
+        var parsed: Any
+
+        do {
+            parsed = try Interpreter.parse("(ceil -9.1)")
+            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, -9.0)
+        } catch {
+            XCTFail()
+        }
+
+        do {
+            parsed = try Interpreter.parse("(ceil 9.1)")
+            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 10.0)
+        } catch {
+            XCTFail()
+        }
+    }
+
+    /**
+     Tests our `floor` function
+     */
+    func testFloor() {
+        var parsed: Any
+
+        do {
+            parsed = try Interpreter.parse("(floor -9.1)")
+            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, -10.0)
+        } catch {
+            XCTFail()
+        }
+
+        do {
+            parsed = try Interpreter.parse("(floor 9.1)")
+            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 9.0)
+        } catch {
+            XCTFail()
+        }
+    }
+
+    /**
+     Tests our `copysign` function
+     */
+    func testCopySign() {
+        var parsed: Any
+
+        do {
+            parsed = try Interpreter.parse("(copysign 5.0 -1.0)")
+            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, -5.0)
+        } catch {
+            XCTFail()
+        }
+
+        do {
+            parsed = try Interpreter.parse("(copysign -5.0 1.0)")
+            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 5.0)
+        } catch {
+            XCTFail()
+        }
+
+        do {
+            parsed = try Interpreter.parse("(copysign -5.0 -1.0)")
+            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, -5.0)
+        } catch {
+            XCTFail()
+        }
+
+        do {
+            parsed = try Interpreter.parse("(copysign 5 -1)")
+            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Int, -5)
+        } catch {
+            XCTFail()
+        }
+
+        do {
+            parsed = try Interpreter.parse("(copysign -5 1)")
+            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Int, 5)
+        } catch {
+            XCTFail()
+        }
+
+        do {
+            parsed = try Interpreter.parse("(copysign 5.0 -1)")
+            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, -5.0)
+        } catch {
+            XCTFail()
+        }
+
+        do {
+            parsed = try Interpreter.parse("(copysign -5 1.0)")
+            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 5.0)
         } catch {
             XCTFail()
         }
