@@ -38,14 +38,18 @@ struct Interpreter {
 
     // MARK: - Error Definitions
 
-    // TODO: Add block comment
+    /**
+     Custom type for errors encountered while interpreting
+     */
     enum InterpreterError: Error {
+        /// Case representing a syntax error that arises
         case SyntaxError(_: String)
     }
 
 
     // MARK: - Interpreter Properties
 
+    /// The standard global environment for the interpreter
     var globalEnv: Env = Interpreter.standardEnv()
 
 
@@ -122,9 +126,9 @@ struct Interpreter {
     /**
      Numbers become numbers; every other token is left as a `String`.
 
-     - Parameter token: TODO
+     - Parameter token: `String` representation of token to atomize
 
-     - Returns: TODO
+     - Returns: `Int` or `Double` if token is a Number, a `Symbol` (`String` alias) otherwise
      */
     static func atom(_ token: String) -> AnyHashable {
         if let int = Int(token) {
@@ -341,10 +345,10 @@ struct Interpreter {
             }
         }
     }
-    
+
     /**
      Convert a Swift array back into a Scheme-readable string.
-     
+
      - Parameter exp: Expression being evaluated and converted to a string.
      */
     static func schemeString(_ exp: Any) -> String {
