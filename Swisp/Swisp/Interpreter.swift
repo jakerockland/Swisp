@@ -280,7 +280,7 @@ struct Interpreter {
             let alt = x[3]
 
             guard let bool = try! eval(&test, withEnvironment: &env) as? Bool else {
-                throw InterpreterError.SyntaxError("Invalid conditional statement!")
+                throw InterpreterError.SyntaxError("invalid conditional statement")
             }
 
             var exp = bool ? conseq : alt
@@ -308,22 +308,22 @@ struct Interpreter {
                 return proc
             case 1:
                 guard let proc = proc as? (Any)->Any else {
-                    throw InterpreterError.SyntaxError("Unexpected behavior with single parameter function!")
+                    throw InterpreterError.SyntaxError("unexpected behavior with single parameter function")
                 }
                 return proc(args.first!)
             case 2:
                 guard let proc = proc as? (Any, Any)->Any else {
-                    throw InterpreterError.SyntaxError("Unexpected behavior with two parameter function!")
+                    throw InterpreterError.SyntaxError("unexpected behavior with two parameter function")
                 }
                 return proc(args[0], args[1])
             default:
                 guard let proc = proc as? (Any...)->Any else {
-                    throw InterpreterError.SyntaxError("Unexpected behavior with variadic parameter function!")
+                    throw InterpreterError.SyntaxError("unexpected behavior with variadic parameter function")
                 }
                 return proc(args)
             }
         }
-        throw InterpreterError.SyntaxError("Should never occur!")
+        throw InterpreterError.SyntaxError("should never occur")
     }
 
 
@@ -334,7 +334,7 @@ struct Interpreter {
 
      - Parameter prompt: The prompt string to display in the print loop.
      */
-    mutating func repl(_ prompt: String = "Swisp > ") {
+    mutating func repl(_ prompt: String = "Swisp> ") {
         while true {
             print(prompt, separator: "", terminator: "")
 
@@ -347,8 +347,10 @@ struct Interpreter {
                 var parsed = try Interpreter.parse(input) as Any
                 let val = try Interpreter.eval(&parsed, withEnvironment: &self.globalEnv)
                 print(Interpreter.schemeString(val))
+            } catch InterpreterError.SyntaxError(let message) {
+                print("\(prompt)Interpreter error: \(message)!")
             } catch {
-                print("\(prompt)Interpreter error!")
+                print("\(prompt)Unknown error occured!")
             }
         }
     }
