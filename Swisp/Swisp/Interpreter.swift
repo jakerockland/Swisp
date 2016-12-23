@@ -342,7 +342,7 @@ struct Interpreter {
                 let val = try Interpreter.eval(&parsed, withEnvironment: &self.globalEnv)
                 print(Interpreter.schemeString(val))
             } catch {
-                print("\(prompt) Interpretter error!")
+                print("\(prompt) Interpreter error!")
             }
         }
     }
