@@ -109,7 +109,7 @@ struct Interpreter {
      - Returns: A nested array representation of the corresponding abstract syntax tree.
      */
     static func readFromTokens(_ tokens: inout [String]) throws -> Any {
-        if tokens.count == 0 {
+        guard tokens.count > 0 else {
             throw InterpreterError.SyntaxError("unexpected EOF while reading")
         }
 
@@ -339,7 +339,7 @@ struct Interpreter {
             print(prompt, separator: "", terminator: "")
 
             guard let input = readLine() else {
-                print("\(prompt) No valid input to interpret...")
+                print("\(prompt)No valid input to interpret...")
                 continue
             }
 
@@ -348,7 +348,7 @@ struct Interpreter {
                 let val = try Interpreter.eval(&parsed, withEnvironment: &self.globalEnv)
                 print(Interpreter.schemeString(val))
             } catch {
-                print("\(prompt) Interpreter error!")
+                print("\(prompt)Interpreter error!")
             }
         }
     }
