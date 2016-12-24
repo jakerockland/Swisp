@@ -7,11 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		40F889071E0F06D200AA93E9 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F889041E0F06D200AA93E9 /* Package.swift */; };
-		40F889091E0F06F600AA93E9 /* LinuxMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F889081E0F06F600AA93E9 /* LinuxMain.swift */; };
-		40F889141E0F071700AA93E9 /* EnvironmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F889111E0F071700AA93E9 /* EnvironmentTests.swift */; };
-		40F889151E0F071700AA93E9 /* InterpreterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F889121E0F071700AA93E9 /* InterpreterTests.swift */; };
-		40F889161E0F071700AA93E9 /* SwispTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F889131E0F071700AA93E9 /* SwispTests.swift */; };
 		D57E1B8D1DE2D41800A1A9C6 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57E1B8C1DE2D41800A1A9C6 /* Environment.swift */; };
 		D57E1B8E1DE2D4E200A1A9C6 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57E1B8C1DE2D41800A1A9C6 /* Environment.swift */; };
 		D5DB0A4C1DE0F075001C7E48 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DB0A4B1DE0F075001C7E48 /* main.swift */; };
@@ -34,9 +29,8 @@
 /* Begin PBXFileReference section */
 		40F889041E0F06D200AA93E9 /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		40F889081E0F06F600AA93E9 /* LinuxMain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LinuxMain.swift; path = ../Tests/LinuxMain.swift; sourceTree = "<group>"; };
-		40F889111E0F071700AA93E9 /* EnvironmentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EnvironmentTests.swift; path = Tests/SwispTests/EnvironmentTests.swift; sourceTree = "<group>"; };
-		40F889121E0F071700AA93E9 /* InterpreterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterpreterTests.swift; path = Tests/SwispTests/InterpreterTests.swift; sourceTree = "<group>"; };
-		40F889131E0F071700AA93E9 /* SwispTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwispTests.swift; path = Tests/SwispTests/SwispTests.swift; sourceTree = "<group>"; };
+		40F889181E0F08E000AA93E9 /* EnvironmentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EnvironmentTests.swift; path = Tests/SwispTests/EnvironmentTests.swift; sourceTree = SOURCE_ROOT; };
+		40F889191E0F08E000AA93E9 /* InterpreterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterpreterTests.swift; path = Tests/SwispTests/InterpreterTests.swift; sourceTree = SOURCE_ROOT; };
 		D57E1B8C1DE2D41800A1A9C6 /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Environment.swift; path = ../Sources/Environment.swift; sourceTree = "<group>"; };
 		D5DB0A481DE0F075001C7E48 /* Swisp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Swisp; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5DB0A4B1DE0F075001C7E48 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = main.swift; path = ../Sources/main.swift; sourceTree = "<group>"; };
@@ -63,12 +57,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		40F889101E0F070600AA93E9 /* SwispTests */ = {
+		40F889171E0F08BC00AA93E9 /* SwispTests */ = {
 			isa = PBXGroup;
 			children = (
-				40F889111E0F071700AA93E9 /* EnvironmentTests.swift */,
-				40F889121E0F071700AA93E9 /* InterpreterTests.swift */,
-				40F889131E0F071700AA93E9 /* SwispTests.swift */,
+				40F889181E0F08E000AA93E9 /* EnvironmentTests.swift */,
+				40F889191E0F08E000AA93E9 /* InterpreterTests.swift */,
 			);
 			name = SwispTests;
 			sourceTree = "<group>";
@@ -108,7 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				40F889081E0F06F600AA93E9 /* LinuxMain.swift */,
-				40F889101E0F070600AA93E9 /* SwispTests */,
+				40F889171E0F08BC00AA93E9 /* SwispTests */,
 			);
 			name = Tests;
 			path = SwispTests;
@@ -206,11 +199,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40F889161E0F071700AA93E9 /* SwispTests.swift in Sources */,
-				40F889091E0F06F600AA93E9 /* LinuxMain.swift in Sources */,
-				40F889151E0F071700AA93E9 /* InterpreterTests.swift in Sources */,
-				40F889141E0F071700AA93E9 /* EnvironmentTests.swift in Sources */,
-				40F889071E0F06D200AA93E9 /* Package.swift in Sources */,
 				D5DB0A531DE0F0A8001C7E48 /* Interpreter.swift in Sources */,
 				D57E1B8D1DE2D41800A1A9C6 /* Environment.swift in Sources */,
 				D5DB0A4C1DE0F075001C7E48 /* main.swift in Sources */,
@@ -350,7 +338,7 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 6C937DV3U8;
-				INFOPLIST_FILE = SwispTests/Info.plist;
+				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = rockland.SwiftSchemeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -364,7 +352,7 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 6C937DV3U8;
-				INFOPLIST_FILE = SwispTests/Info.plist;
+				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = rockland.SwiftSchemeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
