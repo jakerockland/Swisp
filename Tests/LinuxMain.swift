@@ -24,8 +24,7 @@
 //
 
 import XCTest
-@testable import InterpreterTests
-@testable import EnvironmentTests
+@testable import Swisp
 
 XCTMain([
     testCase(InterpreterTests.allTests),

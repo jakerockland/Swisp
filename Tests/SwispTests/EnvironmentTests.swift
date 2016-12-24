@@ -30,7 +30,7 @@ import XCTest
 /**
  Simple tests for the standard global environment
  */
-internal class EnvironmentTests: XCTestCase {
+class EnvironmentTests: XCTestCase {
     
     // MARK: - Set of All Tests
     

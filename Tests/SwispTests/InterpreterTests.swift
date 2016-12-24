@@ -30,7 +30,7 @@ import XCTest
 /**
  Simple tests for a simple Scheme interpreter written in Swift
  */
-internal class InterpreterTests: XCTestCase {
+class InterpreterTests: XCTestCase {
     
     // MARK: - Set of All Tests
 
