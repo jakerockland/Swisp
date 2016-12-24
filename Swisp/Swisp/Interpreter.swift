@@ -38,6 +38,15 @@ public typealias Number = NSNumber
 public typealias Env = [Symbol: Any]
 
 /**
+ Extension to Array for safer indexing
+ */
+private extension Array {
+    subscript (safe index: Int) -> Element? {
+        return (index >= 0 && index < count) ? self[index] : nil
+    }
+}
+
+/**
  A simple Scheme interpreter written in Swift
  */
 public struct Interpreter {
@@ -277,12 +286,12 @@ public struct Interpreter {
             case let x as Symbol:
                 return x
             default:
-                throw InterpreterError.SyntaxError("trying to evaluate invalid statement")
+                throw InterpreterError.SyntaxError("invalid constant literal")
             }
         } else if let x = x as? List, x.first as? Symbol == "if" { // conditional
-            var test = x[1]
-            let conseq = x[2]
-            let alt = x[3]
+            guard var test = x[safe: 1], let conseq = x[safe: 2], let alt = x[safe: 3] else {
+                throw InterpreterError.SyntaxError("invalid conditional statement")
+            }
 
             guard let bool = try eval(&test, withEnvironment: &env) as? Bool else {
                 throw InterpreterError.SyntaxError("invalid conditional statement")
@@ -291,16 +300,17 @@ public struct Interpreter {
             var exp = bool ? conseq : alt
             return try eval(&exp, withEnvironment: &env)
         } else if let x = x as? List, x.first as? Symbol == "define" { // definition
-            guard let `var` = x[1] as? Symbol else {
+            guard let `var` = x[safe: 1] as? Symbol, var exp = x[safe: 2] else {
                 throw InterpreterError.SyntaxError("invalid variable definition")
             }
-            var exp = x[2]
 
             env[`var`] = try eval(&exp, withEnvironment: &env)
             return 0
         } else if let x = x as? List { // procedure call
             var args: [Any] = []
-            var exp = x[0]
+            guard var exp = x[safe: 0] else {
+                throw InterpreterError.SyntaxError("invalid procedure call")
+            }
 
             let proc = try eval(&exp, withEnvironment: &env)
 
@@ -316,7 +326,7 @@ public struct Interpreter {
                 guard let proc = proc as? (Any)->Any? else {
                     throw InterpreterError.SyntaxError("unknown single parameter function")
                 }
-                guard let result = proc(args.first as Any) else {
+                guard let result = proc(args[safe: 0] as Any) else {
                     throw InterpreterError.SyntaxError("bad input to single parameter function")
                 }
                 return result
@@ -324,7 +334,7 @@ public struct Interpreter {
                 guard let proc = proc as? (Any, Any)->Any? else {
                     throw InterpreterError.SyntaxError("unknown two parameter function")
                 }
-                guard let result = proc(args[0], args[1]) else {
+                guard let result = proc(args[safe: 0] as Any, args[safe: 1] as Any) else {
                     throw InterpreterError.SyntaxError("bad input to two parameter function")
                 }
                 return result
