@@ -37,7 +37,7 @@ import Foundation
  - `<=`
  - `=`
  */
-struct Operators {
+internal struct Operators {
 
     /**
      Static function for `+` operator
@@ -231,7 +231,7 @@ struct Operators {
  //            "round":   round,
  //            "symbol?":  { $0 is Symbol }
  */
-struct Library {
+internal struct Library {
 
     /**
      Static function for `abs` operation
@@ -283,7 +283,7 @@ struct Library {
  "ldexp":    ldexp,
  "trunc":    trunc,
  */
-struct Math {
+internal struct Math {
 
     /**
      Static function for `ceil` operation
