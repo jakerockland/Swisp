@@ -56,9 +56,16 @@ public struct Interpreter {
     /**
      Custom type for errors encountered while interpreting
      */
-    enum InterpreterError: Error {
-        /// Case representing a syntax error that arises
-        case SyntaxError(_: String)
+    enum InterpreterError: String, Error {
+        case cannotParseTokens = "unable to parse tokens"
+        case unexpectedEOF = "unexpected EOF while reading"
+        case unexpectedParenthesis = "unexpected )"
+        case invalidConstantLiteral = "invalid constant literal"
+        case invalidConditionalStatement = "invalid conditional statement"
+        case invalidDefinition = "invalid definition"
+        case invalidProcedureCalled = "invalid procedure called"
+        case invalidProcedureInput = "invalid procedure input"
+        case unknown = "should never occur"
     }
 
 
@@ -80,7 +87,7 @@ public struct Interpreter {
     static func parse(_ program: String) throws -> [Any] {
         var tokens = tokenize(program)
         guard let parsed = try readFromTokens(&tokens) as? [Any] else {
-            throw InterpreterError.SyntaxError("unable to parse tokens")
+            throw InterpreterError.cannotParseTokens
         }
         return parsed
     }
@@ -122,7 +129,7 @@ public struct Interpreter {
      */
     static func readFromTokens(_ tokens: inout [String]) throws -> Any {
         guard tokens.count > 0 else {
-            throw InterpreterError.SyntaxError("unexpected EOF while reading")
+            throw InterpreterError.unexpectedEOF
         }
 
         let token = tokens.removeFirst()
@@ -135,7 +142,7 @@ public struct Interpreter {
             tokens.removeFirst() // pop the corresponding ")"
             return list
         case ")":
-            throw InterpreterError.SyntaxError("unexpected )")
+            throw InterpreterError.unexpectedParenthesis
         default:
             return atom(token)
         }
@@ -286,22 +293,22 @@ public struct Interpreter {
             case let x as Symbol:
                 return x
             default:
-                throw InterpreterError.SyntaxError("invalid constant literal")
+                throw InterpreterError.invalidConstantLiteral
             }
         } else if let x = x as? List, x.first as? Symbol == "if" { // conditional
             guard var test = x[safe: 1], let conseq = x[safe: 2], let alt = x[safe: 3] else {
-                throw InterpreterError.SyntaxError("invalid conditional statement")
+                throw InterpreterError.invalidConditionalStatement
             }
 
             guard let bool = try eval(&test, withEnvironment: &env) as? Bool else {
-                throw InterpreterError.SyntaxError("invalid conditional statement")
+                throw InterpreterError.invalidConditionalStatement
             }
 
             var exp = bool ? conseq : alt
             return try eval(&exp, withEnvironment: &env)
         } else if let x = x as? List, x.first as? Symbol == "define" { // definition
             guard let `var` = x[safe: 1] as? Symbol, var exp = x[safe: 2] else {
-                throw InterpreterError.SyntaxError("invalid variable definition")
+                throw InterpreterError.invalidDefinition
             }
 
             env[`var`] = try eval(&exp, withEnvironment: &env)
@@ -309,7 +316,7 @@ public struct Interpreter {
         } else if let x = x as? List { // procedure call
             var args: [Any] = []
             guard var exp = x[safe: 0] else {
-                throw InterpreterError.SyntaxError("invalid procedure call")
+                throw InterpreterError.invalidProcedureCalled
             }
 
             let proc = try eval(&exp, withEnvironment: &env)
@@ -317,7 +324,7 @@ public struct Interpreter {
             for element in x.dropFirst() {
                 var element = element
                 guard let arg = try eval(&element, withEnvironment: &env) else {
-                    throw InterpreterError.SyntaxError("invalid procedure call")
+                    throw InterpreterError.invalidProcedureCalled
                 }
                 args.append(arg)
             }
@@ -327,31 +334,31 @@ public struct Interpreter {
                 return proc
             case 1:
                 guard let proc = proc as? (Any)->Any? else {
-                    throw InterpreterError.SyntaxError("unknown single parameter function")
+                    throw InterpreterError.invalidProcedureCalled
                 }
                 guard let result = proc(args[safe: 0] as Any) else {
-                    throw InterpreterError.SyntaxError("bad input to single parameter function")
+                    throw InterpreterError.invalidProcedureInput
                 }
                 return result
             case 2:
                 guard let proc = proc as? (Any, Any)->Any? else {
-                    throw InterpreterError.SyntaxError("unknown two parameter function")
+                    throw InterpreterError.invalidProcedureCalled
                 }
                 guard let result = proc(args[safe: 0] as Any, args[safe: 1] as Any) else {
-                    throw InterpreterError.SyntaxError("bad input to two parameter function")
+                    throw InterpreterError.invalidProcedureInput
                 }
                 return result
             default:
                 guard let proc = proc as? (Any...)->Any? else {
-                    throw InterpreterError.SyntaxError("unknown variadic parameter function")
+                    throw InterpreterError.invalidProcedureCalled
                 }
                 guard let result = proc(args) else {
-                    throw InterpreterError.SyntaxError("bad input to variadic parameter function")
+                    throw InterpreterError.invalidProcedureInput
                 }
                 return result
             }
         }
-        throw InterpreterError.SyntaxError("should never occur")
+        throw InterpreterError.unknown
     }
 
 
@@ -376,8 +383,8 @@ public struct Interpreter {
                 if let val = try Interpreter.eval(&parsed, withEnvironment: &globalEnv) {
                     print(Interpreter.schemeString(val))
                 }
-            } catch InterpreterError.SyntaxError(let message) {
-                print("\(prompt)Interpreter error: \(message)!")
+            } catch let error as InterpreterError {
+                print("\(prompt)Interpreter error: \(error.rawValue)!")
             } catch {
                 print("\(prompt)Unknown error occured!")
             }
