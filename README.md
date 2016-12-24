@@ -13,6 +13,17 @@ swift build
 .build/debug/Swisp
 ```
 
+Example of REPL in action:
+
+```
+Swisp> (define r 10)
+Swisp> (* pi (* r r))
+314.159265358979
+Swisp> (if (> (* 11 11) 120) (* 7 6) oops)
+42
+Swisp> 
+```
+
 ## Readings I Found Useful
 
 - [Functional programming with Swift](http://mislavjavor.github.io/2016/11/14/Functional-programming-with-Swift-3.html)
