@@ -24,12 +24,14 @@
 //
 
 import XCTest
+@testable import Swisp
+
 
 /**
  Simple tests for the standard global environment
  */
 class EnvironmentTests: XCTestCase {
-
+ 
     // MARK: - Constant Values
 
     /// Value of mathematical constant π

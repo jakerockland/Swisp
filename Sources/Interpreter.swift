@@ -1,6 +1,6 @@
 //
 //  Interpreter.swift
-//  Swisp
+//  Sources
 //
 //  MIT License
 //
@@ -26,16 +26,16 @@
 import Foundation
 
 /// A Scheme Symbol is implemented as a Swift `String`.
-public typealias Symbol = String
+internal typealias Symbol = String
 
 /// A Scheme List is implemented as a Swift `[Any]` array.
-public typealias List = [Any]
+internal typealias List = [Any]
 
 /// A Scheme Number is implemented as a Swift `NSNumber`.
-public typealias Number = NSNumber
+internal typealias Number = NSNumber
 
 /// A Scheme Env is implemented as a Swift `[String: Any]` dictionary.
-public typealias Env = [Symbol: Any]
+internal typealias Env = [Symbol: Any]
 
 /**
  Extension to Array for safer indexing
@@ -49,7 +49,7 @@ private extension Array {
 /**
  A simple Scheme interpreter written in Swift
  */
-public struct Interpreter {
+internal struct Interpreter {
 
     // MARK: - Error Definitions
 

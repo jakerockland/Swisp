@@ -24,12 +24,14 @@
 //
 
 import XCTest
+@testable import Swisp
+
 
 /**
  Simple tests for a simple Scheme interpreter written in Swift
  */
 class InterpreterTests: XCTestCase {
-
+    
     // MARK: - Constant Values
 
     /// Value of mathematical constant π
