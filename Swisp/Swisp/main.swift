@@ -23,8 +23,6 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-import Foundation
-
 // Create interpreter instantiation
 var interpreter = Interpreter()
 
