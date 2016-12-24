@@ -37,6 +37,7 @@
 		40F889241E0F0FF400AA93E9 /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Environment.swift; path = Sources/Environment.swift; sourceTree = SOURCE_ROOT; };
 		40F889251E0F0FF400AA93E9 /* Interpreter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Interpreter.swift; path = Sources/Interpreter.swift; sourceTree = SOURCE_ROOT; };
 		40F889261E0F0FF400AA93E9 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = main.swift; path = Sources/main.swift; sourceTree = SOURCE_ROOT; };
+		40F8892F1E0F18E400AA93E9 /* XCTestManifests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XCTestManifests.swift; path = SwispTests/XCTestManifests.swift; sourceTree = "<group>"; };
 		D5DB0A481DE0F075001C7E48 /* Swisp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Swisp; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5DB0A581DE109BA001C7E48 /* SwispTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwispTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5DB0A5C1DE109BA001C7E48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
@@ -65,6 +66,7 @@
 			children = (
 				40F889181E0F08E000AA93E9 /* EnvironmentTests.swift */,
 				40F889191E0F08E000AA93E9 /* InterpreterTests.swift */,
+				40F8892F1E0F18E400AA93E9 /* XCTestManifests.swift */,
 			);
 			name = SwispTests;
 			sourceTree = "<group>";

@@ -31,32 +31,7 @@ import XCTest
  Simple tests for the standard global environment
  */
 class EnvironmentTests: XCTestCase {
-    
-    // MARK: - Set of All Tests
-    
-    /// All environment tests
-    static var allTests : [(String, (EnvironmentTests) -> () throws -> Void)] {
-        return [
-            ("testMathConstants", testMathConstants),
-            ("testAdd", testAdd),
-            ("testSubtract", testSubtract),
-            ("testMultiply", testMultiply),
-            ("testDivide", testDivide),
-            ("testMod", testMod),
-            ("testGreaterThan", testGreaterThan),
-            ("testLessThan", testLessThan),
-            ("testGreaterThanEqual", testGreaterThanEqual),
-            ("testLessThanEqual", testLessThanEqual),
-            ("testEqual", testEqual),
-            ("testAbs", testAbs),
-            ("testCeil", testCeil),
-            ("testCopySign", testCopySign),
-            ("testFloor", testFloor),
-            ("testFabs", testFabs),
-        ]
-    }
-    
-
+ 
     // MARK: - Constant Values
 
     /// Value of mathematical constant π

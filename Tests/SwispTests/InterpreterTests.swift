@@ -32,23 +32,6 @@ import XCTest
  */
 class InterpreterTests: XCTestCase {
     
-    // MARK: - Set of All Tests
-
-    /// All interpreter tests
-    static var allTests : [(String, (InterpreterTests) -> () throws -> Void)] {
-        return [
-            ("testParse", testParse),
-            ("testParsePerformance", testParsePerformance),
-            ("testTokenize", testTokenize),
-            ("testTokenizePerformance", testTokenizePerformance),
-            ("testReadFromTokens", testReadFromTokens),
-            ("testAtom", testAtom),
-            ("testEval", testEval),
-            ("testEvalPerformance", testEvalPerformance),
-        ]
-    }
-    
-    
     // MARK: - Constant Values
 
     /// Value of mathematical constant π
