@@ -268,7 +268,7 @@ public struct Interpreter {
 
      - Returns: The evaluated statement.
      */
-    static func eval(_ x: inout Any, withEnvironment env: inout Env) throws -> Any {
+    static func eval(_ x: inout Any, withEnvironment env: inout Env) throws -> Any? {
         if let x = x as? Symbol { // variable reference
             guard env[x] != nil else {
                 return x
@@ -305,7 +305,7 @@ public struct Interpreter {
             }
 
             env[`var`] = try eval(&exp, withEnvironment: &env)
-            return 0
+            return nil
         } else if let x = x as? List { // procedure call
             var args: [Any] = []
             guard var exp = x[safe: 0] else {
@@ -314,9 +314,12 @@ public struct Interpreter {
 
             let proc = try eval(&exp, withEnvironment: &env)
 
-            for arg in x.dropFirst() {
-                var arg = arg
-                args.append(try eval(&arg, withEnvironment: &env))
+            for element in x.dropFirst() {
+                var element = element
+                guard let arg = try eval(&element, withEnvironment: &env) else {
+                    throw InterpreterError.SyntaxError("invalid procedure call")
+                }
+                args.append(arg)
             }
 
             switch args.count {
@@ -370,8 +373,9 @@ public struct Interpreter {
 
             do {
                 var parsed = try Interpreter.parse(input) as Any
-                let val = try Interpreter.eval(&parsed, withEnvironment: &globalEnv)
-                print(Interpreter.schemeString(val))
+                if let val = try Interpreter.eval(&parsed, withEnvironment: &globalEnv) {
+                    print(Interpreter.schemeString(val))
+                }
             } catch InterpreterError.SyntaxError(let message) {
                 print("\(prompt)Interpreter error: \(message)!")
             } catch {
