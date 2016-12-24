@@ -24,7 +24,8 @@
 //
 
 import XCTest
-@testable import Interpreter
+@testable import Swisp
+
 
 /**
  Simple tests for a simple Scheme interpreter written in Swift

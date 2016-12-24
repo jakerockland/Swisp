@@ -10,6 +10,10 @@
 		40F889271E0F0FF400AA93E9 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F889241E0F0FF400AA93E9 /* Environment.swift */; };
 		40F889281E0F0FF400AA93E9 /* Interpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F889251E0F0FF400AA93E9 /* Interpreter.swift */; };
 		40F889291E0F0FF400AA93E9 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F889261E0F0FF400AA93E9 /* main.swift */; };
+		40F8892A1E0F112D00AA93E9 /* EnvironmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F889181E0F08E000AA93E9 /* EnvironmentTests.swift */; };
+		40F8892B1E0F112D00AA93E9 /* InterpreterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F889191E0F08E000AA93E9 /* InterpreterTests.swift */; };
+		40F8892C1E0F113A00AA93E9 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F889241E0F0FF400AA93E9 /* Environment.swift */; };
+		40F8892D1E0F113A00AA93E9 /* Interpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F889251E0F0FF400AA93E9 /* Interpreter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -208,6 +212,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40F8892A1E0F112D00AA93E9 /* EnvironmentTests.swift in Sources */,
+				40F8892B1E0F112D00AA93E9 /* InterpreterTests.swift in Sources */,
+				40F8892C1E0F113A00AA93E9 /* Environment.swift in Sources */,
+				40F8892D1E0F113A00AA93E9 /* Interpreter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

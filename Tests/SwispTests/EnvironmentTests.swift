@@ -24,10 +24,8 @@
 //
 
 import XCTest
-import Interpreter
-@testable import Operators
-@testable import Library
-@testable import Math
+@testable import Swisp
+
 
 /**
  Simple tests for the standard global environment
