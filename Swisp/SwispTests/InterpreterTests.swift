@@ -143,7 +143,7 @@ class InterpreterTests: XCTestCase {
      */
     func testParsePerformance() {
         let program = "(begin (define r 10) (* pi (* r r)))"
-        self.measure {
+        measure {
             do {
                 _ = try Interpreter.parse(program)
             } catch {
@@ -166,7 +166,7 @@ class InterpreterTests: XCTestCase {
      */
     func testTokenizePerformance() {
         let program = "(begin (define r 10) (* pi (* r r)))"
-        self.measure {
+        measure {
             _ = Interpreter.tokenize(program)
         }
     }
@@ -285,7 +285,7 @@ class InterpreterTests: XCTestCase {
             XCTFail()
         }
 
-        self.measure {
+        measure {
             do {
                 let _ = try Interpreter.eval(&parsed, withEnvironment: &self.interpreter.globalEnv)
             } catch {

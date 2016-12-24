@@ -360,7 +360,7 @@ public struct Interpreter {
 
             do {
                 var parsed = try Interpreter.parse(input) as Any
-                let val = try Interpreter.eval(&parsed, withEnvironment: &self.globalEnv)
+                let val = try Interpreter.eval(&parsed, withEnvironment: &globalEnv)
                 print(Interpreter.schemeString(val))
             } catch InterpreterError.SyntaxError(let message) {
                 print("\(prompt)Interpreter error: \(message)!")
