@@ -261,9 +261,8 @@ internal struct Library {
      Static function for `cdr` operation
      */
     static func cdr(lis: Any) -> Any? {
-        var _lis = lis as? [Any]
-        _lis?.removeFirst()
-        return _lis
+        let _lis = lis as? [Any]
+        return _lis?.dropFirst()
     }
 
 }
