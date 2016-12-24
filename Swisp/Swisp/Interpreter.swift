@@ -70,7 +70,10 @@ struct Interpreter {
      */
     static func parse(_ program: String) throws -> [Any] {
         var tokens = tokenize(program)
-        return try readFromTokens(&tokens) as! [Any]
+        guard let parsed = try readFromTokens(&tokens) as? [Any] else {
+            throw InterpreterError.SyntaxError("unable to parse tokens")
+        }
+        return parsed
     }
 
     /**
@@ -271,56 +274,68 @@ struct Interpreter {
                 return x
             case let x as Bool:
                 return x
+            case let x as Symbol:
+                return x
             default:
-                return x as! Symbol
+                throw InterpreterError.SyntaxError("trying to evaluate invalid statement")
             }
         } else if let x = x as? List, x.first as? Symbol == "if" { // conditional
             var test = x[1]
             let conseq = x[2]
             let alt = x[3]
 
-            guard let bool = try! eval(&test, withEnvironment: &env) as? Bool else {
+            guard let bool = try eval(&test, withEnvironment: &env) as? Bool else {
                 throw InterpreterError.SyntaxError("invalid conditional statement")
             }
 
             var exp = bool ? conseq : alt
-            return try! eval(&exp, withEnvironment: &env)
+            return try eval(&exp, withEnvironment: &env)
         } else if let x = x as? List, x.first as? Symbol == "define" { // definition
-            let `var` = x[1] as! Symbol
+            guard let `var` = x[1] as? Symbol else {
+                throw InterpreterError.SyntaxError("invalid variable definition")
+            }
             var exp = x[2]
 
-            env[`var`] = try! eval(&exp, withEnvironment: &env)
+            env[`var`] = try eval(&exp, withEnvironment: &env)
             return 0
         } else if let x = x as? List { // procedure call
             var args: [Any] = []
             var exp = x[0]
 
-            let proc = try! eval(&exp, withEnvironment: &env)
+            let proc = try eval(&exp, withEnvironment: &env)
 
             for arg in x.dropFirst() {
                 var arg = arg
-                args.append(try! eval(&arg, withEnvironment: &env))
+                args.append(try eval(&arg, withEnvironment: &env))
             }
 
-            // TODO: Can these checks be implemented with generics?
             switch args.count {
             case 0:
                 return proc
             case 1:
-                guard let proc = proc as? (Any)->Any else {
-                    throw InterpreterError.SyntaxError("unexpected behavior with single parameter function")
+                guard let proc = proc as? (Any)->Any? else {
+                    throw InterpreterError.SyntaxError("unknown single parameter function")
                 }
-                return proc(args.first!)
+                guard let result = proc(args.first as Any) else {
+                    throw InterpreterError.SyntaxError("bad input to single parameter function")
+                }
+                return result
             case 2:
-                guard let proc = proc as? (Any, Any)->Any else {
-                    throw InterpreterError.SyntaxError("unexpected behavior with two parameter function")
+                guard let proc = proc as? (Any, Any)->Any? else {
+                    throw InterpreterError.SyntaxError("unknown two parameter function")
                 }
-                return proc(args[0], args[1])
+                guard let result = proc(args[0], args[1]) else {
+                    throw InterpreterError.SyntaxError("bad input to two parameter function")
+                }
+                return result
             default:
-                guard let proc = proc as? (Any...)->Any else {
-                    throw InterpreterError.SyntaxError("unexpected behavior with variadic parameter function")
+                guard let proc = proc as? (Any...)->Any? else {
+                    throw InterpreterError.SyntaxError("unknown variadic parameter function")
                 }
-                return proc(args)
+                guard let result = proc(args) else {
+                    throw InterpreterError.SyntaxError("bad input to variadic parameter function")
+                }
+                return result
             }
         }
         throw InterpreterError.SyntaxError("should never occur")

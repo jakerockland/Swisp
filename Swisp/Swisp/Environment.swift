@@ -42,7 +42,7 @@ struct Operators {
     /**
      Static function for `+` operator
      */
-    static func add(lhs: Any, rhs: Any) -> Any {
+    static func add(lhs: Any, rhs: Any) -> Any? {
         switch (lhs, rhs) {
         case let (_lhs as String, _rhs as String):
             return _lhs + _rhs
@@ -55,14 +55,14 @@ struct Operators {
         case let (_lhs as Double, _rhs as Int):
             return _lhs + Double(_rhs)
         default:
-            return 0
+            return nil
         }
     }
 
     /**
      Static function for `-` operator
      */
-    static func subtract(lhs: Any, rhs: Any) -> Any {
+    static func subtract(lhs: Any, rhs: Any) -> Any? {
         switch (lhs, rhs) {
         case let (_lhs as Int, _rhs as Int):
             return _lhs - _rhs
@@ -73,14 +73,14 @@ struct Operators {
         case let (_lhs as Double, _rhs as Int):
             return _lhs - Double(_rhs)
         default:
-            return 0
+            return nil
         }
     }
 
     /**
      Static function for `*` operator
      */
-    static func multiply(lhs: Any, rhs: Any) -> Any {
+    static func multiply(lhs: Any, rhs: Any) -> Any? {
         switch (lhs, rhs) {
         case let (_lhs as Int, _rhs as Int):
             return _lhs * _rhs
@@ -91,14 +91,14 @@ struct Operators {
         case let (_lhs as Double, _rhs as Int):
             return _lhs * Double(_rhs)
         default:
-            return 0
+            return nil
         }
     }
 
     /**
      Static function for `/` operator
      */
-    static func divide(lhs: Any, rhs: Any) -> Any {
+    static func divide(lhs: Any, rhs: Any) -> Any? {
         switch (lhs, rhs) {
         case let (_lhs as Int, _rhs as Int):
             return _lhs / _rhs
@@ -109,26 +109,26 @@ struct Operators {
         case let (_lhs as Double, _rhs as Int):
             return _lhs / Double(_rhs)
         default:
-            return 0
+            return nil
         }
     }
 
     /**
      Static function for `%` operator
      */
-    static func mod(lhs: Any, rhs: Any) -> Any {
+    static func mod(lhs: Any, rhs: Any) -> Any? {
         switch (lhs, rhs) {
         case let (_lhs as Int, _rhs as Int):
             return _lhs % _rhs
         default:
-            return 0
+            return nil
         }
     }
 
     /**
      Static function for `>` operator
      */
-    static func greaterThan(lhs: Any, rhs: Any) -> Any {
+    static func greaterThan(lhs: Any, rhs: Any) -> Any? {
         switch (lhs, rhs) {
         case let (_lhs as Int, _rhs as Int):
             return _lhs > _rhs
@@ -137,14 +137,14 @@ struct Operators {
         case let (_lhs as String, _rhs as String):
             return _lhs > _rhs
         default:
-            return false
+            return nil
         }
     }
 
     /**
      Static function for `<` operator
      */
-    static func lessThan(lhs: Any, rhs: Any) -> Any {
+    static func lessThan(lhs: Any, rhs: Any) -> Any? {
         switch (lhs, rhs) {
         case let (_lhs as Int, _rhs as Int):
             return _lhs < _rhs
@@ -153,14 +153,14 @@ struct Operators {
         case let (_lhs as String, _rhs as String):
             return _lhs < _rhs
         default:
-            return false
+            return nil
         }
     }
 
     /**
      Static function for `>=` operator
      */
-    static func greaterThanEqual(lhs: Any, rhs: Any) -> Any {
+    static func greaterThanEqual(lhs: Any, rhs: Any) -> Any? {
         switch (lhs, rhs) {
         case let (_lhs as Int, _rhs as Int):
             return _lhs >= _rhs
@@ -169,14 +169,14 @@ struct Operators {
         case let (_lhs as String, _rhs as String):
             return _lhs >= _rhs
         default:
-            return false
+            return nil
         }
     }
 
     /**
      Static function for `<=` operator
      */
-    static func lessThanEqual(lhs: Any, rhs: Any) -> Any {
+    static func lessThanEqual(lhs: Any, rhs: Any) -> Any? {
         switch (lhs, rhs) {
         case let (_lhs as Int, _rhs as Int):
             return _lhs <= _rhs
@@ -185,14 +185,14 @@ struct Operators {
         case let (_lhs as String, _rhs as String):
             return _lhs <= _rhs
         default:
-            return false
+            return nil
         }
     }
 
     /**
      Static function for `=` operator
      */
-    static func equal(lhs: Any, rhs: Any) -> Any {
+    static func equal(lhs: Any, rhs: Any) -> Any? {
         switch (lhs, rhs) {
         case let (_lhs as Int, _rhs as Int):
             return _lhs == _rhs
@@ -201,7 +201,7 @@ struct Operators {
         case let (_lhs as String, _rhs as String):
             return _lhs == _rhs
         default:
-            return false
+            return nil
         }
     }
 }
@@ -236,14 +236,14 @@ struct Library {
     /**
      Static function for `abs` operation
      */
-    static func abs(val: Any) -> Any {
+    static func abs(val: Any) -> Any? {
         switch (val) {
         case let (_val as Int):
             return Swift.abs(_val)
         case let (_val as Double):
             return Swift.abs(_val)
         default:
-            return 0
+            return nil
         }
     }
 
@@ -251,24 +251,19 @@ struct Library {
     /**
      Static function for `car` operation
      */
-    static func car(lis: Any) -> Any {
-        guard let _lis = lis as? [Any] else {
-            return []
-        }
-
-        return _lis.first ?? []
+    static func car(lis: Any) -> Any? {
+        let _lis = lis as? [Any]
+        return _lis?.first
     }
 
     // TODO: Needs testing!
     /**
      Static function for `cdr` operation
      */
-    static func cdr(lis: Any) -> Any {
-        guard let _lis = lis as? [Any] else {
-            return []
-        }
-
-        return _lis.first ?? []
+    static func cdr(lis: Any) -> Any? {
+        var _lis = lis as? [Any]
+        _lis?.removeFirst()
+        return _lis
     }
 
 }
@@ -293,19 +288,19 @@ struct Math {
     /**
      Static function for `ceil` operation
      */
-    static func ceil(val: Any) -> Any {
+    static func ceil(val: Any) -> Any? {
         switch (val) {
         case let (_val as Double):
             return Foundation.ceil(_val)
         default:
-            return 0
+            return nil
         }
     }
 
     /**
      Static function for `copysign` operation
      */
-    static func copysign(lhs: Any, rhs: Any) -> Any {
+    static func copysign(lhs: Any, rhs: Any) -> Any? {
         switch (lhs, rhs) {
         case let (_lhs as Double, _rhs as Double):
             return Foundation.copysign(_lhs, _rhs)
@@ -316,31 +311,31 @@ struct Math {
         case let (_lhs as Double, _rhs as Int):
             return Foundation.copysign(_lhs, Double(_rhs))
         default:
-            return 0
+            return nil
         }
     }
 
     /**
      Static function for `fabs` operation
      */
-    static func fabs(val: Any) -> Any {
+    static func fabs(val: Any) -> Any? {
         switch (val) {
         case let (_val as Double):
             return Foundation.fabs(_val)
         default:
-            return 0
+            return nil
         }
     }
 
     /**
      Static function for `floor` operation
      */
-    static func floor(val: Any) -> Any {
+    static func floor(val: Any) -> Any? {
         switch (val) {
         case let (_val as Double):
             return Foundation.floor(_val)
         default:
-            return 0
+            return nil
         }
     }
     
