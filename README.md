@@ -4,6 +4,15 @@ A simple Scheme (Lisp dialect) interpreter written in Swift.
 
 Inspired by a [similar interpreter written in Python](http://norvig.com/lispy.html) by [Peter Norvig](http://norvig.com).
 
+To build Swisp:
+
+```
+git clone https://github.com/jakerockland/Swisp.git
+cd Swisp
+swift build
+.build/debug/Swisp
+```
+
 ## Useful Relevant Links
 
 - [Functional programming with Swift](http://mislavjavor.github.io/2016/11/14/Functional-programming-with-Swift-3.html)
