@@ -184,6 +184,7 @@ public struct Interpreter {
         case unexpectedParenthesis = "unexpected )"
         case invalidConstantLiteral = "invalid constant literal"
         case invalidConditionalStatement = "invalid conditional statement"
+        case invalidQuotation = "invalid quotation"
         case invalidDefinition = "invalid definition"
         case invalidProcedureCalled = "invalid procedure called"
         case invalidProcedureInput = "invalid procedure input"
@@ -327,14 +328,13 @@ public struct Interpreter {
         } else {
             return token as Symbol
         }
-        
     }
     
     
     // MARK: - Evaluation Methods
     
     /**
-     Evaluate an expression in an environment
+     Evaluate an expression in a given environment
      
      - Parameter x: The statement to be evaluated
      
@@ -344,11 +344,10 @@ public struct Interpreter {
      */
     static func eval(_ x: inout Any, withEnvironment env: inout Env) throws -> Any? {
         if let x = x as? Symbol { // variable reference
-            guard env[x] != nil else {
+            guard let ref = env[x] else {
                 return x
             }
-            
-            return env[x] as Any
+            return ref as Any
         } else if !(x is List) { // constant literal
             switch x {
             case let x as Int:
@@ -362,67 +361,71 @@ public struct Interpreter {
             default:
                 throw InterpreterError.invalidConstantLiteral
             }
-        } else if let x = x as? List, x.first as? Symbol == "if" { // conditional
-            guard var test = x[safe: 1], let conseq = x[safe: 2], let alt = x[safe: 3] else {
-                throw InterpreterError.invalidConditionalStatement
-            }
-            
-            guard let bool = try eval(&test, withEnvironment: &env) as? Bool else {
-                throw InterpreterError.invalidConditionalStatement
-            }
-            
-            var exp = bool ? conseq : alt
-            return try eval(&exp, withEnvironment: &env)
-        } else if let x = x as? List, x.first as? Symbol == "define" { // definition
-            guard let `var` = x[safe: 1] as? Symbol, var exp = x[safe: 2] else {
-                throw InterpreterError.invalidDefinition
-            }
-            
-            env[`var`] = try eval(&exp, withEnvironment: &env)
-            return nil
-        } else if let x = x as? List { // procedure call
-            var args: [Any] = []
-            guard var exp = x[safe: 0] else {
-                throw InterpreterError.invalidProcedureCalled
-            }
-            
-            let proc = try eval(&exp, withEnvironment: &env)
-            
-            for element in x.dropFirst() {
-                var element = element
-                guard let arg = try eval(&element, withEnvironment: &env) else {
+        } else if let x = x as? List {
+            if x.first as? Symbol == "quote" { // quotation
+                guard var exp = x[safe: 1] else {
+                    throw InterpreterError.invalidQuotation
+                }
+                return schemeString(&exp)
+            } else if x.first as? Symbol == "if" { // conditional
+                guard var test = x[safe: 1], let conseq = x[safe: 2], let alt = x[safe: 3] else {
+                    throw InterpreterError.invalidConditionalStatement
+                }
+                guard let bool = try eval(&test, withEnvironment: &env) as? Bool else {
+                    throw InterpreterError.invalidConditionalStatement
+                }
+                var exp = bool ? conseq : alt
+                return try eval(&exp, withEnvironment: &env)
+            } else if x.first as? Symbol == "define" { // definition
+                guard let `var` = x[safe: 1] as? Symbol, var exp = x[safe: 2] else {
+                    throw InterpreterError.invalidDefinition
+                }
+                env[`var`] = try eval(&exp, withEnvironment: &env)
+                return nil
+            } else { // procedure call
+                var args: [Any] = []
+                guard var exp = x[safe: 0] else {
                     throw InterpreterError.invalidProcedureCalled
                 }
-                args.append(arg)
-            }
-            
-            switch args.count {
-            case 0:
-                return proc
-            case 1:
-                guard let proc = proc as? (Any)->Any? else {
-                    throw InterpreterError.invalidProcedureCalled
+                
+                let proc = try eval(&exp, withEnvironment: &env)
+                
+                for element in x.dropFirst() {
+                    var element = element
+                    guard let arg = try eval(&element, withEnvironment: &env) else {
+                        throw InterpreterError.invalidProcedureCalled
+                    }
+                    args.append(arg)
                 }
-                guard let result = proc(args[safe: 0] as Any) else {
-                    throw InterpreterError.invalidProcedureInput
+                
+                switch args.count {
+                case 0:
+                    return proc
+                case 1:
+                    guard let proc = proc as? (Any)->Any? else {
+                        throw InterpreterError.invalidProcedureCalled
+                    }
+                    guard let result = proc(args[safe: 0] as Any) else {
+                        throw InterpreterError.invalidProcedureInput
+                    }
+                    return result
+                case 2:
+                    guard let proc = proc as? (Any, Any)->Any? else {
+                        throw InterpreterError.invalidProcedureCalled
+                    }
+                    guard let result = proc(args[safe: 0] as Any, args[safe: 1] as Any) else {
+                        throw InterpreterError.invalidProcedureInput
+                    }
+                    return result
+                default:
+                    guard let proc = proc as? ([Any])->Any? else {
+                        throw InterpreterError.invalidProcedureCalled
+                    }
+                    guard let result = proc(args) else {
+                        throw InterpreterError.invalidProcedureInput
+                    }
+                    return result
                 }
-                return result
-            case 2:
-                guard let proc = proc as? (Any, Any)->Any? else {
-                    throw InterpreterError.invalidProcedureCalled
-                }
-                guard let result = proc(args[safe: 0] as Any, args[safe: 1] as Any) else {
-                    throw InterpreterError.invalidProcedureInput
-                }
-                return result
-            default:
-                guard let proc = proc as? (Any...)->Any? else {
-                    throw InterpreterError.invalidProcedureCalled
-                }
-                guard let result = proc(args) else {
-                    throw InterpreterError.invalidProcedureInput
-                }
-                return result
             }
         }
         throw InterpreterError.unknown
@@ -447,8 +450,8 @@ public struct Interpreter {
             
             do {
                 var parsed = try Interpreter.parse(input) as Any
-                if let val = try Interpreter.eval(&parsed, withEnvironment: &globalEnv) {
-                    print(Interpreter.schemeString(val))
+                if var val = try Interpreter.eval(&parsed, withEnvironment: &globalEnv) {
+                    print(Interpreter.schemeString(&val))
                 }
             } catch let error as InterpreterError {
                 print("\(prompt)Interpreter error: \(error.rawValue)!")
@@ -463,12 +466,22 @@ public struct Interpreter {
      
      - Parameter exp: Expression being evaluated and converted to a string
      */
-    static func schemeString(_ exp: Any) -> String {
+    static func schemeString(_ exp: inout Any) -> String {
         guard let lis = exp as? List else {
             return String(describing: exp)
         }
         
-        return "( \(lis.map(schemeString)) )"
+        var string = "("
+        for x in lis {
+            var x = x
+            string += schemeString(&x) + " "
+        }
+        if !string.isEmpty {
+            string.remove(at: string.index(before: string.endIndex))
+        }
+        string += ")"
+        
+        return string
     }
     
 }
