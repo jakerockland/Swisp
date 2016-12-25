@@ -354,12 +354,12 @@ public struct Interpreter {
         var string = "("
         for x in lis {
             var x = x
-            string += schemeString(&x) + " "
+            string.append(schemeString(&x) + " ")
         }
         if !string.isEmpty {
             string.remove(at: string.index(before: string.endIndex))
         }
-        string += ")"
+        string.append(")")
         
         return string
     }
