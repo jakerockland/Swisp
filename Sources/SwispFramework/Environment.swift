@@ -47,11 +47,11 @@ public let standardEnv = Env([
     "ceil":     Math.ceil,
     "copysign": Math.copysign,
     "fabs":     Math.fabs,
-    //            // "factorial": factorial, // TODO
+    //            "factorial": factorial,
     "floor":    Math.floor,
     //            "fmod":     fmod,
     //            "frexp":    frexp,
-    //            // "fsum": fsum, // TODO
+    //            "fsum":     fsum,
     //            "isinf":    isinf,
     //            "isnan":    isnan,
     //            "ldexp":    ldexp,
@@ -73,8 +73,8 @@ public let standardEnv = Env([
     //            "sin":      sin,
     //            "tan":      tan,
     //            // Angular conversion
-    //            // "degrees": degrees, // TODO
-    //            // "radians": radians, // TODO
+    //            "degrees": degrees,
+    //            "radians": radians,
     //            // Hyperbolic functions
     //            "acosh":    acosh,
     //            "asinh":    asinh,
