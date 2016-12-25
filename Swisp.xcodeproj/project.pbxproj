@@ -7,28 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		40F889491E0F573C00AA93E9 /* SwispFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* SwispFramework.framework */; };
-		40F8894B1E0F585400AA93E9 /* LinuxMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F8894A1E0F585400AA93E9 /* LinuxMain.swift */; };
 		OBJ_27 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* main.swift */; };
-		OBJ_34 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* Environment.swift */; };
-		OBJ_35 /* Interpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* Interpreter.swift */; };
-		OBJ_42 /* EnvironmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* EnvironmentTests.swift */; };
-		OBJ_43 /* InterpreterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* InterpreterTests.swift */; };
-		OBJ_44 /* XCTestManifests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_17 /* XCTestManifests.swift */; };
+		OBJ_29 /* SwispFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* SwispFramework.framework */; };
+		OBJ_36 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* Environment.swift */; };
+		OBJ_37 /* Interpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* Interpreter.swift */; };
+		OBJ_44 /* EnvironmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* EnvironmentTests.swift */; };
+		OBJ_45 /* InterpreterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* InterpreterTests.swift */; };
+		OBJ_46 /* XCTestManifests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_17 /* XCTestManifests.swift */; };
+		OBJ_48 /* SwispFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* SwispFramework.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		40F889451E0F570900AA93E9 /* PBXContainerItemProxy */ = {
+		40F8894C1E0F5CA800AA93E9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = OBJ_29;
+			remoteGlobalIDString = OBJ_31;
+			remoteInfo = SwispFramework;
+		};
+		40F8894D1E0F5CA800AA93E9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = OBJ_31;
 			remoteInfo = SwispFramework;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		40F8894A1E0F585400AA93E9 /* LinuxMain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinuxMain.swift; sourceTree = "<group>"; };
 		OBJ_11 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		OBJ_12 /* Interpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interpreter.swift; sourceTree = "<group>"; };
 		OBJ_15 /* EnvironmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentTests.swift; sourceTree = "<group>"; };
@@ -46,21 +52,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
-				40F889491E0F573C00AA93E9 /* SwispFramework.framework in Frameworks */,
+				OBJ_29 /* SwispFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_36 /* Frameworks */ = {
+		OBJ_38 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_45 /* Frameworks */ = {
+		OBJ_47 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
+				OBJ_48 /* SwispFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,7 +87,6 @@
 		OBJ_13 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				40F8894A1E0F585400AA93E9 /* LinuxMain.swift */,
 				OBJ_14 /* SwispTests */,
 			);
 			path = Tests;
@@ -149,18 +155,19 @@
 			buildRules = (
 			);
 			dependencies = (
+				OBJ_30 /* PBXTargetDependency */,
 			);
 			name = Swisp;
 			productName = Swisp;
 			productReference = OBJ_19 /* Swisp */;
 			productType = "com.apple.product-type.tool";
 		};
-		OBJ_29 /* SwispFramework */ = {
+		OBJ_31 /* SwispFramework */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_30 /* Build configuration list for PBXNativeTarget "SwispFramework" */;
+			buildConfigurationList = OBJ_32 /* Build configuration list for PBXNativeTarget "SwispFramework" */;
 			buildPhases = (
-				OBJ_33 /* Sources */,
-				OBJ_36 /* Frameworks */,
+				OBJ_35 /* Sources */,
+				OBJ_38 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -171,17 +178,17 @@
 			productReference = OBJ_20 /* SwispFramework.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		OBJ_37 /* SwispTests */ = {
+		OBJ_39 /* SwispTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_38 /* Build configuration list for PBXNativeTarget "SwispTests" */;
+			buildConfigurationList = OBJ_40 /* Build configuration list for PBXNativeTarget "SwispTests" */;
 			buildPhases = (
-				OBJ_41 /* Sources */,
-				OBJ_45 /* Frameworks */,
+				OBJ_43 /* Sources */,
+				OBJ_47 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				40F889461E0F570900AA93E9 /* PBXTargetDependency */,
+				OBJ_49 /* PBXTargetDependency */,
 			);
 			name = SwispTests;
 			productName = SwispTests;
@@ -209,8 +216,8 @@
 			projectRoot = "";
 			targets = (
 				OBJ_22 /* Swisp */,
-				OBJ_29 /* SwispFramework */,
-				OBJ_37 /* SwispTests */,
+				OBJ_31 /* SwispFramework */,
+				OBJ_39 /* SwispTests */,
 			);
 		};
 /* End PBXProject section */
@@ -221,36 +228,40 @@
 			buildActionMask = 0;
 			files = (
 				OBJ_27 /* main.swift in Sources */,
-				40F8894B1E0F585400AA93E9 /* LinuxMain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_33 /* Sources */ = {
+		OBJ_35 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_34 /* Environment.swift in Sources */,
-				OBJ_35 /* Interpreter.swift in Sources */,
+				OBJ_36 /* Environment.swift in Sources */,
+				OBJ_37 /* Interpreter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_41 /* Sources */ = {
+		OBJ_43 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_42 /* EnvironmentTests.swift in Sources */,
-				OBJ_43 /* InterpreterTests.swift in Sources */,
-				OBJ_44 /* XCTestManifests.swift in Sources */,
+				OBJ_44 /* EnvironmentTests.swift in Sources */,
+				OBJ_45 /* InterpreterTests.swift in Sources */,
+				OBJ_46 /* XCTestManifests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		40F889461E0F570900AA93E9 /* PBXTargetDependency */ = {
+		OBJ_30 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = OBJ_29 /* SwispFramework */;
-			targetProxy = 40F889451E0F570900AA93E9 /* PBXContainerItemProxy */;
+			target = OBJ_31 /* SwispFramework */;
+			targetProxy = 40F8894C1E0F5CA800AA93E9 /* PBXContainerItemProxy */;
+		};
+		OBJ_49 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = OBJ_31 /* SwispFramework */;
+			targetProxy = 40F8894D1E0F5CA800AA93E9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -313,7 +324,7 @@
 			};
 			name = Debug;
 		};
-		OBJ_31 /* Debug */ = {
+		OBJ_33 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
@@ -333,7 +344,7 @@
 			};
 			name = Debug;
 		};
-		OBJ_32 /* Release */ = {
+		OBJ_34 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
@@ -352,23 +363,6 @@
 				TARGET_NAME = SwispFramework;
 			};
 			name = Release;
-		};
-		OBJ_39 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = Swisp.xcodeproj/SwispTests_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				TARGET_NAME = SwispTests;
-			};
-			name = Debug;
 		};
 		OBJ_4 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -390,7 +384,24 @@
 			};
 			name = Release;
 		};
-		OBJ_40 /* Release */ = {
+		OBJ_41 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = Swisp.xcodeproj/SwispTests_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				TARGET_NAME = SwispTests;
+			};
+			name = Debug;
+		};
+		OBJ_42 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
@@ -428,20 +439,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		OBJ_30 /* Build configuration list for PBXNativeTarget "SwispFramework" */ = {
+		OBJ_32 /* Build configuration list for PBXNativeTarget "SwispFramework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				OBJ_31 /* Debug */,
-				OBJ_32 /* Release */,
+				OBJ_33 /* Debug */,
+				OBJ_34 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		OBJ_38 /* Build configuration list for PBXNativeTarget "SwispTests" */ = {
+		OBJ_40 /* Build configuration list for PBXNativeTarget "SwispTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				OBJ_39 /* Debug */,
-				OBJ_40 /* Release */,
+				OBJ_41 /* Debug */,
+				OBJ_42 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
