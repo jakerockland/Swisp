@@ -40,7 +40,6 @@
 		40F889521E0F6CFE00AA93E9 /* .travis.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
 		40F889531E0FC44100AA93E9 /* LinuxMain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinuxMain.swift; sourceTree = "<group>"; };
 		40F889551E0FC89200AA93E9 /* SwispTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwispTypes.swift; sourceTree = "<group>"; };
-		40F889581E105EEB00AA93E9 /* before_install.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = before_install.sh; path = .travis/before_install.sh; sourceTree = "<group>"; };
 		OBJ_11 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		OBJ_12 /* Interpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interpreter.swift; sourceTree = "<group>"; };
 		OBJ_15 /* EnvironmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentTests.swift; sourceTree = "<group>"; };
@@ -125,7 +124,6 @@
 			isa = PBXGroup;
 			children = (
 				40F889521E0F6CFE00AA93E9 /* .travis.yml */,
-				40F889581E105EEB00AA93E9 /* before_install.sh */,
 				40F8894E1E0F683200AA93E9 /* README.md */,
 				OBJ_6 /* Package.swift */,
 				OBJ_7 /* Sources */,
