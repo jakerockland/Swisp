@@ -23,11 +23,7 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-#if os(Linux)
-    import Glibc
-#else
-    import Darwin
-#endif
+import Foundation
 
 /// An environment with some Scheme standard procedures
 public let standardEnv = Env([
@@ -380,11 +376,7 @@ private struct Math {
     static func ceil(val: Any) -> Any? {
         switch (val) {
         case let (_val as Double):
-        #if os(Linux)
-            return Glibc.ceil(_val)
-        #else
-            return Darwin.ceil(_val)
-        #endif
+            return Foundation.ceil(_val)
         default:
             return nil
         }
@@ -396,29 +388,13 @@ private struct Math {
     static func copysign(lhs: Any, rhs: Any) -> Any? {
         switch (lhs, rhs) {
         case let (_lhs as Double, _rhs as Double):
-        #if os(Linux)
-            return Glibc.copysign(_lhs, _rhs)
-        #else
-            return Darwin.copysign(_lhs, _rhs)
-        #endif
+            return Foundation.copysign(_lhs, _rhs)
         case let (_lhs as Int, _rhs as Int):
-        #if os(Linux)
-            return Int(Glibc.copysign(Double(_lhs), Double(_rhs)))
-        #else
-            return Int(Darwin.copysign(Double(_lhs), Double(_rhs)))
-        #endif
+            return Int(Foundation.copysign(Double(_lhs), Double(_rhs)))
         case let (_lhs as Int, _rhs as Double):
-        #if os(Linux)
-            return Glibc.copysign(Double(_lhs), _rhs)
-        #else
-            return Darwin.copysign(Double(_lhs), _rhs)
-        #endif
+            return Foundation.copysign(Double(_lhs), _rhs)
         case let (_lhs as Double, _rhs as Int):
-        #if os(Linux)
-            return Glibc.copysign(_lhs, Double(_rhs))
-        #else
-            return Darwin.copysign(_lhs, Double(_rhs))
-        #endif
+            return Foundation.copysign(_lhs, Double(_rhs))
         default:
             return nil
         }
@@ -430,11 +406,7 @@ private struct Math {
     static func fabs(val: Any) -> Any? {
         switch (val) {
         case let (_val as Double):
-        #if os(Linux)
-            return Glibc.fabs(_val)
-        #else
-            return Darwin.fabs(_val)
-        #endif
+            return Foundation.fabs(_val)
         default:
             return nil
         }
@@ -446,11 +418,7 @@ private struct Math {
     static func floor(val: Any) -> Any? {
         switch (val) {
         case let (_val as Double):
-        #if os(Linux)
-            return Glibc.floor(_val)
-        #else
-            return Darwin.floor(_val)
-        #endif
+            return Foundation.floor(_val)
         default:
             return nil
         }
