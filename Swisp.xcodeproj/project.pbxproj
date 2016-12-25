@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		40F889541E0FC44100AA93E9 /* LinuxMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F889531E0FC44100AA93E9 /* LinuxMain.swift */; };
 		OBJ_27 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* main.swift */; };
 		OBJ_29 /* SwispFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* SwispFramework.framework */; };
 		OBJ_36 /* StandardEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* StandardEnvironment.swift */; };
@@ -37,6 +38,7 @@
 /* Begin PBXFileReference section */
 		40F8894E1E0F683200AA93E9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		40F889521E0F6CFE00AA93E9 /* .travis.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
+		40F889531E0FC44100AA93E9 /* LinuxMain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinuxMain.swift; sourceTree = "<group>"; };
 		OBJ_11 /* StandardEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardEnvironment.swift; sourceTree = "<group>"; };
 		OBJ_12 /* Interpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interpreter.swift; sourceTree = "<group>"; };
 		OBJ_15 /* StandardEnvironmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardEnvironmentTests.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 		OBJ_13 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				40F889531E0FC44100AA93E9 /* LinuxMain.swift */,
 				OBJ_14 /* SwispTests */,
 			);
 			path = Tests;
@@ -231,6 +234,7 @@
 			buildActionMask = 0;
 			files = (
 				OBJ_27 /* main.swift in Sources */,
+				40F889541E0FC44100AA93E9 /* LinuxMain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
