@@ -23,8 +23,6 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-import Foundation
-
 /**
  A simple Scheme interpreter written in Swift
  */
@@ -126,7 +124,17 @@ public struct Interpreter {
         var temp: String = ""
         
         let whitespace: [Character] = [" ", "\n", "\t", "\r"]
-        let padded = string.replacingOccurrences(of: "(", with: " ( ").replacingOccurrences(of: ")", with: " ) ")
+
+        var padded = ""
+        for char in string.characters {
+            if char == "(" {
+                padded.append(" ( ")
+            } else if char == ")" {
+                padded.append(" ) ")
+            } else {
+                padded.append(char)
+            }
+        }
         
         for char in padded.characters {
             if whitespace.contains(char) {
