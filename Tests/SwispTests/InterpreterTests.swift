@@ -23,14 +23,13 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
+@testable import SwispFramework
 import XCTest
-@testable import Swisp
-
 
 /**
  Simple tests for a simple Scheme interpreter written in Swift
  */
-class InterpreterTests: XCTestCase {
+public class InterpreterTests: XCTestCase {
     
     // MARK: - Constant Values
 
@@ -48,7 +47,7 @@ class InterpreterTests: XCTestCase {
     /**
      Called before every test method
      */
-    override func setUp() {
+    override public func setUp() {
         super.setUp()
 
         // Initialize our interpreter

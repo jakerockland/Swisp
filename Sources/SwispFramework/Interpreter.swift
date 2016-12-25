@@ -25,18 +25,6 @@
 
 import Foundation
 
-/// A Scheme Symbol is implemented as a Swift `String`.
-internal typealias Symbol = String
-
-/// A Scheme List is implemented as a Swift `[Any]` array.
-internal typealias List = [Any]
-
-/// A Scheme Number is implemented as a Swift `NSNumber`.
-internal typealias Number = NSNumber
-
-/// A Scheme Env is implemented as a Swift `[String: Any]` dictionary.
-internal typealias Env = [Symbol: Any]
-
 /**
  Extension to Array for safer indexing
  */
@@ -46,10 +34,108 @@ private extension Array {
     }
 }
 
+/// A Scheme Symbol is implemented as a Swift `String`.
+public typealias Symbol = String
+
+/// A Scheme List is implemented as a Swift `[Any]` array.
+public typealias List = [Any]
+
+/// A Scheme Number is implemented as a Swift `NSNumber`.
+public typealias Number = NSNumber
+
+/// A Scheme Env is implemented as a Swift `[String: Any]` dictionary.
+public typealias Env = [Symbol: Any]
+
+/// An environment with some Scheme standard procedures
+public let standardEnv = [
+    // Constants
+    "π":        3.1415926535897932384626433832795,
+    "pi":       3.1415926535897932384626433832795,
+    "𝑒":        2.7182818284590452353602874713527,
+    "e":        2.7182818284590452353602874713527,
+    // Operators
+    "+":        Operators.add,
+    "-":        Operators.subtract,
+    "*":        Operators.multiply,
+    "/":        Operators.divide,
+    "%":        Operators.mod,
+    ">":        Operators.greaterThan,
+    "<":        Operators.lessThan,
+    ">=":       Operators.greaterThanEqual,
+    "<=":       Operators.lessThanEqual,
+    "=":        Operators.equal,
+    // Number-theoretic and representation functions
+    "ceil":     Math.ceil,
+    "copysign": Math.copysign,
+    "fabs":     Math.fabs,
+    //            // "factorial": factorial, // TODO
+    "floor":    Math.floor,
+    //            "fmod":     fmod,
+    //            "frexp":    frexp,
+    //            // "fsum": fsum, // TODO
+    //            "isinf":    isinf,
+    //            "isnan":    isnan,
+    //            "ldexp":    ldexp,
+    //            "trunc":    trunc,
+    //            // Power and logarithmic functions
+    //            "exp":      exp,
+    //            "log":      log,
+    //            "log1p":    log1p,
+    //            "log10":    log10,
+    //            "pow":      pow,
+    //            "sqrt":     sqrt,
+    //            // Trigonometric functions
+    //            "acos":     acos,
+    //            "asin":     asin,
+    //            "atan":     atan,
+    //            "atan2":    atan2,
+    //            "cos":      cos,
+    //            "hypot":    hypot,
+    //            "sin":      sin,
+    //            "tan":      tan,
+    //            // Angular conversion
+    //            // "degrees": degrees, // TODO
+    //            // "radians": radians, // TODO
+    //            // Hyperbolic functions
+    //            "acosh":    acosh,
+    //            "asinh":    asinh,
+    //            "atanh":    atanh,
+    //            "cosh":     cosh,
+    //            "sinh":     sinh,
+    //            "tanh":     tanh,
+    //            // Special functions
+    //            "erf":      erf,
+    //            "erfc":     erfc,
+    //            "gamma":    gamma,
+    //            "lgamma":   lgamma,
+    // Misc.
+    "abs":      Library.abs,
+    //            "append":   { $0 + $1 },
+    //            // "apply": apply, // [TODO](https://www.drivenbycode.com/the-missing-apply-function-in-swift/)
+    //            "begin":    { $0[-1] },
+    //            "car":      { $0[0] },
+    //            "cdr":      { $0.dropFirst() },
+    //            "cons":     { [$0] + $1 },
+    //            "eq?":      { $0 === $1 },
+    //            "equal?":   { $0 == $1 },
+    //            "length":   { $0.count },
+    //            "list":     { List($0) },
+    //            "list?":    { $0 is List },
+    //            // "map":     map, // [TODO](https://www.weheartswift.com/higher-order-functions-map-filter-reduce-and-more/)
+    //            "max":      max,
+    //            "min":      min,
+    //            "not":      { !$0 },
+    //            "null?":    { $0 == nil },
+    //            "number?":  { $0 is Number },
+    //            "procedure?": { String(type(of: $0)).containsString("->") },
+    //            "round":   round,
+    //            "symbol?":  { $0 is Symbol }
+] as Env
+
 /**
  A simple Scheme interpreter written in Swift
  */
-internal struct Interpreter {
+public struct Interpreter {
 
     // MARK: - Error Definitions
 
@@ -72,8 +158,17 @@ internal struct Interpreter {
     // MARK: - Interpreter Properties
 
     /// The standard global environment for the interpreter
-    var globalEnv: Env = Interpreter.standardEnv()
-
+    var globalEnv: Env
+    
+    
+    // MARK: - Initializer
+    
+    /**
+    Public initializer for `Intepreter`
+ */
+    public init(env: Env = standardEnv) {
+        globalEnv = env
+    }
 
     // MARK: - Parser Methods
 
@@ -164,103 +259,6 @@ internal struct Interpreter {
             return token as Symbol
         }
 
-    }
-
-
-    // MARK: - Environment Methods
-
-    /**
-     Generates the Scheme standard environment.
-
-     - Returns: An environment with some Scheme standard procedures.
-     */
-    static func standardEnv() -> Env {
-        let env = [
-            // Constants
-            "π":        3.1415926535897932384626433832795,
-            "pi":       3.1415926535897932384626433832795,
-            "𝑒":        2.7182818284590452353602874713527,
-            "e":        2.7182818284590452353602874713527,
-            // Operators
-            "+":        Operators.add,
-            "-":        Operators.subtract,
-            "*":        Operators.multiply,
-            "/":        Operators.divide,
-            "%":        Operators.mod,
-            ">":        Operators.greaterThan,
-            "<":        Operators.lessThan,
-            ">=":       Operators.greaterThanEqual,
-            "<=":       Operators.lessThanEqual,
-            "=":        Operators.equal,
-            // Number-theoretic and representation functions
-            "ceil":     Math.ceil,
-            "copysign": Math.copysign,
-            "fabs":     Math.fabs,
-            //            // "factorial": factorial, // TODO
-            "floor":    Math.floor,
-            //            "fmod":     fmod,
-            //            "frexp":    frexp,
-            //            // "fsum": fsum, // TODO
-            //            "isinf":    isinf,
-            //            "isnan":    isnan,
-            //            "ldexp":    ldexp,
-            //            "trunc":    trunc,
-            //            // Power and logarithmic functions
-            //            "exp":      exp,
-            //            "log":      log,
-            //            "log1p":    log1p,
-            //            "log10":    log10,
-            //            "pow":      pow,
-            //            "sqrt":     sqrt,
-            //            // Trigonometric functions
-            //            "acos":     acos,
-            //            "asin":     asin,
-            //            "atan":     atan,
-            //            "atan2":    atan2,
-            //            "cos":      cos,
-            //            "hypot":    hypot,
-            //            "sin":      sin,
-            //            "tan":      tan,
-            //            // Angular conversion
-            //            // "degrees": degrees, // TODO
-            //            // "radians": radians, // TODO
-            //            // Hyperbolic functions
-            //            "acosh":    acosh,
-            //            "asinh":    asinh,
-            //            "atanh":    atanh,
-            //            "cosh":     cosh,
-            //            "sinh":     sinh,
-            //            "tanh":     tanh,
-            //            // Special functions
-            //            "erf":      erf,
-            //            "erfc":     erfc,
-            //            "gamma":    gamma,
-            //            "lgamma":   lgamma,
-            // Misc.
-            "abs":      Library.abs,
-            //            "append":   { $0 + $1 },
-            //            // "apply": apply, // [TODO](https://www.drivenbycode.com/the-missing-apply-function-in-swift/)
-            //            "begin":    { $0[-1] },
-            //            "car":      { $0[0] },
-            //            "cdr":      { $0.dropFirst() },
-            //            "cons":     { [$0] + $1 },
-            //            "eq?":      { $0 === $1 },
-            //            "equal?":   { $0 == $1 },
-            //            "length":   { $0.count },
-            //            "list":     { List($0) },
-            //            "list?":    { $0 is List },
-            //            // "map":     map, // [TODO](https://www.weheartswift.com/higher-order-functions-map-filter-reduce-and-more/)
-            //            "max":      max,
-            //            "min":      min,
-            //            "not":      { !$0 },
-            //            "null?":    { $0 == nil },
-            //            "number?":  { $0 is Number },
-            //            "procedure?": { String(type(of: $0)).containsString("->") },
-            //            "round":   round,
-            //            "symbol?":  { $0 is Symbol }
-            ] as Env
-
-        return env
     }
 
 
@@ -369,7 +367,7 @@ internal struct Interpreter {
 
      - Parameter prompt: The prompt string to display in the print loop.
      */
-    mutating func repl(_ prompt: String = "Swisp> ") {
+    public mutating func repl(_ prompt: String = "Swisp> ") {
         while true {
             print(prompt, separator: "", terminator: "")
 
