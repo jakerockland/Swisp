@@ -15,6 +15,12 @@ swift build
 .build/debug/Swisp
 ```
 
+To run the unit tests:
+
+```
+swift test
+```
+
 Example of REPL in action:
 
 ```
