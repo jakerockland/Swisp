@@ -187,6 +187,7 @@ public struct Interpreter {
         case invalidQuotation = "invalid quotation"
         case invalidDefinition = "invalid definition"
         case invalidAssignment = "invalid assignment"
+        case invalidLambda = "invalid lambda"
         case invalidProcedureCalled = "invalid procedure called"
         case invalidProcedureInput = "invalid procedure input"
         case unknown = "should never occur"
@@ -209,14 +210,14 @@ public struct Interpreter {
         private var env: Env
         
         /// Initializes the new procedure
-        public init(parms: [Symbol], body: Any, env: Env) {
+        public init(_ parms: [Symbol], _ body: Any, _ env: Env) {
             self.parms = parms
             self.body = body
             self.env = env
         }
         
         /// Calls the given procedure
-        public func call(args: [Any]) throws -> Any? {
+        public func call(_ args: [Any]) throws -> Any? {
             var inner = Env(parms, args, outer: env)
             return try Interpreter.eval(&body, with: &inner)
         }
@@ -389,6 +390,11 @@ public struct Interpreter {
                 }
                 outer[`var`] = try eval(&exp, with: &env)
                 return nil
+            } else if x.first as? Symbol == "lambda" { // procedure
+                guard let parms = x[safe: 1] as? [Symbol], let body = x[safe: 2] else {
+                    throw InterpreterError.invalidLambda
+                }
+                return Procedure(parms, body, env)
             } else { // procedure call
                 var args: [Any] = []
                 guard var exp = x[safe: 0] else {
