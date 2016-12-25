@@ -23,14 +23,13 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
+@testable import SwispFramework
 import XCTest
-@testable import Swisp
-
 
 /**
  Simple tests for the standard global environment
  */
-class EnvironmentTests: XCTestCase {
+public class EnvironmentTests: XCTestCase {
  
     // MARK: - Constant Values
 
@@ -51,7 +50,7 @@ class EnvironmentTests: XCTestCase {
     /**
      Called before every test method
      */
-    override func setUp() {
+    override public func setUp() {
         super.setUp()
 
         // Initialize our interpreter

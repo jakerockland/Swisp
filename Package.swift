@@ -26,6 +26,9 @@
 import PackageDescription
 
 let package = Package(
-    name: "Swisp"
+    name: "Swisp",
+    targets: [
+        Target(name: "SwispTests", dependencies: ["SwispFramework"]),
+        Target(name: "Swisp", dependencies: ["SwispFramework"]),
+    ]
 )
-

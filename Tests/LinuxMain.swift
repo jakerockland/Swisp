@@ -23,10 +23,10 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
+@testable import SwispFramework
 import XCTest
-@testable import Swisp
 
-XCTMain([
-    testCase(InterpreterTests.allTests),
-    testCase(EnvironmentTests.allTests),
-])
+//XCTMain([
+//    testCase(InterpreterTests.allTests),
+//    testCase(EnvironmentTests.allTests),
+//])

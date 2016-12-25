@@ -28,7 +28,7 @@
  */
 extension InterpreterTests {
     
-    static var allTests : [(String, (InterpreterTests) -> () throws -> Void)] {
+    public static var allTests : [(String, (InterpreterTests) -> () throws -> Void)] {
         return [
             ("testParse", testParse),
             ("testParsePerformance", testParsePerformance),
@@ -48,7 +48,7 @@ extension InterpreterTests {
  */
 extension EnvironmentTests {
     
-    static var allTests : [(String, (EnvironmentTests) -> () throws -> Void)] {
+    public static var allTests : [(String, (EnvironmentTests) -> () throws -> Void)] {
         return [
             ("testMathConstants", testMathConstants),
             ("testAdd", testAdd),

@@ -23,6 +23,8 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
+import SwispFramework
+
 // Create interpreter instantiation
 var interpreter = Interpreter()
 
