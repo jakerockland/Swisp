@@ -24,11 +24,9 @@ Swisp> (if (> (* 11 11) 120) (* 7 6) oops)
 Swisp> 
 ```
 
-## Readings I Found Useful
+## Contributions
 
-- [Functional programming with Swift](http://mislavjavor.github.io/2016/11/14/Functional-programming-with-Swift-3.html)
-
-- [Scripting In Swift](http://krakendev.io/blog/scripting-in-swift)
+I welcome contributions; however, please add relevant unit tests for any new features or procedures.
 
 ## License
 
