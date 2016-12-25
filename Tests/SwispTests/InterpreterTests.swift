@@ -78,7 +78,11 @@ public class InterpreterTests: XCTestCase {
 
         var parsed: [Any] = []
         do {
-           parsed = try Interpreter.parse(program)
+            guard let _parsed = try Interpreter.parse(program) as? [Any] else {
+                XCTFail()
+                return
+            }
+            parsed = _parsed
         } catch {
             XCTFail()
         }

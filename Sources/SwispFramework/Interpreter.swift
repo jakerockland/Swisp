@@ -106,12 +106,12 @@ public struct Interpreter {
      
      - Returns: The abstract syntax tree of the associated program
      */
-    static func parse(_ program: String) throws -> [Any] {
+    static func parse(_ program: String) throws -> Any {
         var tokens = tokenize(program)
         guard let parsed = try readFromTokens(&tokens) as? [Any] else {
             throw InterpreterError.cannotParseTokens
         }
-        return parsed
+        return parsed as Any
     }
     
     /**
@@ -321,7 +321,7 @@ public struct Interpreter {
             }
             
             do {
-                var parsed = try Interpreter.parse(input) as Any
+                var parsed = try Interpreter.parse(input)
                 if var val = try Interpreter.eval(&parsed, with: &globalEnv) {
                     print(Interpreter.schemeString(&val))
                 }
