@@ -186,6 +186,7 @@ public struct Interpreter {
         case invalidConditionalStatement = "invalid conditional statement"
         case invalidQuotation = "invalid quotation"
         case invalidDefinition = "invalid definition"
+        case invalidAssignment = "invalid assignment"
         case invalidProcedureCalled = "invalid procedure called"
         case invalidProcedureInput = "invalid procedure input"
         case unknown = "should never occur"
@@ -217,7 +218,7 @@ public struct Interpreter {
         /// Calls the given procedure
         public func call(args: [Any]) throws -> Any? {
             var inner = Env(parms, args, outer: env)
-            return try Interpreter.eval(&body, withEnvironment: &inner)
+            return try Interpreter.eval(&body, with: &inner)
         }
         
     }
@@ -342,7 +343,7 @@ public struct Interpreter {
      
      - Returns: The evaluated statement
      */
-    static func eval(_ x: inout Any, withEnvironment env: inout Env) throws -> Any? {
+    static func eval(_ x: inout Any, with env: inout Env) throws -> Any? {
         if let x = x as? Symbol { // variable reference
             guard let ref = env.find(x)?[x] else {
                 return x
@@ -371,30 +372,35 @@ public struct Interpreter {
                 guard var test = x[safe: 1], let conseq = x[safe: 2], let alt = x[safe: 3] else {
                     throw InterpreterError.invalidConditionalStatement
                 }
-                guard let bool = try eval(&test, withEnvironment: &env) as? Bool else {
+                guard let bool = try eval(&test, with: &env) as? Bool else {
                     throw InterpreterError.invalidConditionalStatement
                 }
                 var exp = bool ? conseq : alt
-                return try eval(&exp, withEnvironment: &env)
+                return try eval(&exp, with: &env)
             } else if x.first as? Symbol == "define" { // definition
                 guard let `var` = x[safe: 1] as? Symbol, var exp = x[safe: 2] else {
                     throw InterpreterError.invalidDefinition
                 }
-                env[`var`] = try eval(&exp, withEnvironment: &env)
+                env[`var`] = try eval(&exp, with: &env)
                 return nil
             } else if x.first as? Symbol == "set!" { // assignment
-                // TODO
+                // TODO: Add tests for this
+                guard let `var` = x[safe: 1] as? Symbol, var exp = x[safe: 2] else {
+                    throw InterpreterError.invalidAssignment
+                }
+                env.find(`var`)?[`var`] = try eval(&exp, with: &env)
+                return nil
             } else { // procedure call
                 var args: [Any] = []
                 guard var exp = x[safe: 0] else {
                     throw InterpreterError.invalidProcedureCalled
                 }
                 
-                let proc = try eval(&exp, withEnvironment: &env)
+                let proc = try eval(&exp, with: &env)
                 
                 for element in x.dropFirst() {
                     var element = element
-                    guard let arg = try eval(&element, withEnvironment: &env) else {
+                    guard let arg = try eval(&element, with: &env) else {
                         throw InterpreterError.invalidProcedureCalled
                     }
                     args.append(arg)
@@ -452,7 +458,7 @@ public struct Interpreter {
             
             do {
                 var parsed = try Interpreter.parse(input) as Any
-                if var val = try Interpreter.eval(&parsed, withEnvironment: &globalEnv) {
+                if var val = try Interpreter.eval(&parsed, with: &globalEnv) {
                     print(Interpreter.schemeString(&val))
                 }
             } catch let error as InterpreterError {
