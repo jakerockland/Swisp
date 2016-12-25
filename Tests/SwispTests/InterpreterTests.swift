@@ -320,6 +320,30 @@ public class InterpreterTests: XCTestCase {
         } catch {
             XCTFail()
         }
+        
+        do {
+            parsed = try Interpreter.parse("(define twice (lambda (x) (* 2 x)))")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            parsed = try Interpreter.parse("(twice 5)")
+            let twice = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(twice as? Int, 10)
+            
+            parsed = try Interpreter.parse("(define repeat (lambda (f) (lambda (x) (f (f x)))))")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            parsed = try Interpreter.parse("((repeat twice) 10)")
+            let repeatTwice = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(repeatTwice as? Int, 40)
+            
+            parsed = try Interpreter.parse("((repeat (repeat twice)) 10)")
+            let repeatRepeatTwice = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(repeatRepeatTwice as? Int, 160)
+            
+            parsed = try Interpreter.parse("((repeat (repeat (repeat twice))) 10)")
+            let repeatRepeatRepeatTwice = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(repeatRepeatRepeatTwice as? Int, 2560)
+        } catch {
+            XCTFail()
+        }
     }
 
     /**
