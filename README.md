@@ -26,7 +26,7 @@ Swisp>
 
 ## Contributions
 
-I welcome contributions! However, please add relevant unit tests for any new features or procedures.
+I welcome contributions; however, please add relevant unit tests for any new features or procedures.
 
 ## License
 
