@@ -37,7 +37,7 @@
 
 /* Begin PBXFileReference section */
 		40F8894E1E0F683200AA93E9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		40F889501E0F688700AA93E9 /* .travis.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .travis.yaml; sourceTree = "<group>"; };
+		40F889521E0F6CFE00AA93E9 /* .travis.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
 		OBJ_11 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		OBJ_12 /* Interpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interpreter.swift; sourceTree = "<group>"; };
 		OBJ_15 /* EnvironmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentTests.swift; sourceTree = "<group>"; };
@@ -119,7 +119,7 @@
 		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
-				40F889501E0F688700AA93E9 /* .travis.yaml */,
+				40F889521E0F6CFE00AA93E9 /* .travis.yml */,
 				40F8894E1E0F683200AA93E9 /* README.md */,
 				OBJ_6 /* Package.swift */,
 				OBJ_7 /* Sources */,
