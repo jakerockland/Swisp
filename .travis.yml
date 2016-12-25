@@ -23,5 +23,6 @@ matrix:
             - gpg --verify ${TOOLCHAIN_VERSION}-ubuntu14.04.tar.gz.sig
             - tar xzf ${TOOLCHAIN_VERSION}-ubuntu14.04.tar.gz
             - export PATH=${PWD}/${TOOLCHAIN_VERSION}-ubuntu14.04/usr/bin:"${PATH}"
+            - chmod o+r ${PWD}/swift/usr/lib/swift/CoreFoundation/*
 
 script: swift build && swift test
