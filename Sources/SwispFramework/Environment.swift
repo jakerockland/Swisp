@@ -1,6 +1,6 @@
 //
 //  Environment.swift
-//  Sources
+//  SwispFramework
 //
 //  MIT License
 //
@@ -123,7 +123,7 @@ public let standardEnv = Env([
  - `<=`
  - `=`
  */
-internal struct Operators {
+private struct Operators {
 
     /**
      Static function for `+` operator
@@ -317,7 +317,7 @@ internal struct Operators {
  //            "round":   round,
  //            "symbol?":  { $0 is Symbol }
  */
-internal struct Library {
+private struct Library {
 
     /**
      Static function for `abs` operation
@@ -368,7 +368,7 @@ internal struct Library {
  "ldexp":    ldexp,
  "trunc":    trunc,
  */
-internal struct Math {
+private struct Math {
 
     /**
      Static function for `ceil` operation
