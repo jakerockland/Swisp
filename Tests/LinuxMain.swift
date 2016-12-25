@@ -26,7 +26,7 @@
 @testable import SwispFramework
 import XCTest
 
-//XCTMain([
-//    testCase(InterpreterTests.allTests),
-//    testCase(EnvironmentTests.allTests),
-//])
+XCTMain([
+    testCase(InterpreterTests.allTests),
+    testCase(EnvironmentTests.allTests),
+])
