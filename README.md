@@ -1,6 +1,8 @@
 # Swisp
 
-A simple Scheme (Lisp dialect) interpreter written in Swift. ![](https://travis-ci.org/[jakerockland]/Swisp.svg?branch=master)
+[![Build Status](https://travis-ci.org/jakerockland/Swisp.svg?branch=master)](https://travis-ci.org/jakerockland/Swisp)
+
+A simple Scheme (Lisp dialect) interpreter written in Swift.
 
 Inspired by a [similar interpreter written in Python](http://norvig.com/lispy.html) by [Peter Norvig](http://norvig.com).
 
@@ -11,6 +13,12 @@ git clone https://github.com/jakerockland/Swisp.git
 cd Swisp
 swift build
 .build/debug/Swisp
+```
+
+To run the unit tests:
+
+```
+swift test
 ```
 
 Example of REPL in action:
