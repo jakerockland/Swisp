@@ -382,6 +382,8 @@ public struct Interpreter {
                 }
                 env[`var`] = try eval(&exp, withEnvironment: &env)
                 return nil
+            } else if x.first as? Symbol == "set!" { // assignment
+                // TODO
             } else { // procedure call
                 var args: [Any] = []
                 guard var exp = x[safe: 0] else {
