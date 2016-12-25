@@ -1,6 +1,6 @@
 //
 //  Environment.swift
-//  Sources
+//  SwispFramework
 //
 //  MIT License
 //
@@ -25,6 +25,92 @@
 
 import Foundation
 
+/// An environment with some Scheme standard procedures
+public let standardEnv = Env([
+    // Constants
+    "π":        3.1415926535897932384626433832795,
+    "pi":       3.1415926535897932384626433832795,
+    "𝑒":        2.7182818284590452353602874713527,
+    "e":        2.7182818284590452353602874713527,
+    // Operators
+    "+":        Operators.add,
+    "-":        Operators.subtract,
+    "*":        Operators.multiply,
+    "/":        Operators.divide,
+    "%":        Operators.mod,
+    ">":        Operators.greaterThan,
+    "<":        Operators.lessThan,
+    ">=":       Operators.greaterThanEqual,
+    "<=":       Operators.lessThanEqual,
+    "=":        Operators.equal,
+    // Number-theoretic and representation functions
+    "ceil":     Math.ceil,
+    "copysign": Math.copysign,
+    "fabs":     Math.fabs,
+    //            "factorial": factorial,
+    "floor":    Math.floor,
+    //            "fmod":     fmod,
+    //            "frexp":    frexp,
+    //            "fsum":     fsum,
+    //            "isinf":    isinf,
+    //            "isnan":    isnan,
+    //            "ldexp":    ldexp,
+    //            "trunc":    trunc,
+    //            // Power and logarithmic functions
+    //            "exp":      exp,
+    //            "log":      log,
+    //            "log1p":    log1p,
+    //            "log10":    log10,
+    //            "pow":      pow,
+    //            "sqrt":     sqrt,
+    //            // Trigonometric functions
+    //            "acos":     acos,
+    //            "asin":     asin,
+    //            "atan":     atan,
+    //            "atan2":    atan2,
+    //            "cos":      cos,
+    //            "hypot":    hypot,
+    //            "sin":      sin,
+    //            "tan":      tan,
+    //            // Angular conversion
+    //            "degrees": degrees,
+    //            "radians": radians,
+    //            // Hyperbolic functions
+    //            "acosh":    acosh,
+    //            "asinh":    asinh,
+    //            "atanh":    atanh,
+    //            "cosh":     cosh,
+    //            "sinh":     sinh,
+    //            "tanh":     tanh,
+    //            // Special functions
+    //            "erf":      erf,
+    //            "erfc":     erfc,
+    //            "gamma":    gamma,
+    //            "lgamma":   lgamma,
+    // Misc.
+    "abs":      Library.abs,
+    //            "append":   { $0 + $1 },
+    //            // "apply": apply, // [TODO](https://www.drivenbycode.com/the-missing-apply-function-in-swift/)
+    //            "begin":    { $0[-1] },
+    //            "car":      { $0[0] },
+    //            "cdr":      { $0.dropFirst() },
+    //            "cons":     { [$0] + $1 },
+    //            "eq?":      { $0 === $1 },
+    //            "equal?":   { $0 == $1 },
+    //            "length":   { $0.count },
+    //            "list":     { List($0) },
+    //            "list?":    { $0 is List },
+    //            // "map":     map, // [TODO](https://www.weheartswift.com/higher-order-functions-map-filter-reduce-and-more/)
+    //            "max":      max,
+    //            "min":      min,
+    //            "not":      { !$0 },
+    //            "null?":    { $0 == nil },
+    //            "number?":  { $0 is Number },
+    //            "procedure?": { String(type(of: $0)).containsString("->") },
+    //            "round":   round,
+    //            "symbol?":  { $0 is Symbol }
+] as [Symbol: Any])
+
 /**
  Provides the following basic operators as static functions:
  - `+`
@@ -37,7 +123,7 @@ import Foundation
  - `<=`
  - `=`
  */
-internal struct Operators {
+private struct Operators {
 
     /**
      Static function for `+` operator
@@ -231,7 +317,7 @@ internal struct Operators {
  //            "round":   round,
  //            "symbol?":  { $0 is Symbol }
  */
-internal struct Library {
+private struct Library {
 
     /**
      Static function for `abs` operation
@@ -282,7 +368,7 @@ internal struct Library {
  "ldexp":    ldexp,
  "trunc":    trunc,
  */
-internal struct Math {
+private struct Math {
 
     /**
      Static function for `ceil` operation

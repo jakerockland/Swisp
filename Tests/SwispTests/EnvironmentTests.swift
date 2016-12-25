@@ -68,7 +68,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(pi)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, π)
         } catch {
             XCTFail()
@@ -76,7 +76,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(π)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, π)
         } catch {
             XCTFail()
@@ -84,7 +84,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(e)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, 𝑒)
         } catch {
             XCTFail()
@@ -92,7 +92,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(𝑒)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, 𝑒)
         } catch {
             XCTFail()
@@ -110,7 +110,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(+ 2 2)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Int, 4)
         } catch {
             XCTFail()
@@ -118,7 +118,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(+ 2.0 2.0)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, 4.0)
         } catch {
             XCTFail()
@@ -126,7 +126,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(+ 2.0 2)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, 4.0)
         } catch {
             XCTFail()
@@ -134,7 +134,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(+ 2 2.0)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, 4.0)
         } catch {
             XCTFail()
@@ -142,7 +142,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(+ two two)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? String, "twotwo")
         } catch {
             XCTFail()
@@ -157,7 +157,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(- 6 2)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Int, 4)
         } catch {
             XCTFail()
@@ -165,7 +165,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(- 6.0 2.0)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, 4.0)
         } catch {
             XCTFail()
@@ -173,7 +173,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(- 6.0 2)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, 4.0)
         } catch {
             XCTFail()
@@ -181,7 +181,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(- 6 2.0)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, 4.0)
         } catch {
             XCTFail()
@@ -196,7 +196,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(* 2 2)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Int, 4)
         } catch {
             XCTFail()
@@ -204,7 +204,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(* 2.0 2.0)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, 4.0)
         } catch {
             XCTFail()
@@ -212,7 +212,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(* 2.0 2)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, 4.0)
         } catch {
             XCTFail()
@@ -220,7 +220,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(* 2 2.0)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, 4.0)
         } catch {
             XCTFail()
@@ -235,7 +235,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(/ 8 2)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Int, 4)
         } catch {
             XCTFail()
@@ -243,7 +243,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(/ 8.0 2.0)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, 4.0)
         } catch {
             XCTFail()
@@ -251,7 +251,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(/ 8.0 2)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, 4.0)
         } catch {
             XCTFail()
@@ -259,7 +259,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(/ 8 2.0)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, 4.0)
         } catch {
             XCTFail()
@@ -274,7 +274,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(% 9 3)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Int, 0)
         } catch {
             XCTFail()
@@ -282,7 +282,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(% 9 5)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Int, 4)
         } catch {
             XCTFail()
@@ -297,7 +297,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(> 4 2)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Bool, true)
         } catch {
             XCTFail()
@@ -305,7 +305,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(> 2.0 2.0)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Bool, false)
         } catch {
             XCTFail()
@@ -313,7 +313,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(> hello world)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Bool, false)
         } catch {
             XCTFail()
@@ -328,7 +328,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(< 4 2)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Bool, false)
         } catch {
             XCTFail()
@@ -336,7 +336,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(< 2.0 2.0)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Bool, false)
         } catch {
             XCTFail()
@@ -344,7 +344,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(< hello world)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Bool, true)
         } catch {
             XCTFail()
@@ -359,7 +359,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(>= 4 2)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Bool, true)
         } catch {
             XCTFail()
@@ -367,7 +367,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(>= 2.0 2.0)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Bool, true)
         } catch {
             XCTFail()
@@ -375,7 +375,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(>= hello world)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Bool, false)
         } catch {
             XCTFail()
@@ -390,7 +390,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(<= 4 2)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Bool, false)
         } catch {
             XCTFail()
@@ -398,7 +398,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(<= 2.0 2.0)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Bool, true)
         } catch {
             XCTFail()
@@ -406,7 +406,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(<= hello world)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Bool, true)
         } catch {
             XCTFail()
@@ -421,7 +421,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(= 4 2)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Bool, false)
         } catch {
             XCTFail()
@@ -429,7 +429,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(= 2.0 2.0)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Bool, true)
         } catch {
             XCTFail()
@@ -437,7 +437,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(= hello world)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Bool, false)
         } catch {
             XCTFail()
@@ -455,7 +455,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(abs -10)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Int, 10)
         } catch {
             XCTFail()
@@ -463,7 +463,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(abs -10.0)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, 10.0)
         } catch {
             XCTFail()
@@ -481,7 +481,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(ceil -9.1)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, -9.0)
         } catch {
             XCTFail()
@@ -489,7 +489,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(ceil 9.1)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, 10.0)
         } catch {
             XCTFail()
@@ -504,7 +504,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(copysign 5.0 -1.0)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, -5.0)
         } catch {
             XCTFail()
@@ -512,7 +512,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(copysign -5.0 1.0)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, 5.0)
         } catch {
             XCTFail()
@@ -520,7 +520,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(copysign -5.0 -1.0)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, -5.0)
         } catch {
             XCTFail()
@@ -528,7 +528,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(copysign 5 -1)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Int, -5)
         } catch {
             XCTFail()
@@ -536,7 +536,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(copysign -5 1)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Int, 5)
         } catch {
             XCTFail()
@@ -544,7 +544,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(copysign 5.0 -1)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, -5.0)
         } catch {
             XCTFail()
@@ -552,7 +552,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(copysign -5 1.0)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, 5.0)
         } catch {
             XCTFail()
@@ -567,7 +567,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(floor -9.1)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, -10.0)
         } catch {
             XCTFail()
@@ -575,7 +575,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(floor 9.1)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, 9.0)
         } catch {
             XCTFail()
@@ -590,7 +590,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(fabs -9.1)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, 9.1)
         } catch {
             XCTFail()
@@ -598,7 +598,7 @@ public class EnvironmentTests: XCTestCase {
 
         do {
             parsed = try Interpreter.parse("(fabs 9.1)")
-            let result = try Interpreter.eval(&parsed, withEnvironment: &interpreter.globalEnv)
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, 9.1)
         } catch {
             XCTFail()

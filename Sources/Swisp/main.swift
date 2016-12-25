@@ -1,6 +1,6 @@
 //
 //  main.swift
-//  Sources
+//  Swisp
 //
 //  MIT License
 //
