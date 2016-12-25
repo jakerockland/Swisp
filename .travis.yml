@@ -1,5 +1,3 @@
-env: TOOLCHAIN_VERSION=swift-DEVELOPMENT-SNAPSHOT-2016-12-15-a
-
 matrix:
     include:
         - os: osx
@@ -7,6 +5,7 @@ matrix:
           language: objective-c
           env: TOOLCHAINS=swift
           before_install:
+            - TOOLCHAIN_VERSION=swift-DEVELOPMENT-SNAPSHOT-2016-12-15-a
             - curl -O https://swift.org/builds/development/xcode/${TOOLCHAIN_VERSION}/${TOOLCHAIN_VERSION}-osx.pkg
             - sudo installer -pkg ${TOOLCHAIN_VERSION}-osx.pkg -target /
 
@@ -15,6 +14,7 @@ matrix:
           language: generic
           sudo: required
           before_install:
+            - TOOLCHAIN_VERSION=swift-DEVELOPMENT-SNAPSHOT-2016-12-15-a
             - sudo apt-get install clang libicu-dev
             - wget https://swift.org/builds/development/ubuntu1404/${TOOLCHAIN_VERSION}/${TOOLCHAIN_VERSION}-ubuntu14.04.tar.gz
             - wget https://swift.org/builds/development/ubuntu1404/${TOOLCHAIN_VERSION}/${TOOLCHAIN_VERSION}-ubuntu14.04.tar.gz.sig
