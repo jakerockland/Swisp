@@ -344,7 +344,7 @@ public struct Interpreter {
      */
     static func eval(_ x: inout Any, withEnvironment env: inout Env) throws -> Any? {
         if let x = x as? Symbol { // variable reference
-            guard let ref = env[x] else {
+            guard let ref = env.find(x)?[x] else {
                 return x
             }
             return ref as Any
