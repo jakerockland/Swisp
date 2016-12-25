@@ -384,11 +384,10 @@ public struct Interpreter {
                 env[`var`] = try eval(&exp, with: &env)
                 return nil
             } else if x.first as? Symbol == "set!" { // assignment
-                // TODO: Add tests for this
-                guard let `var` = x[safe: 1] as? Symbol, var exp = x[safe: 2] else {
+                guard let `var` = x[safe: 1] as? Symbol, var exp = x[safe: 2], let outer = env.find(`var`) else {
                     throw InterpreterError.invalidAssignment
                 }
-                env.find(`var`)?[`var`] = try eval(&exp, with: &env)
+                outer[`var`] = try eval(&exp, with: &env)
                 return nil
             } else { // procedure call
                 var args: [Any] = []

@@ -304,6 +304,22 @@ public class InterpreterTests: XCTestCase {
         } catch {
             XCTFail()
         }
+        
+        do {
+            parsed = try Interpreter.parse("(define r 10)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            parsed = try Interpreter.parse("(r)")
+            let before = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(before as? Int, 10)
+            
+            parsed = try Interpreter.parse("(set! r (* r r))")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            parsed = try Interpreter.parse("(r)")
+            let after = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(after as? Int, 100)
+        } catch {
+            XCTFail()
+        }
     }
 
     /**
