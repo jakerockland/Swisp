@@ -53,6 +53,9 @@ public class Env {
     /// Initializes a new environment with given parameters and arguments
     public init(_ parms: [Symbol], _ args: [Any], outer: Env? = nil) {
         self.elements = [:]
+        for (parm, arg) in zip(parms, args) {
+            self.elements[parm] = arg
+        }
         self.outer = outer
     }
     

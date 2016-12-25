@@ -246,7 +246,7 @@ public struct Interpreter {
                 outer[`var`] = try eval(&exp, with: &env)
                 return nil
             } else if x.first as? Symbol == "lambda" { // procedure
-                guard let parms = x[safe: 1] as? [Symbol], let body = x[safe: 2] else {
+                guard let parms = x[safe: 1] as? [Symbol], let body = x[safe: 2] as? [Any] else {
                     throw InterpreterError.invalidLambda
                 }
                 return Lambda(parms, body, env)
@@ -266,33 +266,37 @@ public struct Interpreter {
                     args.append(arg)
                 }
                 
-                switch args.count {
-                case 0:
-                    return proc
-                case 1:
-                    guard let proc = proc as? (Any)->Any? else {
-                        throw InterpreterError.invalidProcedureCalled
+                if let proc = proc as? Lambda {
+                    return try proc.call(args)
+                } else {
+                    switch args.count {
+                    case 0:
+                        return proc
+                    case 1:
+                        guard let proc = proc as? (Any)->Any? else {
+                            throw InterpreterError.invalidProcedureCalled
+                        }
+                        guard let result = proc(args[safe: 0] as Any) else {
+                            throw InterpreterError.invalidProcedureInput
+                        }
+                        return result
+                    case 2:
+                        guard let proc = proc as? (Any, Any)->Any? else {
+                            throw InterpreterError.invalidProcedureCalled
+                        }
+                        guard let result = proc(args[safe: 0] as Any, args[safe: 1] as Any) else {
+                            throw InterpreterError.invalidProcedureInput
+                        }
+                        return result
+                    default:
+                        guard let proc = proc as? ([Any])->Any? else {
+                            throw InterpreterError.invalidProcedureCalled
+                        }
+                        guard let result = proc(args) else {
+                            throw InterpreterError.invalidProcedureInput
+                        }
+                        return result
                     }
-                    guard let result = proc(args[safe: 0] as Any) else {
-                        throw InterpreterError.invalidProcedureInput
-                    }
-                    return result
-                case 2:
-                    guard let proc = proc as? (Any, Any)->Any? else {
-                        throw InterpreterError.invalidProcedureCalled
-                    }
-                    guard let result = proc(args[safe: 0] as Any, args[safe: 1] as Any) else {
-                        throw InterpreterError.invalidProcedureInput
-                    }
-                    return result
-                default:
-                    guard let proc = proc as? ([Any])->Any? else {
-                        throw InterpreterError.invalidProcedureCalled
-                    }
-                    guard let result = proc(args) else {
-                        throw InterpreterError.invalidProcedureInput
-                    }
-                    return result
                 }
             }
         }

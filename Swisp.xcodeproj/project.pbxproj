@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		40F889561E0FC89200AA93E9 /* SwispTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F889551E0FC89200AA93E9 /* SwispTypes.swift */; };
 		40F889571E0FC8B900AA93E9 /* SwispTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F889551E0FC89200AA93E9 /* SwispTypes.swift */; };
 		OBJ_27 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* main.swift */; };
 		OBJ_29 /* SwispFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* SwispFramework.framework */; };
@@ -236,7 +235,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				40F889561E0FC89200AA93E9 /* SwispTypes.swift in Sources */,
 				OBJ_27 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
