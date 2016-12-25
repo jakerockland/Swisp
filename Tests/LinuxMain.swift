@@ -23,7 +23,7 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-@testable import SwispFramework
+@testable import SwispTestSuite
 import XCTest
 
 XCTMain([
