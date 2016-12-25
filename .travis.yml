@@ -24,7 +24,6 @@ matrix:
             - tar xzf ${TOOLCHAIN_VERSION}-ubuntu14.04.tar.gz
             - export PATH=${PWD}/${TOOLCHAIN_VERSION}-ubuntu14.04/usr/bin:"${PATH}"
             - which swift
-            - chmod o+r /opt/usr/lib/swift/CoreFoundation/*
-            - chmod o+r ${PWD}/swift/usr/lib/swift/CoreFoundation/*
+            - chmod o+r ${PWD}/${TOOLCHAIN_VERSION}-ubuntu14.04/usr/lib/swift/CoreFoundation/*
 
 script: swift build && swift test
