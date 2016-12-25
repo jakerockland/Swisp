@@ -83,9 +83,9 @@
 		OBJ_10 /* SwispFramework */ = {
 			isa = PBXGroup;
 			children = (
-				40F889551E0FC89200AA93E9 /* SwispTypes.swift */,
 				OBJ_12 /* Interpreter.swift */,
 				OBJ_11 /* Environment.swift */,
+				40F889551E0FC89200AA93E9 /* SwispTypes.swift */,
 			);
 			name = SwispFramework;
 			path = Sources/SwispFramework;

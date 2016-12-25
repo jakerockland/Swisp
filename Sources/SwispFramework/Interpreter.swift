@@ -26,15 +26,6 @@
 import Foundation
 
 /**
- Extension to Array for safer indexing
- */
-private extension Array {
-    subscript (safe index: Int) -> Element? {
-        return (index >= 0 && index < count) ? self[index] : nil
-    }
-}
-
-/**
  A simple Scheme interpreter written in Swift
  */
 public struct Interpreter {
@@ -361,4 +352,13 @@ public struct Interpreter {
         return string
     }
     
+}
+
+/**
+ Extension to Array for safer indexing
+ */
+private extension Array {
+    subscript (safe index: Int) -> Element? {
+        return (index >= 0 && index < count) ? self[index] : nil
+    }
 }
