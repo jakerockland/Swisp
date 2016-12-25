@@ -11,4 +11,4 @@ matrix:
 
 script: swift build && swift test
 
-before_install: ./travis/before_install.sh
+before_install: ./.travis/before_install.sh
