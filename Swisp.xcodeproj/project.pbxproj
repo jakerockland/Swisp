@@ -7,12 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		40F8894F1E0F683200AA93E9 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 40F8894E1E0F683200AA93E9 /* README.md */; };
 		OBJ_27 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* main.swift */; };
 		OBJ_29 /* SwispFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* SwispFramework.framework */; };
-		OBJ_36 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* Environment.swift */; };
+		OBJ_36 /* StandardEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* StandardEnvironment.swift */; };
 		OBJ_37 /* Interpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* Interpreter.swift */; };
-		OBJ_44 /* EnvironmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* EnvironmentTests.swift */; };
+		OBJ_44 /* StandardEnvironmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* StandardEnvironmentTests.swift */; };
 		OBJ_45 /* InterpreterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* InterpreterTests.swift */; };
 		OBJ_46 /* XCTestManifests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_17 /* XCTestManifests.swift */; };
 		OBJ_48 /* SwispFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* SwispFramework.framework */; };
@@ -38,9 +37,9 @@
 /* Begin PBXFileReference section */
 		40F8894E1E0F683200AA93E9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		40F889521E0F6CFE00AA93E9 /* .travis.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
-		OBJ_11 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		OBJ_11 /* StandardEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardEnvironment.swift; sourceTree = "<group>"; };
 		OBJ_12 /* Interpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interpreter.swift; sourceTree = "<group>"; };
-		OBJ_15 /* EnvironmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentTests.swift; sourceTree = "<group>"; };
+		OBJ_15 /* StandardEnvironmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardEnvironmentTests.swift; sourceTree = "<group>"; };
 		OBJ_16 /* InterpreterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterpreterTests.swift; sourceTree = "<group>"; };
 		OBJ_17 /* XCTestManifests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestManifests.swift; sourceTree = "<group>"; };
 		OBJ_19 /* Swisp */ = {isa = PBXFileReference; lastKnownFileType = text; path = Swisp; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,8 +79,8 @@
 		OBJ_10 /* SwispFramework */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_11 /* Environment.swift */,
 				OBJ_12 /* Interpreter.swift */,
+				OBJ_11 /* StandardEnvironment.swift */,
 			);
 			name = SwispFramework;
 			path = Sources/SwispFramework;
@@ -98,8 +97,8 @@
 		OBJ_14 /* SwispTests */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_15 /* EnvironmentTests.swift */,
 				OBJ_16 /* InterpreterTests.swift */,
+				OBJ_15 /* StandardEnvironmentTests.swift */,
 				OBJ_17 /* XCTestManifests.swift */,
 			);
 			name = SwispTests;
@@ -231,7 +230,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				40F8894F1E0F683200AA93E9 /* README.md in Sources */,
 				OBJ_27 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -240,7 +238,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_36 /* Environment.swift in Sources */,
+				OBJ_36 /* StandardEnvironment.swift in Sources */,
 				OBJ_37 /* Interpreter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -249,7 +247,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_44 /* EnvironmentTests.swift in Sources */,
+				OBJ_44 /* StandardEnvironmentTests.swift in Sources */,
 				OBJ_45 /* InterpreterTests.swift in Sources */,
 				OBJ_46 /* XCTestManifests.swift in Sources */,
 			);

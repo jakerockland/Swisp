@@ -34,20 +34,58 @@ private extension Array {
     }
 }
 
-/// A Scheme Symbol is implemented as a Swift `String`.
+/// A Scheme Symbol is implemented as a Swift `String`
 public typealias Symbol = String
 
-/// A Scheme List is implemented as a Swift `[Any]` array.
+/// A Scheme List is implemented as a Swift `[Any]` array
 public typealias List = [Any]
 
-/// A Scheme Number is implemented as a Swift `NSNumber`.
-public typealias Number = NSNumber
+/// A Scheme Number is implemented as a custom Swift enum that wraps `Int` and `Double`
+public enum Number {
+    case Int
+    case Double
+}
 
-/// A Scheme Env is implemented as a Swift `[String: Any]` dictionary.
-public typealias Env = [Symbol: Any]
+/// A Scheme Env is implemented as a custom Swift class that wraps `Dictionary`
+public class Env {
+    
+    /// Private dictionary representing environment's contents
+    private var elements: [Symbol: Any]
+    
+    /// Private outer environment, if any
+    private var outer: Env?
+    
+    /// Initializes a new environment with given dictionary
+    public init(_ elements: [Symbol: Any] = [:], outer: Env? = nil) {
+        self.elements = elements
+        self.outer = outer
+    }
+    
+    /// Initializes a new environment with given parameters and arguments
+    public init(_ parms: [Symbol], _ args: [Any], outer: Env? = nil) {
+        self.elements = [:]
+        self.outer = outer
+    }
+    
+    /// Gets value corresponding to given key, if any
+    public subscript(_ key: Symbol) -> Any? {
+        get {
+            return elements[key]
+        }
+        set {
+            elements[key] = newValue
+        }
+    }
+    
+    /// Find the innermost Env where `element` appears
+    public func find(_ key: Symbol) -> Env? {
+        return (elements[key] != nil) ? self : outer?.find(key)
+    }
+    
+}
 
 /// An environment with some Scheme standard procedures
-public let standardEnv = [
+public let standardEnv = Env([
     // Constants
     "π":        3.1415926535897932384626433832795,
     "pi":       3.1415926535897932384626433832795,
@@ -130,18 +168,16 @@ public let standardEnv = [
     //            "procedure?": { String(type(of: $0)).containsString("->") },
     //            "round":   round,
     //            "symbol?":  { $0 is Symbol }
-] as Env
+    ] as [Symbol: Any])
 
 /**
  A simple Scheme interpreter written in Swift
  */
 public struct Interpreter {
-
+    
     // MARK: - Error Definitions
-
-    /**
-     Custom type for errors encountered while interpreting
-     */
+    
+    /// Custom type for errors encountered while interpreting
     enum InterpreterError: String, Error {
         case cannotParseTokens = "unable to parse tokens"
         case unexpectedEOF = "unexpected EOF while reading"
@@ -153,10 +189,41 @@ public struct Interpreter {
         case invalidProcedureInput = "invalid procedure input"
         case unknown = "should never occur"
     }
-
-
+    
+    
+    // MARK: - Procedure Definition
+    
+    
+    /// A Scheme Procedure is implemented as a custom Swift class that TODO
+    class Procedure {
+        
+        /// Private procedure parameters
+        private var parms: [Symbol]
+        
+        /// Private procedure body
+        private var body: Any
+        
+        /// Private procedure environment
+        private var env: Env
+        
+        /// Initializes the new procedure
+        public init(parms: [Symbol], body: Any, env: Env) {
+            self.parms = parms
+            self.body = body
+            self.env = env
+        }
+        
+        /// Calls the given procedure
+        public func call(args: [Any]) throws -> Any? {
+            var inner = Env(parms, args, outer: env)
+            return try Interpreter.eval(&body, withEnvironment: &inner)
+        }
+        
+    }
+    
+    
     // MARK: - Interpreter Properties
-
+    
     /// The standard global environment for the interpreter
     var globalEnv: Env
     
@@ -164,20 +231,22 @@ public struct Interpreter {
     // MARK: - Initializer
     
     /**
-    Public initializer for `Intepreter`
- */
+     Public initializer for `Intepreter`
+     
+     - Parameter env: initial environment for interpreter, defaults to the standard environment
+     */
     public init(env: Env = standardEnv) {
         globalEnv = env
     }
-
+    
     // MARK: - Parser Methods
-
+    
     /**
-     Numbers become numbers; every other token is a symbol.
-
-     - Parameter program: The text content of the program to be parsed.
-
-     - Returns: The abstract syntax tree of the associated program.
+     Numbers become numbers; every other token is a symbol
+     
+     - Parameter program: The text content of the program to be parsed
+     
+     - Returns: The abstract syntax tree of the associated program
      */
     static func parse(_ program: String) throws -> [Any] {
         var tokens = tokenize(program)
@@ -186,21 +255,21 @@ public struct Interpreter {
         }
         return parsed
     }
-
+    
     /**
-     Converts a string of characters into an array of tokens.
-
-     - Parameter string: The `String` that we are tokenizing.
-
-     - Returns: A `String` array containing the generated tokens.
+     Converts a string of characters into an array of tokens
+     
+     - Parameter string: The `String` that we are tokenizing
+     
+     - Returns: A `String` array containing the generated tokens
      */
     static func tokenize(_ string: String) -> [String] {
         var tokens: [String] = []
         var temp: String = ""
-
+        
         let whitespace: [Character] = [" ", "\n", "\t", "\r"]
         let padded = string.replacingOccurrences(of: "(", with: " ( ").replacingOccurrences(of: ")", with: " ) ")
-
+        
         for char in padded.characters {
             if whitespace.contains(char) {
                 if temp != "" {
@@ -211,22 +280,22 @@ public struct Interpreter {
                 temp.append(char)
             }
         }
-
+        
         return tokens
     }
-
+    
     /**
-     Read an expression from a sequence of tokens.
-
-     - Parameter tokens: The `String` array containing a sequence of tokens.
-
-     - Returns: A nested array representation of the corresponding abstract syntax tree.
+     Read an expression from a sequence of tokens
+     
+     - Parameter tokens: The `String` array containing a sequence of tokens
+     
+     - Returns: A nested array representation of the corresponding abstract syntax tree
      */
     static func readFromTokens(_ tokens: inout [String]) throws -> Any {
         guard tokens.count > 0 else {
             throw InterpreterError.unexpectedEOF
         }
-
+        
         let token = tokens.removeFirst()
         switch token {
         case "(":
@@ -242,12 +311,12 @@ public struct Interpreter {
             return atom(token)
         }
     }
-
+    
     /**
-     Numbers become numbers; every other token is left as a `String`.
-
+     Numbers become numbers; every other token is left as a `String`
+     
      - Parameter token: `String` representation of token to atomize
-
+     
      - Returns: `Int` or `Double` if token is a Number, a `Symbol` (`String` alias) otherwise
      */
     static func atom(_ token: String) -> AnyHashable {
@@ -258,27 +327,27 @@ public struct Interpreter {
         } else {
             return token as Symbol
         }
-
+        
     }
-
-
+    
+    
     // MARK: - Evaluation Methods
-
+    
     /**
-     Evaluate an expression in an environment.
-
-     - Parameter x: The statement to be evaluated.
-
+     Evaluate an expression in an environment
+     
+     - Parameter x: The statement to be evaluated
+     
      - Parameter env: The environment with which to evaluate the expression (default is the global environment)
-
-     - Returns: The evaluated statement.
+     
+     - Returns: The evaluated statement
      */
     static func eval(_ x: inout Any, withEnvironment env: inout Env) throws -> Any? {
         if let x = x as? Symbol { // variable reference
             guard env[x] != nil else {
                 return x
             }
-
+            
             return env[x] as Any
         } else if !(x is List) { // constant literal
             switch x {
@@ -297,18 +366,18 @@ public struct Interpreter {
             guard var test = x[safe: 1], let conseq = x[safe: 2], let alt = x[safe: 3] else {
                 throw InterpreterError.invalidConditionalStatement
             }
-
+            
             guard let bool = try eval(&test, withEnvironment: &env) as? Bool else {
                 throw InterpreterError.invalidConditionalStatement
             }
-
+            
             var exp = bool ? conseq : alt
             return try eval(&exp, withEnvironment: &env)
         } else if let x = x as? List, x.first as? Symbol == "define" { // definition
             guard let `var` = x[safe: 1] as? Symbol, var exp = x[safe: 2] else {
                 throw InterpreterError.invalidDefinition
             }
-
+            
             env[`var`] = try eval(&exp, withEnvironment: &env)
             return nil
         } else if let x = x as? List { // procedure call
@@ -316,9 +385,9 @@ public struct Interpreter {
             guard var exp = x[safe: 0] else {
                 throw InterpreterError.invalidProcedureCalled
             }
-
+            
             let proc = try eval(&exp, withEnvironment: &env)
-
+            
             for element in x.dropFirst() {
                 var element = element
                 guard let arg = try eval(&element, withEnvironment: &env) else {
@@ -326,7 +395,7 @@ public struct Interpreter {
                 }
                 args.append(arg)
             }
-
+            
             switch args.count {
             case 0:
                 return proc
@@ -358,24 +427,24 @@ public struct Interpreter {
         }
         throw InterpreterError.unknown
     }
-
-
+    
+    
     // MARK: - REPL Methods
-
+    
     /**
-     A prompt-read-eval-print loop.
-
-     - Parameter prompt: The prompt string to display in the print loop.
+     A prompt-read-eval-print loop
+     
+     - Parameter prompt: The prompt string to display in the print loop
      */
     public mutating func repl(_ prompt: String = "Swisp> ") {
         while true {
             print(prompt, separator: "", terminator: "")
-
+            
             guard let input = readLine() else {
                 print("\(prompt)No valid input to interpret...")
                 continue
             }
-
+            
             do {
                 var parsed = try Interpreter.parse(input) as Any
                 if let val = try Interpreter.eval(&parsed, withEnvironment: &globalEnv) {
@@ -388,11 +457,11 @@ public struct Interpreter {
             }
         }
     }
-
+    
     /**
-     Convert a Swift array back into a Scheme-readable string.
-
-     - Parameter exp: Expression being evaluated and converted to a string.
+     Convert a Swift array back into a Scheme-readable string
+     
+     - Parameter exp: Expression being evaluated and converted to a string
      */
     static func schemeString(_ exp: Any) -> String {
         guard let lis = exp as? List else {

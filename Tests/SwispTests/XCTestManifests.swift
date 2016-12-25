@@ -46,9 +46,9 @@ extension InterpreterTests {
 /**
  All environment tests
  */
-extension EnvironmentTests {
+extension StandardEnvironmentTests {
     
-    public static var allTests : [(String, (EnvironmentTests) -> () throws -> Void)] {
+    public static var allTests : [(String, (StandardEnvironmentTests) -> () throws -> Void)] {
         return [
             ("testMathConstants", testMathConstants),
             ("testAdd", testAdd),
