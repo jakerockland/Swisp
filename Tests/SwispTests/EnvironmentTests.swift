@@ -1,5 +1,5 @@
 //
-//  StandardEnvironmentTests.swift
+//  EnvironmentTests.swift
 //  SwispTests
 //
 //  MIT License
@@ -29,7 +29,7 @@ import XCTest
 /**
  Simple tests for the standard global environment
  */
-public class StandardEnvironmentTests: XCTestCase {
+public class EnvironmentTests: XCTestCase {
  
     // MARK: - Constant Values
 

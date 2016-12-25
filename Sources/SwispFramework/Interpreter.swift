@@ -1,6 +1,6 @@
 //
 //  Interpreter.swift
-//  Sources
+//  SwispFramework
 //
 //  MIT License
 //
@@ -34,142 +34,6 @@ private extension Array {
     }
 }
 
-/// A Scheme Symbol is implemented as a Swift `String`
-public typealias Symbol = String
-
-/// A Scheme List is implemented as a Swift `[Any]` array
-public typealias List = [Any]
-
-/// A Scheme Number is implemented as a custom Swift enum that wraps `Int` and `Double`
-public enum Number {
-    case Int
-    case Double
-}
-
-/// A Scheme Env is implemented as a custom Swift class that wraps `Dictionary`
-public class Env {
-    
-    /// Private dictionary representing environment's contents
-    private var elements: [Symbol: Any]
-    
-    /// Private outer environment, if any
-    private var outer: Env?
-    
-    /// Initializes a new environment with given dictionary
-    public init(_ elements: [Symbol: Any] = [:], outer: Env? = nil) {
-        self.elements = elements
-        self.outer = outer
-    }
-    
-    /// Initializes a new environment with given parameters and arguments
-    public init(_ parms: [Symbol], _ args: [Any], outer: Env? = nil) {
-        self.elements = [:]
-        self.outer = outer
-    }
-    
-    /// Gets value corresponding to given key, if any
-    public subscript(_ key: Symbol) -> Any? {
-        get {
-            return elements[key]
-        }
-        set {
-            elements[key] = newValue
-        }
-    }
-    
-    /// Find the innermost Env where `element` appears
-    public func find(_ key: Symbol) -> Env? {
-        return (elements[key] != nil) ? self : outer?.find(key)
-    }
-    
-}
-
-/// An environment with some Scheme standard procedures
-public let standardEnv = Env([
-    // Constants
-    "π":        3.1415926535897932384626433832795,
-    "pi":       3.1415926535897932384626433832795,
-    "𝑒":        2.7182818284590452353602874713527,
-    "e":        2.7182818284590452353602874713527,
-    // Operators
-    "+":        Operators.add,
-    "-":        Operators.subtract,
-    "*":        Operators.multiply,
-    "/":        Operators.divide,
-    "%":        Operators.mod,
-    ">":        Operators.greaterThan,
-    "<":        Operators.lessThan,
-    ">=":       Operators.greaterThanEqual,
-    "<=":       Operators.lessThanEqual,
-    "=":        Operators.equal,
-    // Number-theoretic and representation functions
-    "ceil":     Math.ceil,
-    "copysign": Math.copysign,
-    "fabs":     Math.fabs,
-    //            // "factorial": factorial, // TODO
-    "floor":    Math.floor,
-    //            "fmod":     fmod,
-    //            "frexp":    frexp,
-    //            // "fsum": fsum, // TODO
-    //            "isinf":    isinf,
-    //            "isnan":    isnan,
-    //            "ldexp":    ldexp,
-    //            "trunc":    trunc,
-    //            // Power and logarithmic functions
-    //            "exp":      exp,
-    //            "log":      log,
-    //            "log1p":    log1p,
-    //            "log10":    log10,
-    //            "pow":      pow,
-    //            "sqrt":     sqrt,
-    //            // Trigonometric functions
-    //            "acos":     acos,
-    //            "asin":     asin,
-    //            "atan":     atan,
-    //            "atan2":    atan2,
-    //            "cos":      cos,
-    //            "hypot":    hypot,
-    //            "sin":      sin,
-    //            "tan":      tan,
-    //            // Angular conversion
-    //            // "degrees": degrees, // TODO
-    //            // "radians": radians, // TODO
-    //            // Hyperbolic functions
-    //            "acosh":    acosh,
-    //            "asinh":    asinh,
-    //            "atanh":    atanh,
-    //            "cosh":     cosh,
-    //            "sinh":     sinh,
-    //            "tanh":     tanh,
-    //            // Special functions
-    //            "erf":      erf,
-    //            "erfc":     erfc,
-    //            "gamma":    gamma,
-    //            "lgamma":   lgamma,
-    // Misc.
-    "abs":      Library.abs,
-    //            "append":   { $0 + $1 },
-    //            // "apply": apply, // [TODO](https://www.drivenbycode.com/the-missing-apply-function-in-swift/)
-    //            "begin":    { $0[-1] },
-    //            "car":      { $0[0] },
-    //            "cdr":      { $0.dropFirst() },
-    //            "cons":     { [$0] + $1 },
-    //            "eq?":      { $0 === $1 },
-    //            "equal?":   { $0 == $1 },
-    //            "length":   { $0.count },
-    //            "list":     { List($0) },
-    //            "list?":    { $0 is List },
-    //            // "map":     map, // [TODO](https://www.weheartswift.com/higher-order-functions-map-filter-reduce-and-more/)
-    //            "max":      max,
-    //            "min":      min,
-    //            "not":      { !$0 },
-    //            "null?":    { $0 == nil },
-    //            "number?":  { $0 is Number },
-    //            "procedure?": { String(type(of: $0)).containsString("->") },
-    //            "round":   round,
-    //            "symbol?":  { $0 is Symbol }
-    ] as [Symbol: Any])
-
 /**
  A simple Scheme interpreter written in Swift
  */
@@ -197,8 +61,8 @@ public struct Interpreter {
     // MARK: - Procedure Definition
     
     
-    /// A Scheme Procedure is implemented as a custom Swift class that TODO
-    class Procedure {
+    /// A Scheme Lambda is implemented as a custom Swift class
+    class Lambda {
         
         /// Private procedure parameters
         private var parms: [Symbol]
@@ -394,7 +258,7 @@ public struct Interpreter {
                 guard let parms = x[safe: 1] as? [Symbol], let body = x[safe: 2] else {
                     throw InterpreterError.invalidLambda
                 }
-                return Procedure(parms, body, env)
+                return Lambda(parms, body, env)
             } else { // procedure call
                 var args: [Any] = []
                 guard var exp = x[safe: 0] else {
