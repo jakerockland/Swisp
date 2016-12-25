@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		40F8894F1E0F683200AA93E9 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 40F8894E1E0F683200AA93E9 /* README.md */; };
 		OBJ_27 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* main.swift */; };
 		OBJ_29 /* SwispFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* SwispFramework.framework */; };
 		OBJ_36 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* Environment.swift */; };
@@ -35,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		40F8894E1E0F683200AA93E9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		40F889501E0F688700AA93E9 /* .travis.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .travis.yaml; sourceTree = "<group>"; };
 		OBJ_11 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		OBJ_12 /* Interpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interpreter.swift; sourceTree = "<group>"; };
 		OBJ_15 /* EnvironmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentTests.swift; sourceTree = "<group>"; };
@@ -113,15 +116,16 @@
 			name = Products;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
+				40F889501E0F688700AA93E9 /* .travis.yaml */,
+				40F8894E1E0F683200AA93E9 /* README.md */,
 				OBJ_6 /* Package.swift */,
 				OBJ_7 /* Sources */,
 				OBJ_13 /* Tests */,
 				OBJ_18 /* Products */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_7 /* Sources */ = {
@@ -210,7 +214,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_18 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -227,6 +231,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
+				40F8894F1E0F683200AA93E9 /* README.md in Sources */,
 				OBJ_27 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
