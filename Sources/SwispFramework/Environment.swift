@@ -356,11 +356,11 @@ private struct Library {
 - `ceil`
 - `copysign`
 -  `fabs`
- // "factorial": factorial, // TODO
+ "factorial": factorial
 - `floor`
  "fmod":     fmod,
  "frexp":    frexp,
- // "fsum": fsum, // TODO
+ "fsum":     fsum,
  "isinf":    isinf,
  "isnan":    isnan,
  "ldexp":    ldexp,
