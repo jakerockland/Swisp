@@ -89,7 +89,7 @@ public let standardEnv = Env([
     //            "lgamma":   lgamma,
     //            // Misc.
     "abs":      Library.abs,
-    //            "append":   { $0 + $1 },
+    "append":   Library.append,
     //            // "apply": apply, // [TODO](https://www.drivenbycode.com/the-missing-apply-function-in-swift/)
     //            "begin":    { $0[-1] },
     "car":      Library.car,
@@ -296,7 +296,7 @@ private struct Operators {
 /**
  Provides the following basic library operations as static functions:
 - `abs`
- //            "append":   { $0 + $1 },
+- `append`
  //            // "apply": apply, // [TODO](https://www.drivenbycode.com/the-missing-apply-function-in-swift/)
  //            "begin":    { $0[-1] },
 - `car`
@@ -331,6 +331,15 @@ private struct Library {
         default:
             return nil
         }
+    }
+    
+    /**
+     Static function for `append` operation
+     */
+    static func append(lis1: Any, lis2: Any) -> Any? {
+        let _lis1 = lis1 as? [Any] ?? []
+        let _lis2 = lis2 as? [Any] ?? []
+        return _lis1 + _lis2
     }
 
     /**

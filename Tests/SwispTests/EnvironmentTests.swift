@@ -471,6 +471,37 @@ public class EnvironmentTests: XCTestCase {
     }
     
     /**
+     Tests our `append` function
+     */
+    func testAppend() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(append (quote (1 2)) (quote ()))")
+            var result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv) as Any
+            XCTAssertEqual(Interpreter.schemeString(&result), "(1 2)")
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(append (quote ()) (quote (3 4)))")
+            var result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv) as Any
+            XCTAssertEqual(Interpreter.schemeString(&result), "(3 4)")
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(append (quote (1 2)) (quote (3 4)))")
+            var result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv) as Any
+            XCTAssertEqual(Interpreter.schemeString(&result), "(1 2 3 4)")
+        } catch {
+            XCTFail()
+        }
+    }
+    
+    /**
      Tests our `car` function
     */
     func testCar() {
