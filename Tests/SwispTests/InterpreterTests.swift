@@ -279,32 +279,32 @@ public class InterpreterTests: XCTestCase {
         
         do {
             parsed = try Interpreter.parse("(quote (+ 1 2))")
-            let equal = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
-            XCTAssertEqual(equal as? Symbol, "(+ 1 2)")
+            var equal = try Interpreter.eval(&parsed, with: &interpreter.globalEnv) as Any
+            XCTAssertEqual(Interpreter.schemeString(&equal), "(+ 1 2)")
         } catch {
             XCTFail()
         }
         
         do {
             parsed = try Interpreter.parse("(quote (/ (+ 1 2) (* 3 4)))")
-            let equal = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
-            XCTAssertEqual(equal as? Symbol, "(/ (+ 1 2) (* 3 4))")
+            var equal = try Interpreter.eval(&parsed, with: &interpreter.globalEnv) as Any
+            XCTAssertEqual(Interpreter.schemeString(&equal), "(/ (+ 1 2) (* 3 4))")
         } catch {
             XCTFail()
         }
         
         do {
             parsed = try Interpreter.parse("('(+ 1 2))")
-            let equal = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
-            XCTAssertEqual(equal as? Symbol, "(+ 1 2)")
+            var equal = try Interpreter.eval(&parsed, with: &interpreter.globalEnv) as Any
+            XCTAssertEqual(Interpreter.schemeString(&equal), "(+ 1 2)")
         } catch {
             XCTFail()
         }
         
         do {
             parsed = try Interpreter.parse("('(/ (+ 1 2) (* 3 4)))")
-            let equal = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
-            XCTAssertEqual(equal as? Symbol, "(/ (+ 1 2) (* 3 4))")
+            var equal = try Interpreter.eval(&parsed, with: &interpreter.globalEnv) as Any
+            XCTAssertEqual(Interpreter.schemeString(&equal), "(/ (+ 1 2) (* 3 4))")
         } catch {
             XCTFail()
         }

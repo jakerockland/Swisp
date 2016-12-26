@@ -92,8 +92,8 @@ public let standardEnv = Env([
     //            "append":   { $0 + $1 },
     //            // "apply": apply, // [TODO](https://www.drivenbycode.com/the-missing-apply-function-in-swift/)
     //            "begin":    { $0[-1] },
-    //            "car":      { $0[0] },
-    //            "cdr":      { $0.dropFirst() },
+    "car":      Library.car,
+    "cdr":      Library.cdr,
     //            "cons":     { [$0] + $1 },
     //            "eq?":      { $0 === $1 },
     //            "equal?":   { $0 == $1 },
@@ -333,7 +333,6 @@ private struct Library {
         }
     }
 
-    // TODO: Needs testing!
     /**
      Static function for `car` operation
      */
@@ -342,13 +341,12 @@ private struct Library {
         return _lis?.first
     }
 
-    // TODO: Needs testing!
     /**
      Static function for `cdr` operation
      */
     static func cdr(lis: Any) -> Any? {
-        let _lis = lis as? [Any]
-        return _lis?.dropFirst()
+        let _lis = lis as? [Any] ?? []
+        return Array(_lis.dropFirst())
     }
 
 }
