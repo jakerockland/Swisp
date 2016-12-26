@@ -294,22 +294,6 @@ public class InterpreterTests: XCTestCase {
         }
         
         do {
-            parsed = try Interpreter.parse("('(+ 1 2))")
-            var equal = try Interpreter.eval(&parsed, with: &interpreter.globalEnv) as Any
-            XCTAssertEqual(Interpreter.schemeString(&equal), "(+ 1 2)")
-        } catch {
-            XCTFail()
-        }
-        
-        do {
-            parsed = try Interpreter.parse("('(/ (+ 1 2) (* 3 4)))")
-            var equal = try Interpreter.eval(&parsed, with: &interpreter.globalEnv) as Any
-            XCTAssertEqual(Interpreter.schemeString(&equal), "(/ (+ 1 2) (* 3 4))")
-        } catch {
-            XCTFail()
-        }
-        
-        do {
             parsed = try Interpreter.parse("(define r 10)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             parsed = try Interpreter.parse("(r)")

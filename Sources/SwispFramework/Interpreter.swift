@@ -227,7 +227,7 @@ public struct Interpreter {
                 throw InterpreterError.invalidConstantLiteral
             }
         } else if let x = x as? List {
-            if x.first as? Symbol == "quote" || x.first as? Symbol == "'" { // quotation
+            if x.first as? Symbol == "quote" { // quotation
                 guard let lis = x[safe: 1] else {
                     throw InterpreterError.invalidQuotation
                 }
