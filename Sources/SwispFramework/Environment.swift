@@ -47,15 +47,15 @@ public let standardEnv = Env([
     "ceil":     Math.ceil,
     "copysign": Math.copysign,
     "fabs":     Math.fabs,
-    //            "factorial": factorial,
+    "factorial":Math.factorial,
     "floor":    Math.floor,
-    //            "fmod":     fmod,
-    //            "frexp":    frexp,
-    //            "fsum":     fsum,
-    //            "isinf":    isinf,
-    //            "isnan":    isnan,
-    //            "ldexp":    ldexp,
-    //            "trunc":    trunc,
+    "fmod":     Math.fmod,
+    "frexp":    Math.frexp,
+    "fsum":     Math.fsum,
+    "isinf":    Math.isinf,
+    "isnan":    Math.isnan,
+    "ldexp":    Math.ldexp,
+    "trunc":    Math.trunc,
     //            // Power and logarithmic functions
     //            "exp":      exp,
     //            "log":      log,
@@ -364,16 +364,16 @@ private struct Library {
  Provides the following basic math operations as static functions:
 - `ceil`
 - `copysign`
--  `fabs`
- "factorial": factorial
+- `fabs`
+- `factorial`
 - `floor`
- "fmod":     fmod,
- "frexp":    frexp,
- "fsum":     fsum,
- "isinf":    isinf,
- "isnan":    isnan,
- "ldexp":    ldexp,
- "trunc":    trunc,
+- `fmod`
+- `frexp`
+- `fsum`
+- `isinf`
+- `isnan`
+- `ldexp`
+- `trunc`
  */
 private struct Math {
 
@@ -418,6 +418,27 @@ private struct Math {
             return nil
         }
     }
+    
+    /**
+     Static function for `factorial` operation
+     */
+    static func factorial(val: Any) -> Any? {
+        switch (val) {
+        case let (_val as Int):
+            if _val > 20 {
+                return nil
+            } else if _val == 0 {
+                return 1
+            } else {
+                guard let _temp = factorial(val: _val - 1) as? Int else {
+                    return nil
+                }
+                return _val * _temp
+            }
+        default:
+            return nil
+        }
+    }
 
     /**
      Static function for `floor` operation
@@ -426,6 +447,96 @@ private struct Math {
         switch (val) {
         case let (_val as Double):
             return Foundation.floor(_val)
+        default:
+            return nil
+        }
+    }
+    
+    /**
+     Static function for `fmod` operation
+     */
+    static func fmod(lhs: Any, rhs: Any) -> Any? {
+        switch (lhs, rhs) {
+        case let (_lhs as Double, _rhs as Double):
+            return Foundation.fmod(_lhs, _rhs)
+        default:
+            return nil
+        }
+    }
+    
+    /**
+     Static function for `frexp` operation
+     */
+    static func frexp(val: Any) -> Any? {
+        switch (val) {
+        case let (_val as Double):
+            return Foundation.frexp(_val)
+        default:
+            return nil
+        }
+    }
+    
+    /**
+     Static function for `fsum` operation
+     */
+    static func fsum(val: Any) -> Any? {
+        switch (val) {
+        case let (_val as [Double]):
+            return _val.reduce(0,+)
+        case let (_val as [Int]):
+            return _val.reduce(0,+)
+        default:
+            return nil
+        }
+    }
+    
+    /**
+     Static function for `isinf` operation
+     */
+    static func isinf(val: Any) -> Any? {
+        switch (val) {
+        case let (_val as Double):
+            return _val == Double.infinity
+        case let (_val as Int):
+            return _val == Int.max
+        default:
+            return nil
+        }
+    }
+    
+    /**
+     Static function for `isinf` operation
+     */
+    static func isnan(val: Any) -> Any? {
+        switch (val) {
+        case (_ as Double):
+            return false
+        case (_ as Int):
+            return false
+        default:
+            return true
+        }
+    }
+    
+    /**
+     Static function for `ldexp` operation
+     */
+    static func ldexp(val: Any, exp: Any) -> Any? {
+        switch (val, exp) {
+        case let (_val as Double, _exp as Int):
+            return Foundation.ldexp(_val, _exp)
+        default:
+            return nil
+        }
+    }
+    
+    /**
+     Static function for `trunc` operation
+     */
+    static func trunc(val: Any) -> Any? {
+        switch (val) {
+        case let (_val as Double):
+            return Foundation.trunc(_val)
         default:
             return nil
         }
