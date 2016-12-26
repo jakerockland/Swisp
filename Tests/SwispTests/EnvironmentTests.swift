@@ -469,6 +469,83 @@ public class EnvironmentTests: XCTestCase {
             XCTFail()
         }
     }
+    
+    /**
+     Tests our `append` function
+     */
+    func testAppend() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(append (quote (1 2)) (quote ()))")
+            var result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv) as Any
+            XCTAssertEqual(Interpreter.schemeString(&result), "(1 2)")
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(append (quote ()) (quote (3 4)))")
+            var result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv) as Any
+            XCTAssertEqual(Interpreter.schemeString(&result), "(3 4)")
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(append (quote (1 2)) (quote (3 4)))")
+            var result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv) as Any
+            XCTAssertEqual(Interpreter.schemeString(&result), "(1 2 3 4)")
+        } catch {
+            XCTFail()
+        }
+    }
+    
+    /**
+     Tests our `car` function
+    */
+    func testCar() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(car (quote (1 2)))")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Int, 1)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(car (quote (1)))")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Int, 1)
+        } catch {
+            XCTFail()
+        }
+    }
+    
+    /**
+     Tests our `cdr` function
+     */
+    func testCdr() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(cdr (quote (1 2 3)))")
+            var result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv) as Any
+            XCTAssertEqual(Interpreter.schemeString(&result), "(2 3)")
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(cdr (cdr (quote (1 2 3))))")
+            var result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv) as Any
+            XCTAssertEqual(Interpreter.schemeString(&result), "(3)")
+        } catch {
+            XCTFail()
+        }
+    }
 
 
     // MARK: - Math Testing

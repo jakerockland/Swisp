@@ -89,11 +89,11 @@ public let standardEnv = Env([
     //            "lgamma":   lgamma,
     //            // Misc.
     "abs":      Library.abs,
-    //            "append":   { $0 + $1 },
+    "append":   Library.append,
     //            // "apply": apply, // [TODO](https://www.drivenbycode.com/the-missing-apply-function-in-swift/)
     //            "begin":    { $0[-1] },
-    //            "car":      { $0[0] },
-    //            "cdr":      { $0.dropFirst() },
+    "car":      Library.car,
+    "cdr":      Library.cdr,
     //            "cons":     { [$0] + $1 },
     //            "eq?":      { $0 === $1 },
     //            "equal?":   { $0 == $1 },
@@ -296,7 +296,7 @@ private struct Operators {
 /**
  Provides the following basic library operations as static functions:
 - `abs`
- //            "append":   { $0 + $1 },
+- `append`
  //            // "apply": apply, // [TODO](https://www.drivenbycode.com/the-missing-apply-function-in-swift/)
  //            "begin":    { $0[-1] },
 - `car`
@@ -332,8 +332,16 @@ private struct Library {
             return nil
         }
     }
+    
+    /**
+     Static function for `append` operation
+     */
+    static func append(lis1: Any, lis2: Any) -> Any? {
+        let _lis1 = lis1 as? [Any] ?? []
+        let _lis2 = lis2 as? [Any] ?? []
+        return _lis1 + _lis2
+    }
 
-    // TODO: Needs testing!
     /**
      Static function for `car` operation
      */
@@ -342,13 +350,12 @@ private struct Library {
         return _lis?.first
     }
 
-    // TODO: Needs testing!
     /**
      Static function for `cdr` operation
      */
     static func cdr(lis: Any) -> Any? {
-        let _lis = lis as? [Any]
-        return _lis?.dropFirst()
+        let _lis = lis as? [Any] ?? []
+        return Array(_lis.dropFirst())
     }
 
 }
@@ -358,11 +365,11 @@ private struct Library {
 - `ceil`
 - `copysign`
 -  `fabs`
- // "factorial": factorial, // TODO
+ "factorial": factorial
 - `floor`
  "fmod":     fmod,
  "frexp":    frexp,
- // "fsum": fsum, // TODO
+ "fsum":     fsum,
  "isinf":    isinf,
  "isnan":    isnan,
  "ldexp":    ldexp,

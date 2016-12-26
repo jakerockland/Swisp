@@ -185,7 +185,7 @@ public struct Interpreter {
      
      - Returns: `Int` or `Double` if token is a Number, a `Symbol` (`String` alias) otherwise
      */
-    static func atom(_ token: String) -> AnyHashable {
+    static func atom(_ token: String) -> Any {
         if let int = Int(token) {
             return int
         } else if let float = Double(token) {
@@ -227,11 +227,11 @@ public struct Interpreter {
                 throw InterpreterError.invalidConstantLiteral
             }
         } else if let x = x as? List {
-            if x.first as? Symbol == "quote" || x.first as? Symbol == "'" { // quotation
-                guard var exp = x[safe: 1] else {
+            if x.first as? Symbol == "quote" { // quotation
+                guard let lis = x[safe: 1] else {
                     throw InterpreterError.invalidQuotation
                 }
-                return schemeString(&exp)
+                return lis
             } else if x.first as? Symbol == "if" { // conditional
                 guard var test = x[safe: 1], let conseq = x[safe: 2], let alt = x[safe: 3] else {
                     throw InterpreterError.invalidConditionalStatement
@@ -347,7 +347,7 @@ public struct Interpreter {
      - Parameter exp: Expression being evaluated and converted to a string
      */
     static func schemeString(_ exp: inout Any) -> String {
-        guard let lis = exp as? List else {
+        guard let lis = exp as? [Any] else {
             return String(describing: exp)
         }
         
