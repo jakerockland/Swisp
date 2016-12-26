@@ -1,6 +1,6 @@
 # Swisp
 
-[![Build Status](https://travis-ci.org/jakerockland/Swisp.svg?branch=master)](https://travis-ci.org/jakerockland/Swisp)
+[![Build Status](https://travis-ci.org/jakerockland/Swisp.svg?branch=master)](https://travis-ci.org/jakerockland/Swisp) [![Codecov](https://img.shields.io/codecov/c/github/jakerockland/Swisp.svg)]()
 
 A simple Scheme (Lisp dialect) interpreter written in Swift.
 
