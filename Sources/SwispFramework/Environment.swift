@@ -337,8 +337,9 @@ private struct Library {
      Static function for `append` operation
      */
     static func append(lis1: Any, lis2: Any) -> Any? {
-        let _lis1 = lis1 as? [Any] ?? []
-        let _lis2 = lis2 as? [Any] ?? []
+        guard let _lis1 = lis1 as? [Any], let _lis2 = lis2 as? [Any] else {
+            return nil
+        }
         return _lis1 + _lis2
     }
 
@@ -346,15 +347,19 @@ private struct Library {
      Static function for `car` operation
      */
     static func car(lis: Any) -> Any? {
-        let _lis = lis as? [Any]
-        return _lis?.first
+        guard let _lis = lis as? [Any] else {
+            return nil
+        }
+        return _lis.first
     }
 
     /**
      Static function for `cdr` operation
      */
     static func cdr(lis: Any) -> Any? {
-        let _lis = lis as? [Any] ?? []
+        guard let _lis = lis as? [Any] else {
+            return nil
+        }
         return Array(_lis.dropFirst())
     }
 
@@ -430,10 +435,7 @@ private struct Math {
             } else if _val == 0 {
                 return 1
             } else {
-                guard let _temp = factorial(val: _val - 1) as? Int else {
-                    return nil
-                }
-                return _val * _temp
+                return _val * (factorial(val: _val - 1) as! Int)
             }
         default:
             return nil

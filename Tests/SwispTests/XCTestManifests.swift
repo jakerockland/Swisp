@@ -66,8 +66,9 @@ extension EnvironmentTests {
             ("testCdr", testCdr),
             ("testCeil", testCeil),
             ("testCopySign", testCopySign),
-            ("testFloor", testFloor),
             ("testFabs", testFabs),
+            ("testFactorial", testFactorial),
+            ("testFloor", testFloor),
         ]
     }()
     
