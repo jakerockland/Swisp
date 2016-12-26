@@ -62,6 +62,8 @@ extension EnvironmentTests {
             ("testLessThanEqual", testLessThanEqual),
             ("testEqual", testEqual),
             ("testAbs", testAbs),
+            ("testCar", testCar),
+            ("testCdr", testCdr),
             ("testCeil", testCeil),
             ("testCopySign", testCopySign),
             ("testFloor", testFloor),
