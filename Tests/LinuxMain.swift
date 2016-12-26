@@ -23,8 +23,8 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
+@testable import SwispTests
 import XCTest
-@testable import SwispTestSuite
 
 XCTMain([
     testCase(InterpreterTests.allTests),
