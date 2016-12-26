@@ -928,5 +928,266 @@ public class EnvironmentTests: XCTestCase {
             XCTFail()
         }
     }
+    
+    /**
+     Tests our `fmod` function
+     */
+    func testFmod() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(fmod 3.0 2.0)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 1.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(fmod pi e)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 0.423310825130748)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(fmod e pi)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 2.7182818284590451)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(fmod 3 2)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch let error as Interpreter.InterpreterError {
+            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
+        } catch {
+            XCTFail()
+        }
+    }
+    
+    /**
+     Tests our `frexp` function
+     */
+    func testFrexp() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(frexp 3.0)")
+            var result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv) as Any
+            XCTAssertEqual(Interpreter.schemeString(&result), "(0.75 2)")
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(frexp pi)")
+            var result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv) as Any
+            XCTAssertEqual(Interpreter.schemeString(&result), "(0.785398163397448 2)")
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(frexp e)")
+            var result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv) as Any
+            XCTAssertEqual(Interpreter.schemeString(&result), "(0.679570457114761 2)")
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(frexp 3)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch let error as Interpreter.InterpreterError {
+            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
+        } catch {
+            XCTFail()
+        }
+    }
+    
+    /**
+     Tests our `fsum` function
+     */
+    func testFsum() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(fsum (quote (1.0 2.0 3.0)))")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv) as Any
+            XCTAssertEqual(result as? Double, 6.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(fsum (quote (-1.0 -2.0 3.0)))")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv) as Any
+            XCTAssertEqual(result as? Double, 0.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(fsum (quote (1 2 3)))")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv) as Any
+            XCTAssertEqual(result as? Int, 6)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(fsum (quote (-1 -2 3)))")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv) as Any
+            XCTAssertEqual(result as? Int, 0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(fsum (3.0))")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch let error as Interpreter.InterpreterError {
+            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
+        } catch {
+            XCTFail()
+        }
+    }
+
+    /**
+     Tests our `isinf` function
+     */
+    func testIsinf() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(isinf 92233720368547758.56346785346)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Bool, false)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(isinf inf)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Bool, true)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(isinf 92233720368547758)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch let error as Interpreter.InterpreterError {
+            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
+        } catch {
+            XCTFail()
+        }
+    }
+    
+    /**
+     Tests our `isnan` function
+     */
+    func testIsnan() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(isnan 92233720368547758.56346785346)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Bool, false)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(isnan 92233720368547758)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Bool, false)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(isnan hello)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Bool, true)
+        } catch {
+            XCTFail()
+        }
+    }
+    
+    /**
+     Tests our `ldexp` function
+     */
+    func testLdexp() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(ldexp pi 2)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 12.566370614359172)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(ldexp e 3)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 21.746254627672361)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(ldexp pi e)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch let error as Interpreter.InterpreterError {
+            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
+        } catch {
+            XCTFail()
+        }
+    }
+    
+    /**
+     Tests our `trunc` function
+     */
+    func testTrunc() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(trunc pi)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 3.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(trunc e)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 2.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(trunc 1)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch let error as Interpreter.InterpreterError {
+            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
+        } catch {
+            XCTFail()
+        }
+    }
 
 }

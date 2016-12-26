@@ -472,7 +472,8 @@ private struct Math {
     static func frexp(val: Any) -> Any? {
         switch (val) {
         case let (_val as Double):
-            return Foundation.frexp(_val)
+            let temp = Foundation.frexp(_val)
+            return [temp.0, temp.1]
         default:
             return nil
         }
@@ -498,9 +499,7 @@ private struct Math {
     static func isinf(val: Any) -> Any? {
         switch (val) {
         case let (_val as Double):
-            return _val == Double.infinity
-        case let (_val as Int):
-            return _val == Int.max
+            return _val >= Double.infinity
         default:
             return nil
         }
