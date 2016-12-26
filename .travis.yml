@@ -1,27 +1,22 @@
+# Travis CI build file for Swisp.
+# Swisp runs on OS X and Linux (Ubuntu).
+# See the following URLs for further details on Travis CI
+# https://docs.travis-ci.com/user/customizing-the-build/
+# https://docs.travis-ci.com/user/docker/
+# https://docs.travis-ci.com/user/multi-os/
+
 matrix:
     include:
-        - os: osx
-          osx_image: xcode8.2
-          language: objective-c
-          env: TOOLCHAINS=swift
-          before_install:
-            - TOOLCHAIN_VERSION=swift-DEVELOPMENT-SNAPSHOT-2016-12-15-a
-            - curl -O https://swift.org/builds/development/xcode/${TOOLCHAIN_VERSION}/${TOOLCHAIN_VERSION}-osx.pkg
-            - sudo installer -pkg ${TOOLCHAIN_VERSION}-osx.pkg -target /
-
         - os: linux
           dist: trusty
-          language: generic
           sudo: required
-          before_install:
-            - TOOLCHAIN_VERSION=swift-DEVELOPMENT-SNAPSHOT-2016-12-15-a
-            - sudo apt-get install clang libicu-dev
-            - wget https://swift.org/builds/development/ubuntu1404/${TOOLCHAIN_VERSION}/${TOOLCHAIN_VERSION}-ubuntu14.04.tar.gz
-            - wget https://swift.org/builds/development/ubuntu1404/${TOOLCHAIN_VERSION}/${TOOLCHAIN_VERSION}-ubuntu14.04.tar.gz.sig
-            - wget -q -O - https://swift.org/keys/all-keys.asc | gpg --import -
-            - gpg --keyserver hkp://pool.sks-keyservers.net --refresh-keys Swift
-            - gpg --verify ${TOOLCHAIN_VERSION}-ubuntu14.04.tar.gz.sig
-            - tar xzf ${TOOLCHAIN_VERSION}-ubuntu14.04.tar.gz
-            - export PATH=${PWD}/${TOOLCHAIN_VERSION}-ubuntu14.04/usr/bin:"${PATH}"
 
-script: swift build && chmod o+r ${PWD}/${TOOLCHAIN_VERSION}-ubuntu14.04/usr/lib/swift/CoreFoundation/* && swift test
+        - os: osx
+          osx_image: xcode8.2
+          sudo: required
+
+before_install:
+- git clone https://github.com/IBM-Swift/Package-Builder.git
+
+script:
+- ./Package-Builder/build-package.sh -projectDir $TRAVIS_BUILD_DIR
