@@ -76,6 +76,7 @@ extension EnvironmentTests {
             ("testIsnan", testIsnan),
             ("testLdexp", testLdexp),
             ("testTrunc", testTrunc),
+            ("testExp", testExp),
         ]
     }()
     

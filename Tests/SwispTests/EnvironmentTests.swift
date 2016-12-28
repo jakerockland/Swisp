@@ -1189,5 +1189,39 @@ public class EnvironmentTests: XCTestCase {
             XCTFail()
         }
     }
+    
+    /**
+     Tests our `exp` function
+     */
+    func testExp() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(exp 0.0)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 1.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(exp 1.0)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 2.718281828459045)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(exp 1)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch let error as Interpreter.InterpreterError {
+            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
+        } catch {
+            XCTFail()
+        }
+    }
 
+    
 }

@@ -56,8 +56,8 @@ public let standardEnv = Env([
     "isnan":    Math.isnan,
     "ldexp":    Math.ldexp,
     "trunc":    Math.trunc,
-    //            // Power and logarithmic functions
-    //            "exp":      exp,
+    // Power and logarithmic functions
+    "exp":      Math.exp,
     //            "log":      log,
     //            "log1p":    log1p,
     //            "log10":    log10,
@@ -379,6 +379,7 @@ private struct Library {
 - `isnan`
 - `ldexp`
 - `trunc`
+- `exp`
  */
 private struct Math {
 
@@ -538,6 +539,18 @@ private struct Math {
         switch (val) {
         case let (_val as Double):
             return Foundation.trunc(_val)
+        default:
+            return nil
+        }
+    }
+    
+    /**
+    Static function for `exp` operation 
+    */
+    static func exp(val: Any) -> Any? {
+        switch (val) {
+        case let (_val as Double):
+            return Foundation.exp(_val)
         default:
             return nil
         }
