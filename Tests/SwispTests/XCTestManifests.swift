@@ -37,6 +37,7 @@ extension InterpreterTests {
             ("testReadFromTokens", testReadFromTokens),
             ("testAtom", testAtom),
             ("testEval", testEval),
+            ("testEvalErrors", testEvalErrors),
             ("testEvalPerformance", testEvalPerformance),
         ]
     }()

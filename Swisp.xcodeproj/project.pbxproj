@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		40A5A4C51E14CC6000993A86 /* XCTestCase+XCTPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A5A4C31E14CBD700993A86 /* XCTestCase+XCTPass.swift */; };
 		40F889571E0FC8B900AA93E9 /* SwispTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F889551E0FC89200AA93E9 /* SwispTypes.swift */; };
 		OBJ_27 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* main.swift */; };
 		OBJ_29 /* SwispFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* SwispFramework.framework */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		40A5A4C31E14CBD700993A86 /* XCTestCase+XCTPass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+XCTPass.swift"; sourceTree = "<group>"; };
 		40F8894E1E0F683200AA93E9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		40F889521E0F6CFE00AA93E9 /* .travis.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
 		40F889531E0FC44100AA93E9 /* LinuxMain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinuxMain.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 			children = (
 				OBJ_16 /* InterpreterTests.swift */,
 				OBJ_15 /* EnvironmentTests.swift */,
+				40A5A4C31E14CBD700993A86 /* XCTestCase+XCTPass.swift */,
 				OBJ_17 /* XCTestManifests.swift */,
 			);
 			name = SwispTests;
@@ -257,6 +260,7 @@
 			files = (
 				OBJ_44 /* EnvironmentTests.swift in Sources */,
 				OBJ_45 /* InterpreterTests.swift in Sources */,
+				40A5A4C51E14CC6000993A86 /* XCTestCase+XCTPass.swift in Sources */,
 				OBJ_46 /* XCTestManifests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
