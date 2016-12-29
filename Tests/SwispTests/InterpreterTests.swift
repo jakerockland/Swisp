@@ -404,7 +404,9 @@ public class InterpreterTests: XCTestCase {
         var parsed: Any = 0
         
         do {
-            parsed = try Interpreter.parse("(* pi (* ten ten))")
+            parsed = try Interpreter.parse("(define fact (lambda (n) (if (<= n 1) 1 (* n (fact (- n 1))))))")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            parsed = try Interpreter.parse("(fact 100)")
         } catch {
             XCTFail()
         }
