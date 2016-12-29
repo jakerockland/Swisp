@@ -311,9 +311,9 @@ public struct Interpreter {
                     print(Interpreter.schemeString(&val))
                 }
             } catch let error as SwispError {
-                print("\(prompt)\(error.description)!")
+                print("\(prompt)\(error.description)")
             } catch {
-                print("\(prompt)Unknown error occured!")
+                print("\(prompt)\(SwispError.UnknownError.description)")
             }
         }
     }
