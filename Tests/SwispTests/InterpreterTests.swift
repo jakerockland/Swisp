@@ -32,50 +32,50 @@ import XCTest
 public class InterpreterTests: XCTestCase {
     
     // MARK: - Constant Values
-
+    
     /// Value of mathematical constant π
     let π = 3.1415926535897932384626433832795
-
-
+    
+    
     // MARK: - Testing Properties
-
+    
     var interpreter: Interpreter!
-
-
+    
+    
     // MARK: - Set Up Methods
-
+    
     /**
      Called before every test method
      */
     override public func setUp() {
         super.setUp()
-
+        
         // Initialize our interpreter
         interpreter = Interpreter()
-
+        
         // Define some test values
         var parsed: Any
-
+        
         parsed = try! Interpreter.parse("(define ten 10)")
         let _ = try! Interpreter.eval(&parsed, with: &interpreter.globalEnv)
-
+        
         parsed = try! Interpreter.parse("(define pass pass)")
         let _ = try! Interpreter.eval(&parsed, with: &interpreter.globalEnv)
-
+        
         parsed = try! Interpreter.parse("(define fail fail)")
         let _ = try! Interpreter.eval(&parsed, with: &interpreter.globalEnv)
     }
-
-
+    
+    
     // MARK: - Testing Methods
-
+    
     /**
      Tests our parsing method
      */
     func testParse() {
         let expected = ["begin", ["define", "r", 10], ["*", "pi", ["*", "r", "r"]]] as [Any]
         let program = "(begin (define r 10) (* pi (* r r)))"
-
+        
         var parsed: [Any] = []
         do {
             guard let _parsed = try Interpreter.parse(program) as? [Any] else {
@@ -86,9 +86,9 @@ public class InterpreterTests: XCTestCase {
         } catch {
             XCTFail()
         }
-
+        
         for (a, b) in zip(expected, parsed) {
-
+            
             if let _a = a as? Int, let _b = b as? Int {
                 if _a != _b {
                     XCTFail()
@@ -142,7 +142,7 @@ public class InterpreterTests: XCTestCase {
             }
         }
     }
-
+    
     /**
      Checks performance of our parsing method
      */
@@ -156,7 +156,7 @@ public class InterpreterTests: XCTestCase {
             }
         }
     }
-
+    
     /**
      Tests our token generation method
      */
@@ -165,7 +165,7 @@ public class InterpreterTests: XCTestCase {
         let program = "(begin (define r 10) (* pi (* r r)))"
         XCTAssertEqual(tokenized, Interpreter.tokenize(program))
     }
-
+    
     /**
      Checks performance of our token generation method
      */
@@ -175,7 +175,7 @@ public class InterpreterTests: XCTestCase {
             _ = Interpreter.tokenize(program)
         }
     }
-
+    
     /**
      Tests our abstract syntax tree generation method
      */
@@ -187,7 +187,7 @@ public class InterpreterTests: XCTestCase {
         } catch {
             XCTAssertTrue(true)
         }
-
+        
         var unexpected = Interpreter.tokenize(")")
         do {
             try _ = Interpreter.readFromTokens(&unexpected)
@@ -196,7 +196,7 @@ public class InterpreterTests: XCTestCase {
             XCTAssertTrue(true)
         }
     }
-
+    
     /**
      Tests our atomizer
      */
@@ -207,14 +207,14 @@ public class InterpreterTests: XCTestCase {
         } else {
             XCTAssertTrue(false)
         }
-
+        
         let float = "8.3066"
         if let atom = Interpreter.atom(float) as? Double, atom == 8.3066 {
             XCTAssertTrue(true)
         } else {
             XCTAssertTrue(false)
         }
-
+        
         let symbol = "something"
         if let atom = Interpreter.atom(symbol) as? Symbol, atom == "something" {
             XCTAssertTrue(true)
@@ -222,13 +222,13 @@ public class InterpreterTests: XCTestCase {
             XCTAssertTrue(false)
         }
     }
-
+    
     /**
      Tests our evaluation function
      */
     func testEval() {
         var parsed: Any
-
+        
         do {
             parsed = try Interpreter.parse("(ten)")
             let r = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
@@ -236,7 +236,7 @@ public class InterpreterTests: XCTestCase {
         } catch {
             XCTFail()
         }
-
+        
         do {
             parsed = try Interpreter.parse("(* pi (* ten ten))")
             let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
@@ -244,7 +244,7 @@ public class InterpreterTests: XCTestCase {
         } catch {
             XCTFail()
         }
-
+        
         do {
             parsed = try Interpreter.parse("(pass)")
             let pass = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
@@ -252,7 +252,7 @@ public class InterpreterTests: XCTestCase {
         } catch {
             XCTFail()
         }
-
+        
         do {
             parsed = try Interpreter.parse("(if (> 1 0) pass fail)")
             let greater = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
@@ -260,7 +260,7 @@ public class InterpreterTests: XCTestCase {
         } catch {
             XCTFail()
         }
-
+        
         do {
             parsed = try Interpreter.parse("(if (< 1 0) pass fail)")
             let less = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
@@ -268,7 +268,7 @@ public class InterpreterTests: XCTestCase {
         } catch {
             XCTFail()
         }
-
+        
         do {
             parsed = try Interpreter.parse("(if (= 1 0) pass fail)")
             let equal = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
@@ -333,19 +333,82 @@ public class InterpreterTests: XCTestCase {
             XCTFail()
         }
     }
-
+    
+    /**
+     Tests proper errors being thrown by our evaluation function
+    */
+    func testEvalErrors() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(quote)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(if (+ 1 1))")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(if (+ 1 1) how what)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(define 1 2)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(set! 1 2)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(lambda x (* 2 x))")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("()")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+    }
+    
     /**
      Tests performance of our evaluation function
      */
     func testEvalPerformance() {
         var parsed: Any = 0
-
+        
         do {
             parsed = try Interpreter.parse("(* pi (* ten ten))")
         } catch {
             XCTFail()
         }
-
+        
         measure {
             do {
                 let _ = try Interpreter.eval(&parsed, with: &self.interpreter.globalEnv)

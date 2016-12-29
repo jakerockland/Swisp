@@ -152,10 +152,8 @@ public class EnvironmentTests: XCTestCase {
             parsed = try Interpreter.parse("(+ two 2)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
-        } catch let error as Interpreter.InterpreterError {
-            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
         } catch {
-            XCTFail()
+            XCTPass()
         }
     }
 
@@ -201,10 +199,8 @@ public class EnvironmentTests: XCTestCase {
             parsed = try Interpreter.parse("(- two two)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
-        } catch let error as Interpreter.InterpreterError {
-            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
         } catch {
-            XCTFail()
+            XCTPass()
         }
     }
 
@@ -250,10 +246,8 @@ public class EnvironmentTests: XCTestCase {
             parsed = try Interpreter.parse("(* two two)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
-        } catch let error as Interpreter.InterpreterError {
-            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
         } catch {
-            XCTFail()
+            XCTPass()
         }
     }
 
@@ -299,10 +293,8 @@ public class EnvironmentTests: XCTestCase {
             parsed = try Interpreter.parse("(/ two two)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
-        } catch let error as Interpreter.InterpreterError {
-            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
         } catch {
-            XCTFail()
+            XCTPass()
         }
     }
 
@@ -332,10 +324,8 @@ public class EnvironmentTests: XCTestCase {
             parsed = try Interpreter.parse("(% two 1.0)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
-        } catch let error as Interpreter.InterpreterError {
-            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
         } catch {
-            XCTFail()
+            XCTPass()
         }
     }
 
@@ -381,10 +371,8 @@ public class EnvironmentTests: XCTestCase {
             parsed = try Interpreter.parse("(> two 1.0)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
-        } catch let error as Interpreter.InterpreterError {
-            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
         } catch {
-            XCTFail()
+            XCTPass()
         }
     }
 
@@ -422,10 +410,8 @@ public class EnvironmentTests: XCTestCase {
             parsed = try Interpreter.parse("(< two 1.0)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
-        } catch let error as Interpreter.InterpreterError {
-            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
         } catch {
-            XCTFail()
+            XCTPass()
         }
     }
 
@@ -463,10 +449,8 @@ public class EnvironmentTests: XCTestCase {
             parsed = try Interpreter.parse("(>= two 1.0)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
-        } catch let error as Interpreter.InterpreterError {
-            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
         } catch {
-            XCTFail()
+            XCTPass()
         }
     }
 
@@ -504,10 +488,8 @@ public class EnvironmentTests: XCTestCase {
             parsed = try Interpreter.parse("(<= two 1.0)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
-        } catch let error as Interpreter.InterpreterError {
-            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
         } catch {
-            XCTFail()
+            XCTPass()
         }
     }
 
@@ -545,10 +527,8 @@ public class EnvironmentTests: XCTestCase {
             parsed = try Interpreter.parse("(= two 2)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
-        } catch let error as Interpreter.InterpreterError {
-            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
         } catch {
-            XCTFail()
+            XCTPass()
         }
     }
 
@@ -581,10 +561,8 @@ public class EnvironmentTests: XCTestCase {
             parsed = try Interpreter.parse("(abs negativeone)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
-        } catch let error as Interpreter.InterpreterError {
-            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
         } catch {
-            XCTFail()
+            XCTPass()
         }
     }
     
@@ -622,10 +600,8 @@ public class EnvironmentTests: XCTestCase {
             parsed = try Interpreter.parse("(append 2 3)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
-        } catch let error as Interpreter.InterpreterError {
-            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
         } catch {
-            XCTFail()
+            XCTPass()
         }
     }
     
@@ -655,10 +631,8 @@ public class EnvironmentTests: XCTestCase {
             parsed = try Interpreter.parse("(car 3)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
-        } catch let error as Interpreter.InterpreterError {
-            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
         } catch {
-            XCTFail()
+            XCTPass()
         }
     }
     
@@ -688,10 +662,8 @@ public class EnvironmentTests: XCTestCase {
             parsed = try Interpreter.parse("(cdr 3)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
-        } catch let error as Interpreter.InterpreterError {
-            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
         } catch {
-            XCTFail()
+            XCTPass()
         }
     }
 
@@ -724,10 +696,8 @@ public class EnvironmentTests: XCTestCase {
             parsed = try Interpreter.parse("(ceil 3)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
-        } catch let error as Interpreter.InterpreterError {
-            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
         } catch {
-            XCTFail()
+            XCTPass()
         }
     }
 
@@ -797,10 +767,8 @@ public class EnvironmentTests: XCTestCase {
             parsed = try Interpreter.parse("(copysign hello world)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
-        } catch let error as Interpreter.InterpreterError {
-            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
         } catch {
-            XCTFail()
+            XCTPass()
         }
     }
     
@@ -830,10 +798,8 @@ public class EnvironmentTests: XCTestCase {
             parsed = try Interpreter.parse("(fabs -3)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
-        } catch let error as Interpreter.InterpreterError {
-            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
         } catch {
-            XCTFail()
+            XCTPass()
         }
     }
     
@@ -879,20 +845,16 @@ public class EnvironmentTests: XCTestCase {
             parsed = try Interpreter.parse("(factorial 21)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
-        } catch let error as Interpreter.InterpreterError {
-            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
         } catch {
-            XCTFail()
+            XCTPass()
         }
         
         do {
             parsed = try Interpreter.parse("(factorial 1.0)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
-        } catch let error as Interpreter.InterpreterError {
-            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
         } catch {
-            XCTFail()
+            XCTPass()
         }
     }
     
@@ -922,10 +884,8 @@ public class EnvironmentTests: XCTestCase {
             parsed = try Interpreter.parse("(floor 3)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
-        } catch let error as Interpreter.InterpreterError {
-            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
         } catch {
-            XCTFail()
+            XCTPass()
         }
     }
     
@@ -963,10 +923,8 @@ public class EnvironmentTests: XCTestCase {
             parsed = try Interpreter.parse("(fmod 3 2)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
-        } catch let error as Interpreter.InterpreterError {
-            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
         } catch {
-            XCTFail()
+            XCTPass()
         }
     }
     
@@ -1004,10 +962,8 @@ public class EnvironmentTests: XCTestCase {
             parsed = try Interpreter.parse("(frexp 3)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
-        } catch let error as Interpreter.InterpreterError {
-            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
         } catch {
-            XCTFail()
+            XCTPass()
         }
     }
     
@@ -1053,10 +1009,8 @@ public class EnvironmentTests: XCTestCase {
             parsed = try Interpreter.parse("(fsum (3.0))")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
-        } catch let error as Interpreter.InterpreterError {
-            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
         } catch {
-            XCTFail()
+            XCTPass()
         }
     }
 
@@ -1086,10 +1040,8 @@ public class EnvironmentTests: XCTestCase {
             parsed = try Interpreter.parse("(isinf 92233720368547758)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
-        } catch let error as Interpreter.InterpreterError {
-            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
         } catch {
-            XCTFail()
+            XCTPass()
         }
     }
     
@@ -1150,10 +1102,8 @@ public class EnvironmentTests: XCTestCase {
             parsed = try Interpreter.parse("(ldexp pi e)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
-        } catch let error as Interpreter.InterpreterError {
-            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
         } catch {
-            XCTFail()
+            XCTPass()
         }
     }
     
@@ -1183,10 +1133,8 @@ public class EnvironmentTests: XCTestCase {
             parsed = try Interpreter.parse("(trunc 1)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
-        } catch let error as Interpreter.InterpreterError {
-            XCTAssertEqual(error, Interpreter.InterpreterError.invalidProcedureInput)
         } catch {
-            XCTFail()
+            XCTPass()
         }
     }
     
