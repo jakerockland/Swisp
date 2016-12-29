@@ -28,27 +28,7 @@
  */
 public struct Interpreter {
     
-    // MARK: - Error Definitions
-    
-    /// Custom type for errors encountered while interpreting
-    enum InterpreterError: String, Error {
-        case cannotParseTokens = "unable to parse tokens"
-        case unexpectedEOF = "unexpected EOF while reading"
-        case unexpectedParenthesis = "unexpected )"
-        case invalidConstantLiteral = "invalid constant literal"
-        case invalidConditionalStatement = "invalid conditional statement"
-        case invalidQuotation = "invalid quotation"
-        case invalidDefinition = "invalid definition"
-        case invalidAssignment = "invalid assignment"
-        case invalidLambda = "invalid lambda"
-        case invalidProcedureCalled = "invalid procedure called"
-        case invalidProcedureInput = "invalid procedure input"
-        case unknown = "should never occur"
-    }
-    
-    
     // MARK: - Procedure Definition
-    
     
     /// A Scheme Lambda is implemented as a custom Swift class
     class Lambda {
@@ -156,7 +136,7 @@ public struct Interpreter {
      */
     static func readFromTokens(_ tokens: inout [String]) throws -> Any {
         guard tokens.count > 0 else {
-            throw InterpreterError.unexpectedEOF
+            throw SwispError.SyntaxError(message: "unexpected EOF while reading")
         }
         
         let token = tokens.removeFirst()
@@ -169,7 +149,7 @@ public struct Interpreter {
             tokens.removeFirst() // pop the corresponding ")"
             return list
         case ")":
-            throw InterpreterError.unexpectedParenthesis
+            throw SwispError.SyntaxError(message: "unexpected )")
         default:
             return atom(token)
         }
@@ -221,44 +201,44 @@ public struct Interpreter {
             case let x as Symbol:
                 return x
             default:
-                throw InterpreterError.invalidConstantLiteral
+                throw SwispError.SyntaxError(message: "invalid constant literal")
             }
         } else if let x = x as? List {
             if x.first as? Symbol == "quote" { // quotation
                 guard let lis = x[safe: 1] else {
-                    throw InterpreterError.invalidQuotation
+                    throw SwispError.SyntaxError(message: "invalid quotation")
                 }
                 return lis
             } else if x.first as? Symbol == "if" { // conditional
                 guard var test = x[safe: 1], let conseq = x[safe: 2], let alt = x[safe: 3] else {
-                    throw InterpreterError.invalidConditionalStatement
+                    throw SwispError.SyntaxError(message: "invalid conditional statement")
                 }
                 guard let bool = try eval(&test, with: &env) as? Bool else {
-                    throw InterpreterError.invalidConditionalStatement
+                    throw SwispError.SyntaxError(message: "invalid conditional statement")
                 }
                 var exp = bool ? conseq : alt
                 return try eval(&exp, with: &env)
             } else if x.first as? Symbol == "define" { // definition
                 guard let `var` = x[safe: 1] as? Symbol, var exp = x[safe: 2] else {
-                    throw InterpreterError.invalidDefinition
+                    throw SwispError.SyntaxError(message: "invalid definition")
                 }
                 env[`var`] = try eval(&exp, with: &env)
                 return nil
             } else if x.first as? Symbol == "set!" { // assignment
                 guard let `var` = x[safe: 1] as? Symbol, var exp = x[safe: 2], let outer = env.find(`var`) else {
-                    throw InterpreterError.invalidAssignment
+                    throw SwispError.SyntaxError(message: "invalid assignment")
                 }
                 outer[`var`] = try eval(&exp, with: &env)
                 return nil
             } else if x.first as? Symbol == "lambda" { // procedure
                 guard let parms = x[safe: 1] as? [Symbol], let body = x[safe: 2] as? [Any] else {
-                    throw InterpreterError.invalidLambda
+                    throw SwispError.SyntaxError(message: "invalid lambda")
                 }
                 return Lambda(parms, body, env)
             } else { // procedure call
                 var args: [Any] = []
                 guard var exp = x[safe: 0] else {
-                    throw InterpreterError.invalidProcedureCalled
+                    throw SwispError.SyntaxError(message: "invalid procedure called")
                 }
                 
                 let proc = try eval(&exp, with: &env)
@@ -266,7 +246,7 @@ public struct Interpreter {
                 for element in x.dropFirst() {
                     var element = element
                     guard let arg = try eval(&element, with: &env) else {
-                        throw InterpreterError.invalidProcedureCalled
+                        throw SwispError.SyntaxError(message: "invalid procedure called")
                     }
                     args.append(arg)
                 }
@@ -279,33 +259,33 @@ public struct Interpreter {
                         return proc
                     case 1:
                         guard let proc = proc as? (Any)->Any? else {
-                            throw InterpreterError.invalidProcedureCalled
+                            throw SwispError.SyntaxError(message: "invalid procedure called")
                         }
                         guard let result = proc(args[safe: 0] as Any) else {
-                            throw InterpreterError.invalidProcedureInput
+                            throw SwispError.SyntaxError(message: "invalid procedure input")
                         }
                         return result
                     case 2:
                         guard let proc = proc as? (Any, Any)->Any? else {
-                            throw InterpreterError.invalidProcedureCalled
+                            throw SwispError.SyntaxError(message: "invalid procedure called")
                         }
                         guard let result = proc(args[safe: 0] as Any, args[safe: 1] as Any) else {
-                            throw InterpreterError.invalidProcedureInput
+                            throw SwispError.SyntaxError(message: "invalid procedure input")
                         }
                         return result
                     default:
                         guard let proc = proc as? ([Any])->Any? else {
-                            throw InterpreterError.invalidProcedureCalled
+                            throw SwispError.SyntaxError(message: "invalid procedure called")
                         }
                         guard let result = proc(args) else {
-                            throw InterpreterError.invalidProcedureInput
+                            throw SwispError.SyntaxError(message: "invalid procedure input")
                         }
                         return result
                     }
                 }
             }
         }
-        throw InterpreterError.unknown
+        throw SwispError.UnknownError
     }
     
     
@@ -330,8 +310,8 @@ public struct Interpreter {
                 if var val = try Interpreter.eval(&parsed, with: &globalEnv) {
                     print(Interpreter.schemeString(&val))
                 }
-            } catch let error as InterpreterError {
-                print("\(prompt)Interpreter error: \(error.rawValue)!")
+            } catch let error as SwispError {
+                print("\(prompt)\(error.description)!")
             } catch {
                 print("\(prompt)Unknown error occured!")
             }
