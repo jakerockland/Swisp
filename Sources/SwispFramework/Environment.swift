@@ -132,7 +132,7 @@ private struct Operators {
         switch (lhs, rhs) {
         case let (_lhs as Int, _rhs as Int):
             let double = Double(_lhs) + Double(_rhs)
-            if double <= Double(Int.max) && double >= Double(-Int.max){
+            if double < Double(Int.max) && double > Double(-Int.max){
                 return Int(double)
             } else {
                 return double
@@ -157,7 +157,7 @@ private struct Operators {
         switch (lhs, rhs) {
         case let (_lhs as Int, _rhs as Int):
             let double = Double(_lhs) - Double(_rhs)
-            if double <= Double(Int.max) && double >= Double(-Int.max){
+            if double < Double(Int.max) && double > Double(-Int.max){
                 return Int(double)
             } else {
                 return double
@@ -180,7 +180,7 @@ private struct Operators {
         switch (lhs, rhs) {
         case let (_lhs as Int, _rhs as Int):
             let double = Double(_lhs) * Double(_rhs)
-            if double <= Double(Int.max) && double >= Double(-Int.max){
+            if double < Double(Int.max) && double > Double(-Int.max){
                 return Int(double)
             } else {
                 return double
@@ -202,12 +202,7 @@ private struct Operators {
     static func divide(lhs: Any, rhs: Any) -> Any? {
         switch (lhs, rhs) {
         case let (_lhs as Int, _rhs as Int):
-            let double = Double(_lhs) / Double(_rhs)
-            if double <= Double(Int.max) && double >= Double(-Int.max){
-                return Int(double)
-            } else {
-                return double
-            }
+            return _lhs / _rhs
         case let (_lhs as Double, _rhs as Double):
             return _lhs / _rhs
         case let (_lhs as Int, _rhs as Double):

@@ -107,6 +107,14 @@ public class EnvironmentTests: XCTestCase {
      */
     func testAdd() {
         var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(+ \(Int.max) 1)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, Double(Int.max))
+        } catch {
+            XCTFail()
+        }
 
         do {
             parsed = try Interpreter.parse("(+ 2 2)")
@@ -162,6 +170,14 @@ public class EnvironmentTests: XCTestCase {
      */
     func testSubtract() {
         var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(- \(-Int.max) 1)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, Double(-Int.max))
+        } catch {
+            XCTFail()
+        }
 
         do {
             parsed = try Interpreter.parse("(- 6 2)")
@@ -209,6 +225,14 @@ public class EnvironmentTests: XCTestCase {
      */
     func testMultiply() {
         var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(* \(Int.max) 2)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, (Double(Int.max) * 2))
+        } catch {
+            XCTFail()
+        }
 
         do {
             parsed = try Interpreter.parse("(* 2 2)")
@@ -256,6 +280,14 @@ public class EnvironmentTests: XCTestCase {
      */
     func testDivide() {
         var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(/ \(Int.max) 0.5)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, (Double(Int.max) / 0.5))
+        } catch {
+            XCTFail()
+        }
 
         do {
             parsed = try Interpreter.parse("(/ 8 2)")
