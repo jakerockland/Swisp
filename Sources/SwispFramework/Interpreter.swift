@@ -106,10 +106,7 @@ public struct Interpreter {
      */
     static func parse(_ program: String) throws -> Any {
         var tokens = tokenize(program)
-        guard let parsed = try readFromTokens(&tokens) as? [Any] else {
-            throw InterpreterError.cannotParseTokens
-        }
-        return parsed as Any
+        return try readFromTokens(&tokens)
     }
     
     /**
