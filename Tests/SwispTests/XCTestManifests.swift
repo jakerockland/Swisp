@@ -77,6 +77,8 @@ extension EnvironmentTests {
             ("testLdexp", testLdexp),
             ("testTrunc", testTrunc),
             ("testExp", testExp),
+            ("testLog", testLog),
+            ("testLog", testLog1p),
         ]
     }()
     

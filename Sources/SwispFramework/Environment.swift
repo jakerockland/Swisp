@@ -58,8 +58,8 @@ public let standardEnv = Env([
     "trunc":    Math.trunc,
     // Power and logarithmic functions
     "exp":      Math.exp,
-    //            "log":      log,
-    //            "log1p":    log1p,
+    "log":      Math.log,
+    "log1p":    Math.log1p,
     //            "log10":    log10,
     //            "pow":      pow,
     //            "sqrt":     sqrt,
@@ -380,6 +380,7 @@ private struct Library {
 - `ldexp`
 - `trunc`
 - `exp`
+- `log`
  */
 private struct Math {
 
@@ -556,4 +557,27 @@ private struct Math {
         }
     }
     
+    /**
+     Static function for `log` operation
+     */
+    static func log(val: Any) -> Any? {
+        switch (val) {
+        case let (_val as Double):
+            return Foundation.log(_val)
+        default:
+            return nil
+        }
+    }
+
+    /**
+     Static function for `log1p` operation
+     */
+    static func log1p(val: Any) -> Any? {
+        switch (val) {
+        case let (_val as Double):
+            return Foundation.log1p(_val)
+        default:
+            return nil
+        }
+    }
 }
