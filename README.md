@@ -1,6 +1,6 @@
 # Swisp
 
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/jakerockland/Swisp/blob/master/LICENSE.md) [![Build Status](https://travis-ci.org/jakerockland/Swisp.svg?branch=master)](https://travis-ci.org/jakerockland/Swisp) [![Codecov](https://img.shields.io/codecov/c/github/jakerockland/Swisp.svg?branch=master)](https://codecov.io/gh/jakerockland/Swisp/branch/master)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/jakerockland/Swisp/blob/master/LICENSE.md) [![Build Status](https://travis-ci.org/jakerockland/Swisp.svg?branch=master)](https://travis-ci.org/jakerockland/Swisp) [![Codecov](https://img.shields.io/codecov/c/github/jakerockland/Swisp.svg?branch=master)](https://codecov.io/gh/jakerockland/Swisp/branch/master) ![platforms](https://img.shields.io/badge/platforms-macOS%20%7C%20Linux-333333.svg)
 
 A simple Scheme (Lisp dialect) interpreter written in Swift.
 
