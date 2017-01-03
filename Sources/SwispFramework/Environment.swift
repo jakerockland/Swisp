@@ -445,12 +445,37 @@ private struct Math {
     static func factorial(val: Any) -> Any? {
         switch (val) {
         case let (_val as Int):
-            if _val > 20 {
-                return nil
-            } else if _val == 0 {
+            if _val == 0 {
                 return 1
             } else {
-                return _val * (factorial(val: _val - 1) as! Int)
+                let fact = factorial(val: _val - 1)
+                switch (fact) {
+                case let (_fact as Int):
+                    let double = Double(_val) * Double(_fact)
+                    if double < Double(Int.max) && double > Double(-Int.max){
+                        return Int(double)
+                    } else {
+                        return double
+                    }
+                case let (_fact as Double):
+                    return Double(_val) * _fact
+                default:
+                    return nil
+                }
+            }
+        case let (_val as Double):
+            if _val == 0.0 {
+                return 1.0
+            } else {
+                let fact = factorial(val: _val - 1)
+                switch (fact) {
+                case let (_fact as Int):
+                    return _val * Double(_fact)
+                case let (_fact as Double):
+                    return _val * _fact
+                default:
+                    return nil
+                }
             }
         default:
             return nil

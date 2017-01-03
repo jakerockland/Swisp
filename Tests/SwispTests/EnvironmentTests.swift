@@ -874,19 +874,11 @@ public class EnvironmentTests: XCTestCase {
         }
         
         do {
-            parsed = try Interpreter.parse("(factorial 21)")
-            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
-            XCTFail()
+            parsed = try Interpreter.parse("(factorial 100)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 9.33262154439441e+157)
         } catch {
-            XCTPass()
-        }
-        
-        do {
-            parsed = try Interpreter.parse("(factorial 1.0)")
-            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
-        } catch {
-            XCTPass()
         }
     }
     
