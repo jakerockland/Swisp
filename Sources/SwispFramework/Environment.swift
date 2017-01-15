@@ -60,9 +60,9 @@ public let standardEnv = Env([
     "exp":      Math.exp,
     "log":      Math.log,
     "log1p":    Math.log1p,
-    //            "log10":    log10,
-    //            "pow":      pow,
-    //            "sqrt":     sqrt,
+    "log10":    Math.log10,
+    "pow":      Math.pow,
+    "sqrt":     Math.sqrt,
     //            // Trigonometric functions
     //            "acos":     acos,
     //            "asin":     asin,
@@ -580,4 +580,41 @@ private struct Math {
             return nil
         }
     }
+    
+    /**
+     Static function for `log10` operation
+     */
+    static func log10(val: Any) -> Any? {
+        switch (val) {
+        case let (_val as Double):
+            return Foundation.log10(_val)
+        default:
+            return nil
+        }
+    }
+    
+    /**
+     Static function for `pow` operation
+     */
+    static func pow(val: Any, exp: Any) -> Any? {
+        switch (val, exp) {
+        case let (_val as Double, _exp as Double):
+            return Foundation.pow(_val, _exp)
+        default:
+            return nil
+        }
+    }
+
+    /**
+     Static function for `sqrt` operation
+     */
+    static func sqrt(val: Any) -> Any? {
+        switch (val) {
+        case let (_val as Double):
+            return Foundation.sqrt(_val)
+        default:
+            return nil
+        }
+    }
+
 }

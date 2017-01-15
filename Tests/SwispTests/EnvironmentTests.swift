@@ -1231,4 +1231,98 @@ public class EnvironmentTests: XCTestCase {
         }
     }
 
+    /**
+     Tests our `log10` function
+     */
+    func testLog10() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(log10 1.0)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 0.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(log10 10.0)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 1.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(log10 1)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+    }
+    
+    /**
+     Tests our `pow` function
+     */
+    func testPow() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(pow 1.0 0.0)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 1.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(pow 2.0 3.0)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 8.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(pow 1)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+    }
+    
+    /**
+     Tests our `sqrt` function
+     */
+    func testSqrt() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(sqrt 16.0)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 4.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(sqrt 4.0)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 2.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(sqrt 1)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+    }
+
+
 }
