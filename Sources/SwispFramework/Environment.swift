@@ -56,13 +56,13 @@ public let standardEnv = Env([
     "isnan":    Math.isnan,
     "ldexp":    Math.ldexp,
     "trunc":    Math.trunc,
-    //            // Power and logarithmic functions
-    //            "exp":      exp,
-    //            "log":      log,
-    //            "log1p":    log1p,
-    //            "log10":    log10,
-    //            "pow":      pow,
-    //            "sqrt":     sqrt,
+    // Power and logarithmic functions
+    "exp":      Math.exp,
+    "log":      Math.log,
+    "log1p":    Math.log1p,
+    "log10":    Math.log10,
+    "pow":      Math.pow,
+    "sqrt":     Math.sqrt,
     //            // Trigonometric functions
     //            "acos":     acos,
     //            "asin":     asin,
@@ -394,6 +394,12 @@ private struct Library {
 - `isnan`
 - `ldexp`
 - `trunc`
+- `exp`
+- `log`
+ - 'log1p'
+ -'log10'
+ -'exp'
+ -'sqrt'
  */
 private struct Math {
 
@@ -583,4 +589,76 @@ private struct Math {
         }
     }
     
+    /**
+    Static function for `exp` operation 
+    */
+    static func exp(val: Any) -> Any? {
+        switch (val) {
+        case let (_val as Double):
+            return Foundation.exp(_val)
+        default:
+            return nil
+        }
+    }
+    
+    /**
+     Static function for `log` operation
+     */
+    static func log(val: Any) -> Any? {
+        switch (val) {
+        case let (_val as Double):
+            return Foundation.log(_val)
+        default:
+            return nil
+        }
+    }
+
+    /**
+     Static function for `log1p` operation
+     */
+    static func log1p(val: Any) -> Any? {
+        switch (val) {
+        case let (_val as Double):
+            return Foundation.log1p(_val)
+        default:
+            return nil
+        }
+    }
+    
+    /**
+     Static function for `log10` operation
+     */
+    static func log10(val: Any) -> Any? {
+        switch (val) {
+        case let (_val as Double):
+            return Foundation.log10(_val)
+        default:
+            return nil
+        }
+    }
+    
+    /**
+     Static function for `pow` operation
+     */
+    static func pow(val: Any, exp: Any) -> Any? {
+        switch (val, exp) {
+        case let (_val as Double, _exp as Double):
+            return Foundation.pow(_val, _exp)
+        default:
+            return nil
+        }
+    }
+
+    /**
+     Static function for `sqrt` operation
+     */
+    static func sqrt(val: Any) -> Any? {
+        switch (val) {
+        case let (_val as Double):
+            return Foundation.sqrt(_val)
+        default:
+            return nil
+        }
+    }
+
 }
