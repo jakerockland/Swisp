@@ -1285,7 +1285,7 @@ public class EnvironmentTests: XCTestCase {
         }
         
         do {
-            parsed = try Interpreter.parse("(pow 1)")
+            parsed = try Interpreter.parse("(pow 1 3)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
         } catch {
