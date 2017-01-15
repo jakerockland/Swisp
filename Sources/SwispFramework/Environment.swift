@@ -381,6 +381,10 @@ private struct Library {
 - `trunc`
 - `exp`
 - `log`
+ - 'log1p'
+ -'log10'
+ -'exp'
+ -'sqrt'
  */
 private struct Math {
 
