@@ -157,24 +157,34 @@ private struct Operators {
      Static function for `-` operator
      */
     static func subtract(_ args: [Any]) throws -> Any? {
-        guard args.count == 2 else {
-            throw SwispError.SyntaxError(message: "invalid procedure input")
-        }
-        switch (args[safe: 0], args[safe: 1]) {
-        case let (lhs as Int, rhs as Int):
-            let double = Double(lhs) - Double(rhs)
-            if double < Double(Int.max) && double > Double(-Int.max){
-                return Int(double)
-            } else {
-                return double
+        if args.count == 1 {
+            switch (args[safe: 0]) {
+            case let (val as Int):
+                return -val
+            case let (val as Double):
+                return -val
+            default:
+                throw SwispError.SyntaxError(message: "invalid procedure input")
             }
-        case let (lhs as Double, rhs as Double):
-            return lhs - rhs
-        case let (lhs as Int, rhs as Double):
-            return Double(lhs) - rhs
-        case let (lhs as Double, rhs as Int):
-            return lhs - Double(rhs)
-        default:
+        } else if args.count == 2 {
+            switch (args[safe: 0], args[safe: 1]) {
+            case let (lhs as Int, rhs as Int):
+                let double = Double(lhs) - Double(rhs)
+                if double < Double(Int.max) && double > Double(-Int.max){
+                    return Int(double)
+                } else {
+                    return double
+                }
+            case let (lhs as Double, rhs as Double):
+                return lhs - rhs
+            case let (lhs as Int, rhs as Double):
+                return Double(lhs) - rhs
+            case let (lhs as Double, rhs as Int):
+                return lhs - Double(rhs)
+            default:
+                throw SwispError.SyntaxError(message: "invalid procedure input")
+            }
+        } else {
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
     }
