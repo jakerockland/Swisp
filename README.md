@@ -8,17 +8,12 @@ Inspired by [(How to Write a (Lisp) Interpreter (in Python))](http://norvig.com/
 
 ## Usage
 
-To build Swisp:
+To build and run Swisp:
 
 ```
 git clone https://github.com/jakerockland/Swisp.git
 cd Swisp
 swift build
-```
-
-And run the REPL:
-
-```
 .build/debug/Swisp
 ```
 
