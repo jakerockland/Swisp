@@ -128,7 +128,10 @@ private struct Operators {
     /**
      Static function for `+` operator
      */
-    static func add(lhs: Any, rhs: Any) -> Any? {
+    static func add(_ args: [Any]) throws -> Any? {
+        guard let lhs = args[safe: 0] as Any?, let rhs = args[safe: 1] as Any? else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         switch (lhs, rhs) {
         case let (_lhs as Int, _rhs as Int):
             let double = Double(_lhs) + Double(_rhs)
@@ -146,14 +149,17 @@ private struct Operators {
         case let (_lhs as String, _rhs as String):
             return _lhs + _rhs
         default:
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
     }
 
     /**
      Static function for `-` operator
      */
-    static func subtract(lhs: Any, rhs: Any) -> Any? {
+    static func subtract(_ args: [Any]) throws -> Any? {
+        guard let lhs = args[safe: 0] as Any?, let rhs = args[safe: 1] as Any? else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         switch (lhs, rhs) {
         case let (_lhs as Int, _rhs as Int):
             let double = Double(_lhs) - Double(_rhs)
@@ -169,14 +175,17 @@ private struct Operators {
         case let (_lhs as Double, _rhs as Int):
             return _lhs - Double(_rhs)
         default:
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
     }
 
     /**
      Static function for `*` operator
      */
-    static func multiply(lhs: Any, rhs: Any) -> Any? {
+    static func multiply(_ args: [Any]) throws -> Any? {
+        guard let lhs = args[safe: 0] as Any?, let rhs = args[safe: 1] as Any? else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         switch (lhs, rhs) {
         case let (_lhs as Int, _rhs as Int):
             let double = Double(_lhs) * Double(_rhs)
@@ -192,14 +201,17 @@ private struct Operators {
         case let (_lhs as Double, _rhs as Int):
             return _lhs * Double(_rhs)
         default:
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
     }
 
     /**
      Static function for `/` operator
      */
-    static func divide(lhs: Any, rhs: Any) -> Any? {
+    static func divide(_ args: [Any]) throws -> Any? {
+        guard let lhs = args[safe: 0] as Any?, let rhs = args[safe: 1] as Any? else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         switch (lhs, rhs) {
         case let (_lhs as Int, _rhs as Int):
             return _lhs / _rhs
@@ -210,26 +222,32 @@ private struct Operators {
         case let (_lhs as Double, _rhs as Int):
             return _lhs / Double(_rhs)
         default:
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
     }
 
     /**
      Static function for `%` operator
      */
-    static func mod(lhs: Any, rhs: Any) -> Any? {
+    static func mod(_ args: [Any]) throws -> Any? {
+        guard let lhs = args[safe: 0] as Any?, let rhs = args[safe: 1] as Any? else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         switch (lhs, rhs) {
         case let (_lhs as Int, _rhs as Int):
             return _lhs % _rhs
         default:
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
     }
 
     /**
      Static function for `>` operator
      */
-    static func greaterThan(lhs: Any, rhs: Any) -> Any? {
+    static func greaterThan(_ args: [Any]) throws -> Any? {
+        guard let lhs = args[safe: 0] as Any?, let rhs = args[safe: 1] as Any? else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         switch (lhs, rhs) {
         case let (_lhs as Int, _rhs as Int):
             return _lhs > _rhs
@@ -238,14 +256,17 @@ private struct Operators {
         case let (_lhs as String, _rhs as String):
             return _lhs > _rhs
         default:
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
     }
 
     /**
      Static function for `<` operator
      */
-    static func lessThan(lhs: Any, rhs: Any) -> Any? {
+    static func lessThan(_ args: [Any]) throws -> Any? {
+        guard let lhs = args[safe: 0] as Any?, let rhs = args[safe: 1] as Any? else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         switch (lhs, rhs) {
         case let (_lhs as Int, _rhs as Int):
             return _lhs < _rhs
@@ -254,14 +275,17 @@ private struct Operators {
         case let (_lhs as String, _rhs as String):
             return _lhs < _rhs
         default:
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
     }
 
     /**
      Static function for `>=` operator
      */
-    static func greaterThanEqual(lhs: Any, rhs: Any) -> Any? {
+    static func greaterThanEqual(_ args: [Any]) throws -> Any? {
+        guard let lhs = args[safe: 0] as Any?, let rhs = args[safe: 1] as Any? else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         switch (lhs, rhs) {
         case let (_lhs as Int, _rhs as Int):
             return _lhs >= _rhs
@@ -270,14 +294,17 @@ private struct Operators {
         case let (_lhs as String, _rhs as String):
             return _lhs >= _rhs
         default:
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
     }
 
     /**
      Static function for `<=` operator
      */
-    static func lessThanEqual(lhs: Any, rhs: Any) -> Any? {
+    static func lessThanEqual(_ args: [Any]) throws -> Any? {
+        guard let lhs = args[safe: 0] as Any?, let rhs = args[safe: 1] as Any? else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         switch (lhs, rhs) {
         case let (_lhs as Int, _rhs as Int):
             return _lhs <= _rhs
@@ -286,14 +313,17 @@ private struct Operators {
         case let (_lhs as String, _rhs as String):
             return _lhs <= _rhs
         default:
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
     }
 
     /**
      Static function for `=` operator
      */
-    static func equal(lhs: Any, rhs: Any) -> Any? {
+    static func equal(_ args: [Any]) throws -> Any? {
+        guard let lhs = args[safe: 0] as Any?, let rhs = args[safe: 1] as Any? else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         switch (lhs, rhs) {
         case let (_lhs as Int, _rhs as Int):
             return _lhs == _rhs
@@ -302,7 +332,7 @@ private struct Operators {
         case let (_lhs as String, _rhs as String):
             return _lhs == _rhs
         default:
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
     }
 }
@@ -337,23 +367,29 @@ private struct Library {
     /**
      Static function for `abs` operation
      */
-    static func abs(val: Any) -> Any? {
+    static func abs(_ args: [Any]) throws -> Any? {
+        guard let val = args[safe: 0] as Any? else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         switch (val) {
         case let (_val as Int):
             return Swift.abs(_val)
         case let (_val as Double):
             return Swift.abs(_val)
         default:
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
     }
     
     /**
      Static function for `append` operation
      */
-    static func append(lis1: Any, lis2: Any) -> Any? {
+    static func append(_ args: [Any]) throws -> Any? {
+        guard let lis1 = args[safe: 0] as Any?, let lis2 = args[safe: 1] as Any? else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         guard let _lis1 = lis1 as? [Any], let _lis2 = lis2 as? [Any] else {
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
         return _lis1 + _lis2
     }
@@ -361,9 +397,12 @@ private struct Library {
     /**
      Static function for `car` operation
      */
-    static func car(lis: Any) -> Any? {
+    static func car(_ args: [Any]) throws -> Any? {
+        guard let lis = args[safe: 0] as Any? else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         guard let _lis = lis as? [Any] else {
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
         return _lis.first
     }
@@ -371,9 +410,12 @@ private struct Library {
     /**
      Static function for `cdr` operation
      */
-    static func cdr(lis: Any) -> Any? {
+    static func cdr(_ args: [Any]) throws -> Any? {
+        guard let lis = args[safe: 0] as Any? else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         guard let _lis = lis as? [Any] else {
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
         return Array(_lis.dropFirst())
     }
@@ -406,19 +448,25 @@ private struct Math {
     /**
      Static function for `ceil` operation
      */
-    static func ceil(val: Any) -> Any? {
+    static func ceil(_ args: [Any]) throws -> Any? {
+        guard let val = args[safe: 0] as Any? else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         switch (val) {
         case let (_val as Double):
             return Foundation.ceil(_val)
         default:
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
     }
 
     /**
      Static function for `copysign` operation
      */
-    static func copysign(lhs: Any, rhs: Any) -> Any? {
+    static func copysign(_ args: [Any]) throws -> Any? {
+        guard let lhs = args[safe: 0] as Any?, let rhs = args[safe: 1] as Any? else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         switch (lhs, rhs) {
         case let (_lhs as Double, _rhs as Double):
             return Foundation.copysign(_lhs, _rhs)
@@ -429,32 +477,38 @@ private struct Math {
         case let (_lhs as Double, _rhs as Int):
             return Foundation.copysign(_lhs, Double(_rhs))
         default:
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
     }
 
     /**
      Static function for `fabs` operation
      */
-    static func fabs(val: Any) -> Any? {
+    static func fabs(_ args: [Any]) throws -> Any? {
+        guard let val = args[safe: 0] as Any? else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         switch (val) {
         case let (_val as Double):
             return Foundation.fabs(_val)
         default:
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
     }
     
     /**
      Static function for `factorial` operation
      */
-    static func factorial(val: Any) -> Any? {
+    static func factorial(_ args: [Any]) throws -> Any? {
+        guard let val = args[safe: 0] as Any? else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         switch (val) {
         case let (_val as Int):
             if _val == 0 {
                 return 1
             } else {
-                let fact = factorial(val: _val - 1)
+                let fact = try factorial([_val - 1])
                 switch (fact) {
                 case let (_fact as Int):
                     let double = Double(_val) * Double(_fact)
@@ -466,95 +520,113 @@ private struct Math {
                 case let (_fact as Double):
                     return Double(_val) * _fact
                 default:
-                    return nil
+                    throw SwispError.SyntaxError(message: "invalid procedure input")
                 }
             }
         case let (_val as Double):
             if _val == 0.0 {
                 return 1.0
             } else {
-                let fact = factorial(val: _val - 1)
+                let fact = try factorial([_val - 1])
                 switch (fact) {
                 case let (_fact as Int):
                     return _val * Double(_fact)
                 case let (_fact as Double):
                     return _val * _fact
                 default:
-                    return nil
+                    throw SwispError.SyntaxError(message: "invalid procedure input")
                 }
             }
         default:
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
     }
 
     /**
      Static function for `floor` operation
      */
-    static func floor(val: Any) -> Any? {
+    static func floor(_ args: [Any]) throws -> Any? {
+        guard let val = args[safe: 0] as Any? else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         switch (val) {
         case let (_val as Double):
             return Foundation.floor(_val)
         default:
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
     }
     
     /**
      Static function for `fmod` operation
      */
-    static func fmod(lhs: Any, rhs: Any) -> Any? {
+    static func fmod(_ args: [Any]) throws -> Any? {
+        guard let lhs = args[safe: 0] as Any?, let rhs = args[safe: 1] as Any? else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         switch (lhs, rhs) {
         case let (_lhs as Double, _rhs as Double):
             return Foundation.fmod(_lhs, _rhs)
         default:
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
     }
     
     /**
      Static function for `frexp` operation
      */
-    static func frexp(val: Any) -> Any? {
+    static func frexp(_ args: [Any]) throws -> Any? {
+        guard let val = args[safe: 0] as Any? else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         switch (val) {
         case let (_val as Double):
             let temp = Foundation.frexp(_val)
             return [temp.0, temp.1]
         default:
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
     }
     
     /**
      Static function for `fsum` operation
      */
-    static func fsum(val: Any) -> Any? {
+    static func fsum(_ args: [Any]) throws -> Any? {
+        guard let val = args[safe: 0] as Any? else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         switch (val) {
         case let (_val as [Double]):
             return _val.reduce(0,+)
         case let (_val as [Int]):
             return _val.reduce(0,+)
         default:
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
     }
     
     /**
      Static function for `isinf` operation
      */
-    static func isinf(val: Any) -> Any? {
+    static func isinf(_ args: [Any]) throws -> Any? {
+        guard let val = args[safe: 0] as Any? else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         switch (val) {
         case let (_val as Double):
             return _val >= Double.infinity
         default:
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
     }
     
     /**
      Static function for `isinf` operation
      */
-    static func isnan(val: Any) -> Any? {
+    static func isnan(_ args: [Any]) throws -> Any? {
+        guard let val = args[safe: 0] as Any? else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         switch (val) {
         case (_ as Double):
             return false
@@ -568,96 +640,120 @@ private struct Math {
     /**
      Static function for `ldexp` operation
      */
-    static func ldexp(val: Any, exp: Any) -> Any? {
+    static func ldexp(_ args: [Any]) throws -> Any? {
+        guard let val = args[safe: 0] as Any?, let exp = args[safe: 1] else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         switch (val, exp) {
         case let (_val as Double, _exp as Int):
             return Foundation.ldexp(_val, _exp)
         default:
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
     }
     
     /**
      Static function for `trunc` operation
      */
-    static func trunc(val: Any) -> Any? {
+    static func trunc(_ args: [Any]) throws -> Any? {
+        guard let val = args[safe: 0] as Any? else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         switch (val) {
         case let (_val as Double):
             return Foundation.trunc(_val)
         default:
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
     }
     
     /**
     Static function for `exp` operation 
     */
-    static func exp(val: Any) -> Any? {
+    static func exp(_ args: [Any]) throws -> Any? {
+        guard let val = args[safe: 0] as Any? else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         switch (val) {
         case let (_val as Double):
             return Foundation.exp(_val)
         default:
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
     }
     
     /**
      Static function for `log` operation
      */
-    static func log(val: Any) -> Any? {
+    static func log(_ args: [Any]) throws -> Any? {
+        guard let val = args[safe: 0] as Any? else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         switch (val) {
         case let (_val as Double):
             return Foundation.log(_val)
         default:
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
     }
 
     /**
      Static function for `log1p` operation
      */
-    static func log1p(val: Any) -> Any? {
+    static func log1p(_ args: [Any]) throws -> Any? {
+        guard let val = args[safe: 0] as Any? else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         switch (val) {
         case let (_val as Double):
             return Foundation.log1p(_val)
         default:
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
     }
     
     /**
      Static function for `log10` operation
      */
-    static func log10(val: Any) -> Any? {
+    static func log10(_ args: [Any]) throws -> Any? {
+        guard let val = args[safe: 0] as Any? else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         switch (val) {
         case let (_val as Double):
             return Foundation.log10(_val)
         default:
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
     }
     
     /**
      Static function for `pow` operation
      */
-    static func pow(val: Any, exp: Any) -> Any? {
+    static func pow(_ args: [Any]) throws -> Any? {
+        guard let val = args[safe: 0] as Any?, let exp = args[safe: 1] else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         switch (val, exp) {
         case let (_val as Double, _exp as Double):
             return Foundation.pow(_val, _exp)
         default:
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
     }
 
     /**
      Static function for `sqrt` operation
      */
-    static func sqrt(val: Any) -> Any? {
+    static func sqrt(_ args: [Any]) throws -> Any? {
+        guard let val = args[safe: 0] as Any? else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
         switch (val) {
         case let (_val as Double):
             return Foundation.sqrt(_val)
         default:
-            return nil
+            throw SwispError.SyntaxError(message: "invalid procedure input")
         }
     }
 
