@@ -158,14 +158,11 @@ private struct Operators {
      */
     static func subtract(_ args: [Any]) throws -> Any? {
         if args.count == 1 {
-            guard let val = args[safe: 0] as Any? else {
-                throw SwispError.SyntaxError(message: "invalid procedure input")
-            }
-            switch (val) {
-            case let (_val as Int):
-                return -_val
-            case let (_val as Double):
-                return -_val
+            switch (args[safe: 0]) {
+            case let (val as Int):
+                return -val
+            case let (val as Double):
+                return -val
             default:
                 throw SwispError.SyntaxError(message: "invalid procedure input")
             }
