@@ -230,7 +230,7 @@ public struct Interpreter {
                 }
                 outer[`var`] = try eval(&exp, with: &env)
                 return nil
-            } else if x.first as? Symbol == "lambda" { // procedure
+            } else if x.first as? Symbol == "lambda" { // lambda
                 guard let parms = x[safe: 1] as? [Symbol], let body = x[safe: 2] as? [Any] else {
                     throw SwispError.SyntaxError(message: "invalid lambda")
                 }
@@ -254,33 +254,14 @@ public struct Interpreter {
                 if let proc = proc as? Lambda {
                     return try proc.call(args)
                 } else {
-                    switch args.count {
-                    case 0:
+                    if args.count > 0 {
+                        guard let proc = proc as? (([Any]) throws -> Any?) else {
+                            throw SwispError.SyntaxError(message: "invalid procedure called")
+                        }
+                        return try proc(args)
+                        
+                    } else {
                         return proc
-                    case 1:
-                        guard let proc = proc as? (Any)->Any? else {
-                            throw SwispError.SyntaxError(message: "invalid procedure called")
-                        }
-                        guard let result = proc(args[safe: 0] as Any) else {
-                            throw SwispError.SyntaxError(message: "invalid procedure input")
-                        }
-                        return result
-                    case 2:
-                        guard let proc = proc as? (Any, Any)->Any? else {
-                            throw SwispError.SyntaxError(message: "invalid procedure called")
-                        }
-                        guard let result = proc(args[safe: 0] as Any, args[safe: 1] as Any) else {
-                            throw SwispError.SyntaxError(message: "invalid procedure input")
-                        }
-                        return result
-                    default:
-                        guard let proc = proc as? ([Any])->Any? else {
-                            throw SwispError.SyntaxError(message: "invalid procedure called")
-                        }
-                        guard let result = proc(args) else {
-                            throw SwispError.SyntaxError(message: "invalid procedure input")
-                        }
-                        return result
                     }
                 }
             }
@@ -341,13 +322,4 @@ public struct Interpreter {
         return string
     }
     
-}
-
-/**
- Extension to Array for safer indexing
- */
-private extension Array {
-    subscript (safe index: Int) -> Element? {
-        return (index >= 0 && index < count) ? self[index] : nil
-    }
 }

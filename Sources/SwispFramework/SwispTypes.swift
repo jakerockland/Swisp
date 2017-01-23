@@ -23,6 +23,15 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
+/**
+ Extension to Array for safer indexing
+ */
+internal extension Array {
+    subscript (safe index: Int) -> Element? {
+        return (index >= 0 && index < count) ? self[index] : nil
+    }
+}
+
 /// Custom type for errors encountered while interpreting
 public enum SwispError: Error, CustomStringConvertible {
     
