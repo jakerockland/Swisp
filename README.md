@@ -14,13 +14,12 @@ To build Swisp:
 git clone https://github.com/jakerockland/Swisp.git
 cd Swisp
 swift build
+```
+
+And run the REPL:
+
+```
 .build/debug/Swisp
-```
-
-To run the unit tests:
-
-```
-swift test
 ```
 
 Example of REPL in action:
@@ -32,6 +31,12 @@ Swisp> (* pi (* r r))
 Swisp> (if (> (* 11 11) 120) (* 7 6) oops)
 42
 Swisp> 
+```
+
+To run the tests:
+
+```
+swift test
 ```
 
 ## Contributions
