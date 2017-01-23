@@ -157,25 +157,39 @@ private struct Operators {
      Static function for `-` operator
      */
     static func subtract(_ args: [Any]) throws -> Any? {
-        guard let lhs = args[safe: 0] as Any?, let rhs = args[safe: 1] as Any? else {
-            throw SwispError.SyntaxError(message: "invalid procedure input")
-        }
-        switch (lhs, rhs) {
-        case let (_lhs as Int, _rhs as Int):
-            let double = Double(_lhs) - Double(_rhs)
-            if double < Double(Int.max) && double > Double(-Int.max){
-                return Int(double)
-            } else {
-                return double
+        if args.count == 1 {
+            guard let val = args[safe: 0] as Any? else {
+                throw SwispError.SyntaxError(message: "invalid procedure input")
             }
-        case let (_lhs as Double, _rhs as Double):
-            return _lhs - _rhs
-        case let (_lhs as Int, _rhs as Double):
-            return Double(_lhs) - _rhs
-        case let (_lhs as Double, _rhs as Int):
-            return _lhs - Double(_rhs)
-        default:
-            throw SwispError.SyntaxError(message: "invalid procedure input")
+            switch (val) {
+            case let (_val as Int):
+                return -_val
+            case let (_val as Double):
+                return -_val
+            default:
+                throw SwispError.SyntaxError(message: "invalid procedure input")
+            }
+        } else {
+            guard let lhs = args[safe: 0] as Any?, let rhs = args[safe: 1] as Any? else {
+                throw SwispError.SyntaxError(message: "invalid procedure input")
+            }
+            switch (lhs, rhs) {
+            case let (_lhs as Int, _rhs as Int):
+                let double = Double(_lhs) - Double(_rhs)
+                if double < Double(Int.max) && double > Double(-Int.max){
+                    return Int(double)
+                } else {
+                    return double
+                }
+            case let (_lhs as Double, _rhs as Double):
+                return _lhs - _rhs
+            case let (_lhs as Int, _rhs as Double):
+                return Double(_lhs) - _rhs
+            case let (_lhs as Double, _rhs as Int):
+                return _lhs - Double(_rhs)
+            default:
+                throw SwispError.SyntaxError(message: "invalid procedure input")
+            }
         }
     }
 

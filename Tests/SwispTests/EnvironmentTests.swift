@@ -186,11 +186,27 @@ public class EnvironmentTests: XCTestCase {
         } catch {
             XCTFail()
         }
+        
+        do {
+            parsed = try Interpreter.parse("(- 6)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Int, -6)
+        } catch {
+            XCTFail()
+        }
 
         do {
             parsed = try Interpreter.parse("(- 6.0 2.0)")
             let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, 4.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(- 6.0)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, -6.0)
         } catch {
             XCTFail()
         }
