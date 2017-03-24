@@ -63,15 +63,15 @@ public let standardEnv = Env([
     "log10":    Math.log10,
     "pow":      Math.pow,
     "sqrt":     Math.sqrt,
-    //            // Trigonometric functions
-    //            "acos":     acos,
-    //            "asin":     asin,
-    //            "atan":     atan,
-    //            "atan2":    atan2,
-    //            "cos":      cos,
-    //            "hypot":    hypot,
-    //            "sin":      sin,
-    //            "tan":      tan,
+    // Trigonometric functions
+    "acos":     Math.acos,
+    "asin":     Math.asin,
+    "atan":     Math.atan,
+    "atan2":    Math.atan2,
+    "cos":      Math.cos,
+    "hypot":    Math.hypot,
+    "sin":      Math.sin,
+    "tan":      Math.tan,
     //            // Angular conversion
     //            "degrees": degrees,
     //            "radians": radians,
@@ -448,10 +448,18 @@ private struct Library {
 - `trunc`
 - `exp`
 - `log`
- - 'log1p'
- -'log10'
- -'exp'
- -'sqrt'
+- 'log1p'
+- 'log10'
+- 'exp'
+- 'sqrt'
+- 'acos'
+- 'asin'
+- 'atan'
+- 'atan2'
+- 'cos'
+- 'hypot'
+- 'sin'
+- 'tan'
  */
 private struct Math {
 
@@ -760,6 +768,126 @@ private struct Math {
         switch (args[safe: 0]) {
         case let (val as Double):
             return Foundation.sqrt(val)
+        default:
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+    }
+    
+    /**
+     Static function for `acos` operation
+     */
+    static func acos(_ args: [Any]) throws -> Any? {
+        guard args.count == 1 else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+        switch (args[safe: 0]) {
+        case let (val as Double):
+            return Foundation.acos(val)
+        default:
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+    }
+    
+    /**
+     Static function for `asin` operation
+     */
+    static func asin(_ args: [Any]) throws -> Any? {
+        guard args.count == 1 else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+        switch (args[safe: 0]) {
+        case let (val as Double):
+            return Foundation.asin(val)
+        default:
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+    }
+    
+    /**
+     Static function for `atan` operation
+     */
+    static func atan(_ args: [Any]) throws -> Any? {
+        guard args.count == 1 else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+        switch (args[safe: 0]) {
+        case let (val as Double):
+            return Foundation.atan(val)
+        default:
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+    }
+    
+    /**
+     Static function for `atan2` operation
+     */
+    static func atan2(_ args: [Any]) throws -> Any? {
+        guard args.count == 2 else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+        switch (args[safe: 0], args[safe: 1]) {
+        case let (val1 as Double, val2 as Double):
+            return Foundation.atan2(val1, val2)
+        default:
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+    }
+    
+    /**
+     Static function for `cos` operation
+     */
+    static func cos(_ args: [Any]) throws -> Any? {
+        guard args.count == 1 else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+        switch (args[safe: 0]) {
+        case let (val as Double):
+            return Foundation.cos(val)
+        default:
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+    }
+    
+    /**
+     Static function for `hypot` operation
+     */
+    static func hypot(_ args: [Any]) throws -> Any? {
+        guard args.count == 2 else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+        switch (args[safe: 0], args[safe: 1]) {
+        case let (val1 as Double, val2 as Double):
+            return Foundation.hypot(val1, val2)
+        default:
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+    }
+    
+    /**
+     Static function for `sin` operation
+     */
+    static func sin(_ args: [Any]) throws -> Any? {
+        guard args.count == 1 else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+        switch (args[safe: 0]) {
+        case let (val as Double):
+            return Foundation.sin(val)
+        default:
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+    }
+    
+    /**
+     Static function for `tan` operation
+     */
+    static func tan(_ args: [Any]) throws -> Any? {
+        guard args.count == 1 else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+        switch (args[safe: 0]) {
+        case let (val as Double):
+            return Foundation.tan(val)
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }

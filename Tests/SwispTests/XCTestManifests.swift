@@ -83,6 +83,14 @@ extension EnvironmentTests {
             ("testLog10", testLog10),
             ("testPow", testPow),
             ("testSqrt", testSqrt),
+            ("testAcos", testAcos),
+            ("testAsin", testAsin),
+            ("testAtan", testAtan),
+            ("testAtan2", testAtan2),
+            ("testCos", testCos),
+            ("testHypot", testHypot),
+            ("testSin", testSin),
+            ("testTan", testTan)
         ]
     }()
     
