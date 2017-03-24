@@ -1667,9 +1667,9 @@ public class EnvironmentTests: XCTestCase {
         }
         
         do {
-            parsed = try Interpreter.parse("(acos 0.5)")
+            parsed = try Interpreter.parse("(acos 0.1)")
             let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
-            XCTAssertEqual(result as? Double, 1.0471975511965976)
+            XCTAssertEqual(result as? Double, acos(0.1))
         } catch {
             XCTFail()
         }
@@ -1706,9 +1706,9 @@ public class EnvironmentTests: XCTestCase {
         }
         
         do {
-            parsed = try Interpreter.parse("(asin 1.0)")
+            parsed = try Interpreter.parse("(asin 0.1)")
             let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
-            XCTAssertEqual(result as? Double, 1.5707963267948966)
+            XCTAssertEqual(result as? Double, asin(0.1))
         } catch {
             XCTFail()
         }
@@ -1745,9 +1745,9 @@ public class EnvironmentTests: XCTestCase {
         }
         
         do {
-            parsed = try Interpreter.parse("(atan 1.0)")
+            parsed = try Interpreter.parse("(atan 0.1)")
             let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
-            XCTAssertEqual(result as? Double, 0.78539816339744828)
+            XCTAssertEqual(result as? Double, atan(0.1))
         } catch {
             XCTFail()
         }
@@ -1784,9 +1784,9 @@ public class EnvironmentTests: XCTestCase {
         }
         
         do {
-            parsed = try Interpreter.parse("(atan2 2.0 3.0)")
+            parsed = try Interpreter.parse("(atan2 0.1 2.2)")
             let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
-            XCTAssertEqual(result as? Double, 0.5880026035475675)
+            XCTAssertEqual(result as? Double, atan2(0.1, 2.2))
         } catch {
             XCTFail()
         }
@@ -1825,7 +1825,7 @@ public class EnvironmentTests: XCTestCase {
         do {
             parsed = try Interpreter.parse("(cos 0.1)")
             let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
-            XCTAssertEqual(result as? Double, 0.99500416527802571)
+            XCTAssertEqual(result as? Double, cos(0.1))
         } catch {
             XCTFail()
         }
@@ -1864,7 +1864,7 @@ public class EnvironmentTests: XCTestCase {
         do {
             parsed = try Interpreter.parse("(hypot 0.1 2.2)")
             let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
-            XCTAssertEqual(result as? Double, 2.2022715545545242)
+            XCTAssertEqual(result as? Double, hypot(0.1, 2.2))
         } catch {
             XCTFail()
         }
@@ -1903,7 +1903,7 @@ public class EnvironmentTests: XCTestCase {
         do {
             parsed = try Interpreter.parse("(sin 0.1)")
             let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
-            XCTAssertEqual(result as? Double, 0.099833416646828155)
+            XCTAssertEqual(result as? Double, sin(0.1))
         } catch {
             XCTFail()
         }
@@ -1942,7 +1942,7 @@ public class EnvironmentTests: XCTestCase {
         do {
             parsed = try Interpreter.parse("(tan 0.1)")
             let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
-            XCTAssertEqual(result as? Double, 0.10033467208545055)
+            XCTAssertEqual(result as? Double, tan(0.1))
         } catch {
             XCTFail()
         }
