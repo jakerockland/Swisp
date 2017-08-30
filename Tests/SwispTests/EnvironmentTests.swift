@@ -1581,23 +1581,23 @@ public class EnvironmentTests: XCTestCase {
         var parsed: Any
         
         do {
-            parsed = try Interpreter.parse("(pow 1.0 0.0)")
+            parsed = try Interpreter.parse("(pow 1 0)")
             let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
-            XCTAssertEqual(result as? Double, 1.0)
+            XCTAssertEqual(result as? Int, 1)
         } catch {
             XCTFail()
         }
         
         do {
-            parsed = try Interpreter.parse("(pow 2.0 3.0)")
+            parsed = try Interpreter.parse("(pow 2 3)")
             let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
-            XCTAssertEqual(result as? Double, 8.0)
+            XCTAssertEqual(result as? Int, 8)
         } catch {
             XCTFail()
         }
         
         do {
-            parsed = try Interpreter.parse("(pow 1 3)")
+            parsed = try Interpreter.parse("(pow 1 3.0)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
         } catch {
@@ -1605,7 +1605,23 @@ public class EnvironmentTests: XCTestCase {
         }
         
         do {
-            parsed = try Interpreter.parse("(pow 2.0)")
+            parsed = try Interpreter.parse("(pow 1.0 3)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(pow 1.0 3.0)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(pow 2)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
         } catch {

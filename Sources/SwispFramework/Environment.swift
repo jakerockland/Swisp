@@ -743,8 +743,8 @@ private struct Math {
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
         switch (args[safe: 0], args[safe: 1]) {
-        case let (val as Double, exp as Double):
-            return Foundation.pow(val, exp)
+        case let (x as Int, y as Int):
+            return Int(Foundation.pow(Double(x), Double(y)))
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
