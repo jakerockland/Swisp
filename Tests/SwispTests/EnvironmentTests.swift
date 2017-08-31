@@ -1763,5 +1763,317 @@ public class EnvironmentTests: XCTestCase {
             XCTPass()
         }
     }
+    
+    /**
+     Tests our `acos` function
+     */
+    func testAcos() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(acos 1.0)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 0.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(acos 0.1)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqualWithAccuracy(result as! Double, 1.47062890563334, accuracy: 0.0000000001)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(acos 1)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(acos 1.0 1.0)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+    }
+    
+    /**
+     Tests our `asin` function
+     */
+    func testAsin() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(asin 0.0)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 0.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(asin 0.1)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqualWithAccuracy(result as! Double, 0.10016742116156, accuracy: 0.0000000001)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(asin 1)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(asin 1.0 1.0)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+    }
+    
+    /**
+     Tests our `atan` function
+     */
+    func testAtan() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(atan 0.0)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 0.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(atan 0.1)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqualWithAccuracy(result as! Double, 0.099668652491162, accuracy: 0.0000000001)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(atan 1)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(atan 1.0 1.0)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+    }
+    
+    /**
+     Tests our `atan2` function
+     */
+    func testAtan2() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(atan2 0.0 0.0)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 0.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(atan2 0.1 2.2)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqualWithAccuracy(result as! Double, 0.045423279421577, accuracy: 0.0000000001)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(atan2 1 1)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(atan2 1.0)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+    }
+    
+    /**
+     Tests our `cos` function
+     */
+    func testCos() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(cos 0.0)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 1.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(cos 0.1)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqualWithAccuracy(result as! Double, 0.995004165278026, accuracy: 0.0000000001)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(cos 1)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(cos 1.0 1.0)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+    }
+    
+    /**
+     Tests our `hypot` function
+     */
+    func testHypot() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(hypot 0.0 0.0)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 0.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(hypot 0.1 2.2)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqualWithAccuracy(result as! Double, 2.20227155455452, accuracy: 0.0000000001)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(hypot 1 1)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(hypot 1.0)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+    }
+    
+    /**
+     Tests our `sin` function
+     */
+    func testSin() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(sin 0.0)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 0.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(sin 0.1)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqualWithAccuracy(result as! Double, 0.0998334166468282, accuracy: 0.0000000001)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(sin 1)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(sin 1.0 1.0)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+    }
+    
+    /**
+     Tests our `tan` function
+     */
+    func testTan() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(tan 0.0)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 0.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(tan 0.1)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqualWithAccuracy(result as! Double, 0.100334672085451, accuracy: 0.0000000001)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(tan 1)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(tan 1.0 1.0)")
+            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+    }
 
 }
