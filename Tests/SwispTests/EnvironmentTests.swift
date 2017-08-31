@@ -1652,11 +1652,19 @@ public class EnvironmentTests: XCTestCase {
         }
         
         do {
-            parsed = try Interpreter.parse("(sqrt 1)")
-            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
-            XCTFail()
+            parsed = try Interpreter.parse("(sqrt 16)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Int, 4)
         } catch {
-            XCTPass()
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(sqrt 4)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Int, 2)
+        } catch {
+            XCTFail()
         }
         
         do {
@@ -1667,6 +1675,5 @@ public class EnvironmentTests: XCTestCase {
             XCTPass()
         }
     }
-
 
 }
