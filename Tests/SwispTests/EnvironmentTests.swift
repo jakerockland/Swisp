@@ -1597,27 +1597,27 @@ public class EnvironmentTests: XCTestCase {
         }
         
         do {
-            parsed = try Interpreter.parse("(pow 1 3.0)")
-            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
-            XCTFail()
+            parsed = try Interpreter.parse("(pow 2 3.0)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 8.0)
         } catch {
-            XCTPass()
+            XCTFail()
         }
         
         do {
-            parsed = try Interpreter.parse("(pow 1.0 3)")
-            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
-            XCTFail()
+            parsed = try Interpreter.parse("(pow 2.0 3)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 8.0)
         } catch {
-            XCTPass()
+            XCTFail()
         }
         
         do {
-            parsed = try Interpreter.parse("(pow 1.0 3.0)")
-            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
-            XCTFail()
+            parsed = try Interpreter.parse("(pow 2.0 3.0)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 8.0)
         } catch {
-            XCTPass()
+            XCTFail()
         }
         
         do {
