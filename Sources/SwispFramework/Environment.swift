@@ -685,6 +685,8 @@ private struct Math {
         switch (args[safe: 0]) {
         case let (val as Double):
             return Foundation.exp(val)
+        case let (val as Int):
+            return Foundation.exp(Double(val))
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
