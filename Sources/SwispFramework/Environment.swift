@@ -103,7 +103,7 @@ public let standardEnv = Env([
     //            // "map":     map, // [TODO](https://www.weheartswift.com/higher-order-functions-map-filter-reduce-and-more/)
     //            "max":      max,
     //            "min":      min,
-    //            "not":      { !$0 },
+    "not":      Library.not,
     //            "null?":    { $0 == nil },
     //            "number?":  { $0 is Number },
     //            "procedure?": { String(type(of: $0)).containsString("->") },
@@ -365,7 +365,7 @@ private struct Operators {
  //            // "map":     map, // [TODO](https://www.weheartswift.com/higher-order-functions-map-filter-reduce-and-more/)
  //            "max":      max,
  //            "min":      min,
- //            "not":      { !$0 },
+- `not`
  //            "null?":    { $0 == nil },
  //            "number?":  { $0 is Number },
  //            "procedure?": { String(type(of: $0)).containsString("->") },
@@ -428,6 +428,29 @@ private struct Library {
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
         return Array(lis.dropFirst())
+    }
+    
+    /**
+     Static function for `not` operation
+     */
+    static func not(_ args: [Any]) throws -> Any? {
+        guard args.count == 1 else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+        switch (args[safe: 0]) {
+        case let (val as Bool):
+            return !val
+        case let (val as NSNumber):
+            return !Bool(val)
+        case let (val as String):
+            if let bool = Bool(val) {
+                return !bool
+            } else {
+                throw SwispError.SyntaxError(message: "invalid procedure input")
+            }
+        default:
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
     }
 
 }
