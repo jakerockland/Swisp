@@ -700,6 +700,8 @@ private struct Math {
         switch (args[safe: 0]) {
         case let (val as Double):
             return Foundation.log(val)
+        case let (val as Int):
+            return Foundation.log(Double(val))
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
@@ -715,6 +717,8 @@ private struct Math {
         switch (args[safe: 0]) {
         case let (val as Double):
             return Foundation.log1p(val)
+        case let (val as Int):
+            return Foundation.log1p(Double(val))
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
@@ -730,6 +734,8 @@ private struct Math {
         switch (args[safe: 0]) {
         case let (val as Double):
             return Foundation.log10(val)
+        case let (val as Int):
+            return Foundation.log10(Double(val))
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
