@@ -693,6 +693,8 @@ private struct Math {
         switch (args[safe: 0]) {
         case let (val as Double):
             return Foundation.exp(val)
+        case let (val as Int):
+            return Foundation.exp(Double(val))
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
@@ -708,6 +710,8 @@ private struct Math {
         switch (args[safe: 0]) {
         case let (val as Double):
             return Foundation.log(val)
+        case let (val as Int):
+            return Foundation.log(Double(val))
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
@@ -723,6 +727,8 @@ private struct Math {
         switch (args[safe: 0]) {
         case let (val as Double):
             return Foundation.log1p(val)
+        case let (val as Int):
+            return Foundation.log1p(Double(val))
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
@@ -738,6 +744,8 @@ private struct Math {
         switch (args[safe: 0]) {
         case let (val as Double):
             return Foundation.log10(val)
+        case let (val as Int):
+            return Foundation.log10(Double(val))
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
@@ -751,8 +759,14 @@ private struct Math {
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
         switch (args[safe: 0], args[safe: 1]) {
-        case let (val as Double, exp as Double):
-            return Foundation.pow(val, exp)
+        case let (x as Int, y as Int):
+            return Int(Foundation.pow(Double(x), Double(y)))
+        case let (x as Int, y as Double):
+            return Foundation.pow(Double(x), y)
+        case let (x as Double, y as Int):
+            return Foundation.pow(x, Double(y))
+        case let (x as Double, y as Double):
+            return Foundation.pow(x, y)
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
@@ -768,6 +782,8 @@ private struct Math {
         switch (args[safe: 0]) {
         case let (val as Double):
             return Foundation.sqrt(val)
+        case let (val as Int):
+            return Int(Foundation.sqrt(Double(val)))
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
