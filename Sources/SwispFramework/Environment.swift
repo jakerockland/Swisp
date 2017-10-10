@@ -916,7 +916,7 @@ private struct Math {
     }
     
     /**
-     Static function for `acosh` operation
+     Static function for `acosh` operation. Expects input in radians.
      */
     static func acosh(_ args: [Any]) throws -> Any? {
         guard args.count == 1 else {
