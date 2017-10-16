@@ -925,6 +925,8 @@ private struct Math {
         switch (args[safe: 0]) {
         case let (val as Double):
             return Foundation.acosh(val)
+        case let (val as Int):
+            return Foundation.acosh(Double(val))
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
@@ -940,6 +942,8 @@ private struct Math {
         switch (args[safe: 0]) {
         case let (val as Double):
             return Foundation.asinh(val)
+        case let (val as Int):
+            return Foundation.asinh(Double(val))
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
@@ -955,6 +959,8 @@ private struct Math {
         switch (args[safe: 0]) {
         case let (val as Double):
             return Foundation.atanh(val)
+        case let (val as Int):
+            return Foundation.atanh(Double(val))
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
@@ -970,6 +976,8 @@ private struct Math {
         switch (args[safe: 0]) {
         case let (val as Double):
             return Foundation.cosh(val)
+        case let (val as Int):
+            return Foundation.cosh(Double(val))
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
@@ -985,6 +993,8 @@ private struct Math {
         switch (args[safe: 0]) {
         case let (val as Double):
             return Foundation.sinh(val)
+        case let (val as Int):
+            return Foundation.sinh(Double(val))
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
@@ -1000,6 +1010,8 @@ private struct Math {
         switch (args[safe: 0]) {
         case let (val as Double):
             return Foundation.tanh(val)
+        case let (val as Int):
+            return Foundation.tanh(Double(val))
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
