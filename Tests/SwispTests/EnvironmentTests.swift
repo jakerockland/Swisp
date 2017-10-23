@@ -1771,14 +1771,6 @@ public class EnvironmentTests: XCTestCase {
         var parsed: Any
         
         do {
-            parsed = try Interpreter.parse("(acos 1.0)")
-            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
-            XCTAssertEqual(result as? Double, 0.0)
-        } catch {
-            XCTFail()
-        }
-        
-        do {
             parsed = try Interpreter.parse("(acos 0.1)")
             let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqualWithAccuracy(result as! Double, 1.47062890563334, accuracy: 0.0000000001)
@@ -1788,6 +1780,14 @@ public class EnvironmentTests: XCTestCase {
         
         do {
             parsed = try Interpreter.parse("(acos 1)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 0.0)
+        } catch {
+            XCTPass()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(acos a)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
         } catch {
@@ -1810,14 +1810,6 @@ public class EnvironmentTests: XCTestCase {
         var parsed: Any
         
         do {
-            parsed = try Interpreter.parse("(asin 0.0)")
-            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
-            XCTAssertEqual(result as? Double, 0.0)
-        } catch {
-            XCTFail()
-        }
-        
-        do {
             parsed = try Interpreter.parse("(asin 0.1)")
             let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqualWithAccuracy(result as! Double, 0.10016742116156, accuracy: 0.0000000001)
@@ -1826,7 +1818,15 @@ public class EnvironmentTests: XCTestCase {
         }
         
         do {
-            parsed = try Interpreter.parse("(asin 1)")
+            parsed = try Interpreter.parse("(asin 0)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 0.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(asin a)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
         } catch {
@@ -1849,14 +1849,6 @@ public class EnvironmentTests: XCTestCase {
         var parsed: Any
         
         do {
-            parsed = try Interpreter.parse("(atan 0.0)")
-            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
-            XCTAssertEqual(result as? Double, 0.0)
-        } catch {
-            XCTFail()
-        }
-        
-        do {
             parsed = try Interpreter.parse("(atan 0.1)")
             let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqualWithAccuracy(result as! Double, 0.099668652491162, accuracy: 0.0000000001)
@@ -1865,7 +1857,15 @@ public class EnvironmentTests: XCTestCase {
         }
         
         do {
-            parsed = try Interpreter.parse("(atan 1)")
+            parsed = try Interpreter.parse("(atan 0)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 0.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(atan a)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
         } catch {
@@ -1888,7 +1888,23 @@ public class EnvironmentTests: XCTestCase {
         var parsed: Any
         
         do {
-            parsed = try Interpreter.parse("(atan2 0.0 0.0)")
+            parsed = try Interpreter.parse("(atan2 1 1)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqualWithAccuracy(result as! Double, 0.785398163397448, accuracy: 0.0000000001)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(atan2 0 0.0)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 0.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(atan2 0.0 0)")
             let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, 0.0)
         } catch {
@@ -1904,7 +1920,7 @@ public class EnvironmentTests: XCTestCase {
         }
         
         do {
-            parsed = try Interpreter.parse("(atan2 1 1)")
+            parsed = try Interpreter.parse("(atan2 a b)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
         } catch {
@@ -1927,14 +1943,6 @@ public class EnvironmentTests: XCTestCase {
         var parsed: Any
         
         do {
-            parsed = try Interpreter.parse("(cos 0.0)")
-            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
-            XCTAssertEqual(result as? Double, 1.0)
-        } catch {
-            XCTFail()
-        }
-        
-        do {
             parsed = try Interpreter.parse("(cos 0.1)")
             let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqualWithAccuracy(result as! Double, 0.995004165278026, accuracy: 0.0000000001)
@@ -1943,7 +1951,15 @@ public class EnvironmentTests: XCTestCase {
         }
         
         do {
-            parsed = try Interpreter.parse("(cos 1)")
+            parsed = try Interpreter.parse("(cos 0)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 1.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(cos a)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
         } catch {
@@ -1966,7 +1982,23 @@ public class EnvironmentTests: XCTestCase {
         var parsed: Any
         
         do {
-            parsed = try Interpreter.parse("(hypot 0.0 0.0)")
+            parsed = try Interpreter.parse("(hypot 1 1)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqualWithAccuracy(result as! Double, 1.41421356237309, accuracy: 0.0000000001)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(hypot 0 0.0)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 0.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(hypot 0.0 0)")
             let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, 0.0)
         } catch {
@@ -1982,7 +2014,7 @@ public class EnvironmentTests: XCTestCase {
         }
         
         do {
-            parsed = try Interpreter.parse("(hypot 1 1)")
+            parsed = try Interpreter.parse("(hypot a b)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
         } catch {
@@ -2005,14 +2037,6 @@ public class EnvironmentTests: XCTestCase {
         var parsed: Any
         
         do {
-            parsed = try Interpreter.parse("(sin 0.0)")
-            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
-            XCTAssertEqual(result as? Double, 0.0)
-        } catch {
-            XCTFail()
-        }
-        
-        do {
             parsed = try Interpreter.parse("(sin 0.1)")
             let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqualWithAccuracy(result as! Double, 0.0998334166468282, accuracy: 0.0000000001)
@@ -2021,7 +2045,15 @@ public class EnvironmentTests: XCTestCase {
         }
         
         do {
-            parsed = try Interpreter.parse("(sin 1)")
+            parsed = try Interpreter.parse("(sin 0)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 0.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(sin a)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
         } catch {
@@ -2044,14 +2076,6 @@ public class EnvironmentTests: XCTestCase {
         var parsed: Any
         
         do {
-            parsed = try Interpreter.parse("(tan 0.0)")
-            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
-            XCTAssertEqual(result as? Double, 0.0)
-        } catch {
-            XCTFail()
-        }
-        
-        do {
             parsed = try Interpreter.parse("(tan 0.1)")
             let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTAssertEqualWithAccuracy(result as! Double, 0.100334672085451, accuracy: 0.0000000001)
@@ -2060,7 +2084,15 @@ public class EnvironmentTests: XCTestCase {
         }
         
         do {
-            parsed = try Interpreter.parse("(tan 1)")
+            parsed = try Interpreter.parse("(tan 0)")
+            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 0.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(tan a)")
             let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
             XCTFail()
         } catch {
