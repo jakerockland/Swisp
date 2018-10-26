@@ -75,13 +75,13 @@ public let standardEnv = Env([
     //            // Angular conversion
     //            "degrees": degrees,
     //            "radians": radians,
-    //            // Hyperbolic functions
-    //            "acosh":    acosh,
-    //            "asinh":    asinh,
-    //            "atanh":    atanh,
-    //            "cosh":     cosh,
-    //            "sinh":     sinh,
-    //            "tanh":     tanh,
+    // Hyperbolic functions
+    "acosh":    Math.acosh,
+    "asinh":    Math.asinh,
+    "atanh":    Math.atanh,
+    "cosh":     Math.cosh,
+    "sinh":     Math.sinh,
+    "tanh":     Math.tanh,
     //            // Special functions
     //            "erf":      erf,
     //            "erfc":     erfc,
@@ -483,6 +483,12 @@ private struct Library {
 - 'hypot'
 - 'sin'
 - 'tan'
+- 'acosh'
+- 'asinh'
+- 'atanh'
+- 'cosh'
+- 'sinh'
+- 'tanh'
  */
 private struct Math {
 
@@ -716,6 +722,8 @@ private struct Math {
         switch (args[safe: 0]) {
         case let (val as Double):
             return Foundation.exp(val)
+        case let (val as Int):
+            return Foundation.exp(Double(val))
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
@@ -731,6 +739,8 @@ private struct Math {
         switch (args[safe: 0]) {
         case let (val as Double):
             return Foundation.log(val)
+        case let (val as Int):
+            return Foundation.log(Double(val))
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
@@ -746,6 +756,8 @@ private struct Math {
         switch (args[safe: 0]) {
         case let (val as Double):
             return Foundation.log1p(val)
+        case let (val as Int):
+            return Foundation.log1p(Double(val))
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
@@ -761,6 +773,8 @@ private struct Math {
         switch (args[safe: 0]) {
         case let (val as Double):
             return Foundation.log10(val)
+        case let (val as Int):
+            return Foundation.log10(Double(val))
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
@@ -774,8 +788,14 @@ private struct Math {
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
         switch (args[safe: 0], args[safe: 1]) {
-        case let (val as Double, exp as Double):
-            return Foundation.pow(val, exp)
+        case let (x as Int, y as Int):
+            return Int(Foundation.pow(Double(x), Double(y)))
+        case let (x as Int, y as Double):
+            return Foundation.pow(Double(x), y)
+        case let (x as Double, y as Int):
+            return Foundation.pow(x, Double(y))
+        case let (x as Double, y as Double):
+            return Foundation.pow(x, y)
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
@@ -791,6 +811,8 @@ private struct Math {
         switch (args[safe: 0]) {
         case let (val as Double):
             return Foundation.sqrt(val)
+        case let (val as Int):
+            return Int(Foundation.sqrt(Double(val)))
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
@@ -806,6 +828,8 @@ private struct Math {
         switch (args[safe: 0]) {
         case let (val as Double):
             return Foundation.acos(val)
+        case let (val as Int):
+            return Foundation.acos(Double(val))
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
@@ -821,6 +845,8 @@ private struct Math {
         switch (args[safe: 0]) {
         case let (val as Double):
             return Foundation.asin(val)
+        case let (val as Int):
+            return Foundation.asin(Double(val))
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
@@ -836,6 +862,8 @@ private struct Math {
         switch (args[safe: 0]) {
         case let (val as Double):
             return Foundation.atan(val)
+        case let (val as Int):
+            return Foundation.atan(Double(val))
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
@@ -849,6 +877,12 @@ private struct Math {
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
         switch (args[safe: 0], args[safe: 1]) {
+        case let (val1 as Int, val2 as Int):
+            return Foundation.atan2(Double(val1), Double(val2))
+        case let (val1 as Int, val2 as Double):
+            return Foundation.atan2(Double(val1), val2)
+        case let (val1 as Double, val2 as Int):
+            return Foundation.atan2(val1, Double(val2))
         case let (val1 as Double, val2 as Double):
             return Foundation.atan2(val1, val2)
         default:
@@ -866,6 +900,8 @@ private struct Math {
         switch (args[safe: 0]) {
         case let (val as Double):
             return Foundation.cos(val)
+        case let (val as Int):
+            return Foundation.cos(Double(val))
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
@@ -879,6 +915,12 @@ private struct Math {
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
         switch (args[safe: 0], args[safe: 1]) {
+        case let (val1 as Int, val2 as Int):
+            return Foundation.hypot(Double(val1), Double(val2))
+        case let (val1 as Int, val2 as Double):
+            return Foundation.hypot(Double(val1), val2)
+        case let (val1 as Double, val2 as Int):
+            return Foundation.hypot(val1, Double(val2))
         case let (val1 as Double, val2 as Double):
             return Foundation.hypot(val1, val2)
         default:
@@ -896,6 +938,8 @@ private struct Math {
         switch (args[safe: 0]) {
         case let (val as Double):
             return Foundation.sin(val)
+        case let (val as Int):
+            return Foundation.sin(Double(val))
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
@@ -911,6 +955,110 @@ private struct Math {
         switch (args[safe: 0]) {
         case let (val as Double):
             return Foundation.tan(val)
+        case let (val as Int):
+            return Foundation.tan(Double(val))
+        default:
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+    }
+    
+    /**
+     Static function for `acosh` operation. Expects input in radians.
+     */
+    static func acosh(_ args: [Any]) throws -> Any? {
+        guard args.count == 1 else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+        switch (args[safe: 0]) {
+        case let (val as Double):
+            return Foundation.acosh(val)
+        case let (val as Int):
+            return Foundation.acosh(Double(val))
+        default:
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+    }
+    
+    /**
+     Static function for `asinh` operation
+     */
+    static func asinh(_ args: [Any]) throws -> Any? {
+        guard args.count == 1 else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+        switch (args[safe: 0]) {
+        case let (val as Double):
+            return Foundation.asinh(val)
+        case let (val as Int):
+            return Foundation.asinh(Double(val))
+        default:
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+    }
+    
+    /**
+     Static function for `atanh` operation
+     */
+    static func atanh(_ args: [Any]) throws -> Any? {
+        guard args.count == 1 else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+        switch (args[safe: 0]) {
+        case let (val as Double):
+            return Foundation.atanh(val)
+        case let (val as Int):
+            return Foundation.atanh(Double(val))
+        default:
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+    }
+    
+    /**
+     Static function for `cosh` operation
+     */
+    static func cosh(_ args: [Any]) throws -> Any? {
+        guard args.count == 1 else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+        switch (args[safe: 0]) {
+        case let (val as Double):
+            return Foundation.cosh(val)
+        case let (val as Int):
+            return Foundation.cosh(Double(val))
+        default:
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+    }
+    
+    /**
+     Static function for `sinh` operation
+     */
+    static func sinh(_ args: [Any]) throws -> Any? {
+        guard args.count == 1 else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+        switch (args[safe: 0]) {
+        case let (val as Double):
+            return Foundation.sinh(val)
+        case let (val as Int):
+            return Foundation.sinh(Double(val))
+        default:
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+    }
+    
+    /**
+     Static function for `tanh` operation
+     */
+    static func tanh(_ args: [Any]) throws -> Any? {
+        guard args.count == 1 else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+        switch (args[safe: 0]) {
+        case let (val as Double):
+            return Foundation.tanh(val)
+        case let (val as Int):
+            return Foundation.tanh(Double(val))
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
