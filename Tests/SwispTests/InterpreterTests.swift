@@ -57,13 +57,13 @@ public class InterpreterTests: XCTestCase {
         var parsed: Any
         
         parsed = try! Interpreter.parse("(define ten 10)")
-        let _ = try! Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+        let _ = try! Interpreter.eval(parsed, with: &interpreter.globalEnv)
         
         parsed = try! Interpreter.parse("(define pass pass)")
-        let _ = try! Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+        let _ = try! Interpreter.eval(parsed, with: &interpreter.globalEnv)
         
         parsed = try! Interpreter.parse("(define fail fail)")
-        let _ = try! Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+        let _ = try! Interpreter.eval(parsed, with: &interpreter.globalEnv)
     }
     
     
@@ -231,7 +231,7 @@ public class InterpreterTests: XCTestCase {
         
         do {
             parsed = try Interpreter.parse("(ten)")
-            let r = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            let r = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(r as? Int, 10)
         } catch {
             XCTFail()
@@ -239,7 +239,7 @@ public class InterpreterTests: XCTestCase {
         
         do {
             parsed = try Interpreter.parse("(* pi (* ten ten))")
-            let result = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Double, π * 100)
         } catch {
             XCTFail()
@@ -247,7 +247,7 @@ public class InterpreterTests: XCTestCase {
         
         do {
             parsed = try Interpreter.parse("(pass)")
-            let pass = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            let pass = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(pass as? Symbol, "pass")
         } catch {
             XCTFail()
@@ -255,7 +255,7 @@ public class InterpreterTests: XCTestCase {
         
         do {
             parsed = try Interpreter.parse("(if (> 1 0) pass fail)")
-            let greater = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            let greater = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(greater as? Symbol, "pass")
         } catch {
             XCTFail()
@@ -263,7 +263,7 @@ public class InterpreterTests: XCTestCase {
         
         do {
             parsed = try Interpreter.parse("(if (< 1 0) pass fail)")
-            let less = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            let less = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(less as? Symbol, "fail")
         } catch {
             XCTFail()
@@ -271,7 +271,7 @@ public class InterpreterTests: XCTestCase {
         
         do {
             parsed = try Interpreter.parse("(if (= 1 0) pass fail)")
-            let equal = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            let equal = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(equal as? Symbol, "fail")
         } catch {
             XCTFail()
@@ -279,7 +279,7 @@ public class InterpreterTests: XCTestCase {
         
         do {
             parsed = try Interpreter.parse("(quote (+ 1 2))")
-            var equal = try Interpreter.eval(&parsed, with: &interpreter.globalEnv) as Any
+            var equal = try Interpreter.eval(parsed, with: &interpreter.globalEnv) as Any
             XCTAssertEqual(Interpreter.schemeString(&equal), "(+ 1 2)")
         } catch {
             XCTFail()
@@ -287,7 +287,7 @@ public class InterpreterTests: XCTestCase {
         
         do {
             parsed = try Interpreter.parse("(quote (/ (+ 1 2) (* 3 4)))")
-            var equal = try Interpreter.eval(&parsed, with: &interpreter.globalEnv) as Any
+            var equal = try Interpreter.eval(parsed, with: &interpreter.globalEnv) as Any
             XCTAssertEqual(Interpreter.schemeString(&equal), "(/ (+ 1 2) (* 3 4))")
         } catch {
             XCTFail()
@@ -295,15 +295,15 @@ public class InterpreterTests: XCTestCase {
         
         do {
             parsed = try Interpreter.parse("(define r 10)")
-            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
             parsed = try Interpreter.parse("(r)")
-            let before = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            let before = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(before as? Int, 10)
             
             parsed = try Interpreter.parse("(set! r (* r r))")
-            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
             parsed = try Interpreter.parse("(r)")
-            let after = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            let after = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(after as? Int, 100)
         } catch {
             XCTFail()
@@ -311,23 +311,23 @@ public class InterpreterTests: XCTestCase {
         
         do {
             parsed = try Interpreter.parse("(define twice (lambda (x) (* 2 x)))")
-            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
             parsed = try Interpreter.parse("(twice 5)")
-            let twice = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            let twice = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(twice as? Int, 10)
             
             parsed = try Interpreter.parse("(define repeat (lambda (f) (lambda (x) (f (f x)))))")
-            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
             parsed = try Interpreter.parse("((repeat twice) 10)")
-            let repeatTwice = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            let repeatTwice = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(repeatTwice as? Int, 40)
             
             parsed = try Interpreter.parse("((repeat (repeat twice)) 10)")
-            let repeatRepeatTwice = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            let repeatRepeatTwice = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(repeatRepeatTwice as? Int, 160)
             
             parsed = try Interpreter.parse("((repeat (repeat (repeat twice))) 10)")
-            let repeatRepeatRepeatTwice = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            let repeatRepeatRepeatTwice = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(repeatRepeatRepeatTwice as? Int, 2560)
         } catch {
             XCTFail()
@@ -342,7 +342,7 @@ public class InterpreterTests: XCTestCase {
         
         do {
             parsed = try Interpreter.parse("(quote)")
-            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
             XCTFail()
         } catch {
             XCTPass()
@@ -350,7 +350,7 @@ public class InterpreterTests: XCTestCase {
         
         do {
             parsed = try Interpreter.parse("(if (+ 1 1))")
-            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
             XCTFail()
         } catch {
             XCTPass()
@@ -358,7 +358,7 @@ public class InterpreterTests: XCTestCase {
         
         do {
             parsed = try Interpreter.parse("(if (+ 1 1) how what)")
-            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
             XCTFail()
         } catch {
             XCTPass()
@@ -366,7 +366,7 @@ public class InterpreterTests: XCTestCase {
         
         do {
             parsed = try Interpreter.parse("(define 1 2)")
-            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
             XCTFail()
         } catch {
             XCTPass()
@@ -374,7 +374,7 @@ public class InterpreterTests: XCTestCase {
         
         do {
             parsed = try Interpreter.parse("(set! 1 2)")
-            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
             XCTFail()
         } catch {
             XCTPass()
@@ -382,7 +382,7 @@ public class InterpreterTests: XCTestCase {
         
         do {
             parsed = try Interpreter.parse("(lambda x (* 2 x))")
-            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
             XCTFail()
         } catch {
             XCTPass()
@@ -390,7 +390,7 @@ public class InterpreterTests: XCTestCase {
         
         do {
             parsed = try Interpreter.parse("()")
-            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
             XCTFail()
         } catch {
             XCTPass()
@@ -405,7 +405,7 @@ public class InterpreterTests: XCTestCase {
         
         do {
             parsed = try Interpreter.parse("(define fact (lambda (n) (if (<= n 1) 1 (* n (fact (- n 1))))))")
-            let _ = try Interpreter.eval(&parsed, with: &interpreter.globalEnv)
+            let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
             parsed = try Interpreter.parse("(fact 100)")
         } catch {
             XCTFail()
@@ -413,7 +413,7 @@ public class InterpreterTests: XCTestCase {
         
         measure {
             do {
-                let _ = try Interpreter.eval(&parsed, with: &self.interpreter.globalEnv)
+                let _ = try Interpreter.eval(parsed, with: &self.interpreter.globalEnv)
             } catch {
                 XCTFail()
             }
