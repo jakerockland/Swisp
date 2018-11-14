@@ -48,9 +48,9 @@
 		OBJ_15 /* EnvironmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentTests.swift; sourceTree = "<group>"; };
 		OBJ_16 /* InterpreterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterpreterTests.swift; sourceTree = "<group>"; };
 		OBJ_17 /* XCTestManifests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestManifests.swift; sourceTree = "<group>"; };
-		OBJ_19 /* Swisp */ = {isa = PBXFileReference; lastKnownFileType = text; path = Swisp; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_19 /* Swisp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = Swisp; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_20 /* SwispFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwispFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		OBJ_21 /* SwispTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = SwispTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_21 /* SwispTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = SwispTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		OBJ_9 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -215,6 +215,17 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 9999;
+				TargetAttributes = {
+					OBJ_22 = {
+						LastSwiftMigration = 1000;
+					};
+					OBJ_31 = {
+						LastSwiftMigration = 1000;
+					};
+					OBJ_39 = {
+						LastSwiftMigration = 1000;
+					};
+				};
 			};
 			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "Swisp" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -295,6 +306,8 @@
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
 				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.2;
 				TARGET_NAME = Swisp;
 			};
 			name = Debug;
@@ -313,6 +326,8 @@
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
 				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.2;
 				TARGET_NAME = Swisp;
 			};
 			name = Release;
@@ -355,6 +370,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = SwispFramework;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.2;
 				TARGET_NAME = SwispFramework;
 			};
 			name = Debug;
@@ -375,6 +392,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = SwispFramework;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.2;
 				TARGET_NAME = SwispFramework;
 			};
 			name = Release;
@@ -412,6 +431,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.2;
 				TARGET_NAME = SwispTests;
 			};
 			name = Debug;
@@ -429,6 +450,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.2;
 				TARGET_NAME = SwispTests;
 			};
 			name = Release;

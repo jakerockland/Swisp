@@ -441,7 +441,7 @@ private struct Library {
         case let (val as Bool):
             return !val
         case let (val as NSNumber):
-            return !Bool(val)
+            return !Bool(truncating: val)
         case let (val as String):
             if let bool = Bool(val) {
                 return !bool
@@ -691,7 +691,7 @@ private struct Math {
         }
         switch (args[safe: 0], args[safe: 1]) {
         case let (val as Double, exp as Int):
-            return Foundation.ldexp(val, exp)
+            return Foundation.scalbn(val, exp)
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }

@@ -52,7 +52,7 @@ public struct Interpreter {
         /// Calls the given procedure
         public func call(_ args: [Any]) throws -> Any? {
             var inner = Env(parms, args, outer: env)
-            return try Interpreter.eval(&body, with: &inner)
+            return try Interpreter.eval(body, with: &inner)
         }
 
     }
@@ -184,7 +184,7 @@ public struct Interpreter {
 
      - Returns: The evaluated statement
      */
-    static func eval(_ x: inout Any, with env: inout Env) throws -> Any? {
+    static func eval(_ x: Any, with env: inout Env) throws -> Any? {
         if let x = x as? Symbol { // variable reference
             guard let ref = env.find(x)?[x] else {
                 return x
@@ -210,25 +210,25 @@ public struct Interpreter {
                 }
                 return lis
             } else if x.first as? Symbol == "if" { // conditional
-                guard var test = x[safe: 1], let conseq = x[safe: 2], let alt = x[safe: 3] else {
+                guard let test = x[safe: 1], let conseq = x[safe: 2], let alt = x[safe: 3] else {
                     throw SwispError.SyntaxError(message: "invalid conditional statement")
                 }
-                guard let bool = try eval(&test, with: &env) as? Bool else {
+                guard let bool = try eval(test, with: &env) as? Bool else {
                     throw SwispError.SyntaxError(message: "invalid conditional statement")
                 }
-                var exp = bool ? conseq : alt
-                return try eval(&exp, with: &env)
+                let exp = bool ? conseq : alt
+                return try eval(exp, with: &env)
             } else if x.first as? Symbol == "define" { // definition
-                guard let `var` = x[safe: 1] as? Symbol, var exp = x[safe: 2] else {
+                guard let `var` = x[safe: 1] as? Symbol, let exp = x[safe: 2] else {
                     throw SwispError.SyntaxError(message: "invalid definition")
                 }
-                env[`var`] = try eval(&exp, with: &env)
+                env[`var`] = try eval(exp, with: &env)
                 return nil
             } else if x.first as? Symbol == "set!" { // assignment
-                guard let `var` = x[safe: 1] as? Symbol, var exp = x[safe: 2], let outer = env.find(`var`) else {
+                guard let `var` = x[safe: 1] as? Symbol, let exp = x[safe: 2], let outer = env.find(`var`) else {
                     throw SwispError.SyntaxError(message: "invalid assignment")
                 }
-                outer[`var`] = try eval(&exp, with: &env)
+                outer[`var`] = try eval(exp, with: &env)
                 return nil
             } else if x.first as? Symbol == "lambda" { // lambda
                 guard let parms = x[safe: 1] as? [Symbol], let body = x[safe: 2] as? [Any] else {
@@ -237,15 +237,15 @@ public struct Interpreter {
                 return Lambda(parms, body, env)
             } else { // procedure call
                 var args: [Any] = []
-                guard var exp = x[safe: 0] else {
+                guard let exp = x[safe: 0] else {
                     throw SwispError.SyntaxError(message: "invalid procedure called")
                 }
 
-                let proc = try eval(&exp, with: &env)
+                let proc = try eval(exp, with: &env)
 
                 for element in x.dropFirst() {
-                    var element = element
-                    guard let arg = try eval(&element, with: &env) else {
+                    let element = element
+                    guard let arg = try eval(element, with: &env) else {
                         throw SwispError.SyntaxError(message: "invalid procedure called")
                     }
                     args.append(arg)
@@ -287,8 +287,8 @@ public struct Interpreter {
             }
 
             do {
-                var parsed = try Interpreter.parse(input)
-                if var val = try Interpreter.eval(&parsed, with: &globalEnv) {
+                let parsed = try Interpreter.parse(input)
+                if var val = try Interpreter.eval(parsed, with: &globalEnv) {
                     print(Interpreter.schemeString(&val))
                 }
             } catch let error as SwispError {
