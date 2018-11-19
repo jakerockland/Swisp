@@ -4,7 +4,7 @@
 //
 //  MIT License
 //
-//  Copyright (c) 2016 Jake Rockland (http://jakerockland.com)
+//  Copyright (c) 2018 Jake Rockland (http://jakerockland.com)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of this
 //  software and associated documentation files (the "Software"), to deal in the Software
