@@ -10,6 +10,8 @@
 		4000B48621A37D5F00F68C5D /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4000B48421A37C8500F68C5D /* Math.swift */; };
 		4000B48821A37DBC00F68C5D /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4000B48721A37DBC00F68C5D /* Operators.swift */; };
 		4000B48A21A37E2000F68C5D /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4000B48921A37E2000F68C5D /* Library.swift */; };
+		4000B48D21A3814A00F68C5D /* Array+SafeIndexing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4000B48C21A3814A00F68C5D /* Array+SafeIndexing.swift */; };
+		4000B48F21A381BB00F68C5D /* SwispError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4000B48E21A381BB00F68C5D /* SwispError.swift */; };
 		40A5A4C51E14CC6000993A86 /* XCTestCase+XCTPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A5A4C31E14CBD700993A86 /* XCTestCase+XCTPass.swift */; };
 		40F889571E0FC8B900AA93E9 /* SwispTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F889551E0FC89200AA93E9 /* SwispTypes.swift */; };
 		OBJ_27 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* main.swift */; };
@@ -43,6 +45,8 @@
 		4000B48421A37C8500F68C5D /* Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		4000B48721A37DBC00F68C5D /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		4000B48921A37E2000F68C5D /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
+		4000B48C21A3814A00F68C5D /* Array+SafeIndexing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+SafeIndexing.swift"; sourceTree = "<group>"; };
+		4000B48E21A381BB00F68C5D /* SwispError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwispError.swift; sourceTree = "<group>"; };
 		40A5A4C31E14CBD700993A86 /* XCTestCase+XCTPass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+XCTPass.swift"; sourceTree = "<group>"; };
 		40F8894E1E0F683200AA93E9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		40F889521E0F6CFE00AA93E9 /* .travis.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
@@ -99,14 +103,23 @@
 			path = Environment;
 			sourceTree = "<group>";
 		};
+		4000B48B21A3811B00F68C5D /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				4000B48C21A3814A00F68C5D /* Array+SafeIndexing.swift */,
+				4000B48E21A381BB00F68C5D /* SwispError.swift */,
+				40F889551E0FC89200AA93E9 /* SwispTypes.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		OBJ_10 /* SwispFramework */ = {
 			isa = PBXGroup;
 			children = (
 				4000B48321A37C2E00F68C5D /* Environment */,
+				4000B48B21A3811B00F68C5D /* Shared */,
 				OBJ_12 /* Interpreter.swift */,
-				40F889551E0FC89200AA93E9 /* SwispTypes.swift */,
 			);
-			name = SwispFramework;
 			path = SwispFramework;
 			sourceTree = "<group>";
 		};
@@ -127,7 +140,6 @@
 				40A5A4C31E14CBD700993A86 /* XCTestCase+XCTPass.swift */,
 				OBJ_17 /* XCTestManifests.swift */,
 			);
-			name = SwispTests;
 			path = SwispTests;
 			sourceTree = "<group>";
 		};
@@ -168,7 +180,6 @@
 			children = (
 				OBJ_9 /* main.swift */,
 			);
-			name = Swisp;
 			path = Swisp;
 			sourceTree = "<group>";
 		};
@@ -277,7 +288,9 @@
 			buildActionMask = 0;
 			files = (
 				4000B48621A37D5F00F68C5D /* Math.swift in Sources */,
+				4000B48D21A3814A00F68C5D /* Array+SafeIndexing.swift in Sources */,
 				4000B48821A37DBC00F68C5D /* Operators.swift in Sources */,
+				4000B48F21A381BB00F68C5D /* SwispError.swift in Sources */,
 				40F889571E0FC8B900AA93E9 /* SwispTypes.swift in Sources */,
 				OBJ_36 /* Environment.swift in Sources */,
 				OBJ_37 /* Interpreter.swift in Sources */,

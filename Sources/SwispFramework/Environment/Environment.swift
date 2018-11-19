@@ -23,8 +23,6 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-import Foundation
-
 /// An environment with some Scheme standard procedures
 public let standardEnv = Env([
     // Constants
