@@ -61,6 +61,10 @@ import Foundation
  - 'cosh'
  - 'sinh'
  - 'tanh'
+ - 'erf'
+ - 'erfc'
+ - 'gamma'
+ - 'lgamma'
  */
 internal struct Math {
     
@@ -665,6 +669,74 @@ internal struct Math {
             return Foundation.tanh(val)
         case let (val as Int):
             return Foundation.tanh(Double(val))
+        default:
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+    }
+    
+    /**
+     Static function for `erf` operation
+     */
+    static func erf(_ args: [Any]) throws -> Any? {
+        guard args.count == 1 else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+        switch (args[safe: 0]) {
+        case let (val as Double):
+            return Foundation.erf(val)
+        case let (val as Int):
+            return Foundation.erf(Double(val))
+        default:
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+    }
+    
+    /**
+     Static function for `erfc` operation
+     */
+    static func erfc(_ args: [Any]) throws -> Any? {
+        guard args.count == 1 else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+        switch (args[safe: 0]) {
+        case let (val as Double):
+            return Foundation.erfc(val)
+        case let (val as Int):
+            return Foundation.erfc(Double(val))
+        default:
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+    }
+    
+    /**
+     Static function for `gamma` operation
+     */
+    static func gamma(_ args: [Any]) throws -> Any? {
+        guard args.count == 1 else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+        switch (args[safe: 0]) {
+        case let (val as Double):
+            return Foundation.tgamma(val)
+        case let (val as Int):
+            return Foundation.tgamma(Double(val))
+        default:
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+    }
+    
+    /**
+     Static function for `lgamma` operation
+     */
+    static func lgamma(_ args: [Any]) throws -> Any? {
+        guard args.count == 1 else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+        switch (args[safe: 0]) {
+        case let (val as Double):
+            return Foundation.log(Foundation.tgamma(val))
+        case let (val as Int):
+            return Foundation.log(Foundation.tgamma(Double(val)))
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }

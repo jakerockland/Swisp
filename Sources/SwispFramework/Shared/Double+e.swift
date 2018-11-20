@@ -29,5 +29,5 @@ import Foundation
  Extension to Double for the mathematical constant 𝑒
  */
 internal extension Double {
-    static let e: Double = M_E
+    static let e: Double = Foundation.M_E
 }
