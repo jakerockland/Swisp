@@ -53,6 +53,8 @@ import Foundation
  - 'hypot'
  - 'sin'
  - 'tan'
+ - 'degrees'
+ - 'radians'
  - 'acosh'
  - 'asinh'
  - 'atanh'
@@ -533,7 +535,7 @@ internal struct Math {
     }
     
     /**
-     Static function for `acosh` operation. Expects input in radians.
+     Static function for `acosh` operation
      */
     static func acosh(_ args: [Any]) throws -> Any? {
         guard args.count == 1 else {
@@ -544,6 +546,40 @@ internal struct Math {
             return Foundation.acosh(val)
         case let (val as Int):
             return Foundation.acosh(Double(val))
+        default:
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+    }
+    
+    /**
+     Static function for `degrees` operation
+     */
+    static func degrees(_ args: [Any]) throws -> Any? {
+        guard args.count == 1 else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+        switch (args[safe: 0]) {
+        case let (val as Double):
+            return val * 180 / Double.pi
+        case let (val as Int):
+            return Double(val) * 180 / Double.pi
+        default:
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+    }
+
+    /**
+     Static function for `radians` operation
+     */
+    static func radians(_ args: [Any]) throws -> Any? {
+        guard args.count == 1 else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+        switch (args[safe: 0]) {
+        case let (val as Double):
+            return val * Double.pi / 180
+        case let (val as Int):
+            return Double(val) * Double.pi / 180
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }

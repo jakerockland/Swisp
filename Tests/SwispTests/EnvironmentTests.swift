@@ -2429,4 +2429,98 @@ public class EnvironmentTests: XCTestCase {
             XCTPass()
         }
     }
+    
+    /**
+     Tests our `degrees` function
+     */
+    func testDegrees() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(degrees pi)")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 180.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(degrees 0)")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as! Double, 0.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(degrees 1.5708)")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as! Double, 90.0002105, accuracy: 0.0000001)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(degrees a)")
+            let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(degrees pi pi)")
+            let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+    }
+    
+    /**
+     Tests our `radians` function
+     */
+    func testRadians() {
+        var parsed: Any
+
+        do {
+            parsed = try Interpreter.parse("(radians 0)")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 0.0)
+        } catch {
+            XCTFail()
+        }
+
+        do {
+            parsed = try Interpreter.parse("(radians 180)")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as! Double, Double.pi, accuracy: 0.0000000001)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(radians 90)")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as! Double, 1.5708, accuracy: 0.0001)
+        } catch {
+            XCTFail()
+        }
+
+        do {
+            parsed = try Interpreter.parse("(radians a)")
+            let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+
+        do {
+            parsed = try Interpreter.parse("(radians 180 180")
+            let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+    }
 }

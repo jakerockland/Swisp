@@ -98,7 +98,9 @@ extension EnvironmentTests {
             ("testAtanh", testAtanh),
             ("testCosh", testCosh),
             ("testSinh", testSinh),
-            ("testTanh", testTanh)
+            ("testTanh", testTanh),
+            ("testDegrees", testDegrees),
+            ("testRadians", testRadians)
         ]
     }()
     
