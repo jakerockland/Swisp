@@ -26,10 +26,10 @@
 /// An environment with some Scheme standard procedures
 public let standardEnv = Env([
     // Constants
-    "π":        3.1415926535897932384626433832795,
-    "pi":       3.1415926535897932384626433832795,
-    "𝑒":        2.7182818284590452353602874713527,
-    "e":        2.7182818284590452353602874713527,
+    "π":        Double.pi,
+    "pi":       Double.pi,
+    "𝑒":        Double.e,
+    "e":        Double.e,
     
     // Operators
     "+":        Operators.add,
@@ -76,8 +76,8 @@ public let standardEnv = Env([
     "tan":      Math.tan,
     
     // Angular conversion
-    //    "degrees": degrees,
-    //    "radians": radians,
+    "degrees": Math.degrees,
+    "radians": Math.radians,
     
     // Hyperbolic functions
     "acosh":    Math.acosh,
