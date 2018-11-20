@@ -1,6 +1,6 @@
 //
-//  XCTestCase+XCTPass.swift
-//  SwispTests
+//  Array+SafeIndexing.swift
+//  SwispFramework
 //
 //  MIT License
 //
@@ -23,18 +23,11 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-import XCTest
-
 /**
- Extension for `XCTestCase` to allow for simple `XCTPass` statements
+ Extension to Array for safer indexing
  */
-extension XCTestCase {
-    
-    /**
-     Equivalent to calling `XCTAssertTrue(true)`
-     */
-    func XCTPass() {
-        XCTAssertTrue(true)
+internal extension Array {
+    subscript (safe index: Int) -> Element? {
+        return (index >= 0 && index < count) ? self[index] : nil
     }
-    
 }

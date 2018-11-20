@@ -4,7 +4,7 @@
 //
 //  MIT License
 //
-//  Copyright (c) 2016 Jake Rockland (http://jakerockland.com)
+//  Copyright (c) 2018 Jake Rockland (http://jakerockland.com)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of this
 //  software and associated documentation files (the "Software"), to deal in the Software
@@ -22,38 +22,6 @@
 //  OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 //  DEALINGS IN THE SOFTWARE.
 //
-
-/**
- Extension to Array for safer indexing
- */
-internal extension Array {
-    subscript (safe index: Int) -> Element? {
-        return (index >= 0 && index < count) ? self[index] : nil
-    }
-}
-
-/// Custom type for errors encountered while interpreting
-public enum SwispError: Error, CustomStringConvertible {
-    
-    /// Syntax related errors
-    case SyntaxError(message: String)
-    
-    /// Evaluation related errors
-    case EvaluationError(message: String)
-    
-    /// Unknown errors
-    case UnknownError
-    
-    /// Description of error
-    public var description: String {
-        switch self {
-        case .SyntaxError(let message): return "Syntax error: \(message)!"
-        case .EvaluationError(let message): return "Evalutaion error: \(message)!"
-        case .UnknownError: return "Unknown error occured!"
-        }
-    }
-
-}
 
 /// A Scheme Symbol is implemented as a Swift `String`
 public typealias Symbol = String

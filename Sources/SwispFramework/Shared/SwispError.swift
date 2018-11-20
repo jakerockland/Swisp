@@ -1,6 +1,6 @@
 //
-//  XCTestCase+XCTPass.swift
-//  SwispTests
+//  SwispError.swift
+//  SwispFramework
 //
 //  MIT License
 //
@@ -23,18 +23,25 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-import XCTest
-
-/**
- Extension for `XCTestCase` to allow for simple `XCTPass` statements
- */
-extension XCTestCase {
+/// Custom type for errors encountered while interpreting
+public enum SwispError: Error, CustomStringConvertible {
     
-    /**
-     Equivalent to calling `XCTAssertTrue(true)`
-     */
-    func XCTPass() {
-        XCTAssertTrue(true)
+    /// Syntax related errors
+    case SyntaxError(message: String)
+    
+    /// Evaluation related errors
+    case EvaluationError(message: String)
+    
+    /// Unknown errors
+    case UnknownError
+    
+    /// Description of error
+    public var description: String {
+        switch self {
+        case .SyntaxError(let message): return "Syntax error: \(message)!"
+        case .EvaluationError(let message): return "Evalutaion error: \(message)!"
+        case .UnknownError: return "Unknown error occured!"
+        }
     }
     
 }
