@@ -31,12 +31,6 @@ import XCTest
  */
 public class InterpreterTests: XCTestCase {
     
-    // MARK: - Constant Values
-    
-    /// Value of mathematical constant π
-    let π = 3.1415926535897932384626433832795
-    
-    
     // MARK: - Testing Properties
     
     var interpreter: Interpreter!
@@ -240,7 +234,7 @@ public class InterpreterTests: XCTestCase {
         do {
             parsed = try Interpreter.parse("(* pi (* ten ten))")
             let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
-            XCTAssertEqual(result as? Double, π * 100)
+            XCTAssertEqual(result as? Double, Double.pi * 100)
         } catch {
             XCTFail()
         }

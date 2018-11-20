@@ -23,6 +23,8 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
+import Foundation
+
 /**
  A simple Scheme interpreter written in Swift
  */
@@ -86,7 +88,8 @@ public struct Interpreter {
      */
     static func parse(_ program: String) throws -> Any {
         var tokens = tokenize(program)
-        return try readFromTokens(&tokens)
+        let val = try readFromTokens(&tokens)
+        return val
     }
 
     /**
@@ -100,8 +103,10 @@ public struct Interpreter {
         var tokens: [String] = []
         var temp: String = ""
 
+        // Define our whitespace characters
         let whitespace: [Character] = [" ", "\n", "\t", "\r"]
 
+        // Pad the parentheses in the input string
         var padded = ""
         for char in string {
             if char == "(" {
@@ -112,7 +117,8 @@ public struct Interpreter {
                 padded.append(char)
             }
         }
-
+        
+        // Split the now padded string by whitespace
         for char in padded {
             if whitespace.contains(char) {
                 if temp != "" {
@@ -123,7 +129,7 @@ public struct Interpreter {
                 temp.append(char)
             }
         }
-
+    
         return tokens
     }
 
@@ -143,10 +149,13 @@ public struct Interpreter {
         switch token {
         case "(":
             var list: [Any] = []
+            
+            // Iterate through tokens and recursively build atomic list
             while tokens.first != ")" {
                 try list.append(readFromTokens(&tokens))
             }
             tokens.removeFirst() // pop the corresponding ")"
+            
             return list
         case ")":
             throw SwispError.SyntaxError(message: "unexpected )")
@@ -268,33 +277,66 @@ public struct Interpreter {
         }
         throw SwispError.UnknownError
     }
+    
+    
+    // MARK: File Interpretting Methods
+    
+    /**
+     A method for interpretting contents of a string
+     
+     - Parameter contents: A `String` containing the contents to interpret
+    */
+    public mutating func interpret(_ contents: String) throws -> String?  {
+        // Try parsing and evaluating input
+        let parsed = try Interpreter.parse(contents)
+        if var val = try Interpreter.eval(parsed, with: &globalEnv) {
+            // If there is an output, return `String` representation
+            return Interpreter.schemeString(&val)
+        } else {
+            // Otherwise, return nil
+            return nil
+        }
+    }
 
-
+    
     // MARK: - REPL Methods
 
     /**
      A prompt-read-eval-print loop
 
-     - Parameter prompt: The prompt string to display in the print loop
+     - Parameter prompt: The prompt `String` to display in the print loop
      */
     public mutating func repl(_ prompt: String = "Swisp> ") {
         while true {
+            let sharedExitMessage = "To exit REPL, type 'quit' or 'exit'."
+            
+            // Print prompt
             print(prompt, separator: "", terminator: "")
-
-            guard let input = readLine() else {
-                print("\(prompt)No valid input to interpret...")
+            
+            // Check for input from stdin
+            guard let input = readLine(), !input.isEmpty else {
+                fputs("\(prompt)No valid input to interpret...\n", stderr)
+                print("\(prompt)\(sharedExitMessage)")
                 continue
             }
-
+            
+            // If input is "quit" or "exit", quit REPL
+            if input == "quit" || input == "exit" {
+                return
+            }
+            
+            // Try parsing and evaluating input
             do {
                 let parsed = try Interpreter.parse(input)
                 if var val = try Interpreter.eval(parsed, with: &globalEnv) {
                     print(Interpreter.schemeString(&val))
                 }
             } catch let error as SwispError {
-                print("\(prompt)\(error.description)")
+                fputs("\(prompt)\(error.description)\n", stderr)
+                print("\(prompt)\(sharedExitMessage)")
             } catch {
-                print("\(prompt)\(SwispError.UnknownError.description)")
+                fputs("\(prompt)\(SwispError.UnknownError.description)\n", stderr)
+                print("\(prompt)\(sharedExitMessage)")
             }
         }
     }

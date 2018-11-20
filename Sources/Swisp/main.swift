@@ -23,10 +23,18 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-import SwispFramework
-
-// Create interpreter instantiation
-var interpreter = Interpreter()
-
-// Launch read-eval-print loop
-interpreter.repl()
+// Determine launch behavior based on input number
+switch CommandLine.argc {
+case 1:
+    // Launch in REPL Mode
+    Swisp.replMode()
+case 2:
+    // Launch in static mode
+    Swisp.staticMode()
+case 3:
+    // Launch in file input mode
+    Swisp.fileMode()
+default:
+    // Launch error mode
+    Swisp.errorMode()
+}
