@@ -63,8 +63,10 @@ extension EnvironmentTests {
             ("testLessThanEqual", testLessThanEqual),
             ("testEqual", testEqual),
             ("testAbs", testAbs),
+            ("testAbs", testAppend),
             ("testCar", testCar),
             ("testCdr", testCdr),
+            ("testCeil", testNot),
             ("testCeil", testCeil),
             ("testCopySign", testCopySign),
             ("testFabs", testFabs),
@@ -90,7 +92,13 @@ extension EnvironmentTests {
             ("testCos", testCos),
             ("testHypot", testHypot),
             ("testSin", testSin),
-            ("testTan", testTan)
+            ("testTan", testTan),
+            ("testTan", testAcosh),
+            ("testTan", testAsinh),
+            ("testTan", testAtanh),
+            ("testTan", testCosh),
+            ("testTan", testSinh),
+            ("testTan", testTanh)
         ]
     }()
     
