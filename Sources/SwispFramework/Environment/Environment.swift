@@ -87,11 +87,11 @@ public let standardEnv = Env([
     "sinh":     Math.sinh,
     "tanh":     Math.tanh,
     
-    //            // Special functions
-    //            "erf":      erf,
-    //            "erfc":     erfc,
-    //            "gamma":    gamma,
-    //            "lgamma":   lgamma,
+    // Special functions
+    "erf":      Math.erf,
+    "erfc":     Math.erfc,
+    "gamma":    Math.gamma,
+    "lgamma":    Math.lgamma,
     
     //            // Misc.
     "abs":      Library.abs,

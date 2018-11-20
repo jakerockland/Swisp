@@ -100,7 +100,11 @@ extension EnvironmentTests {
             ("testSinh", testSinh),
             ("testTanh", testTanh),
             ("testDegrees", testDegrees),
-            ("testRadians", testRadians)
+            ("testRadians", testRadians),
+            ("testErf", testErf),
+            ("testErfc", testErfc),
+            ("testGamma", testGamma),
+            ("testLgamma", testLgamma)
         ]
     }()
     
