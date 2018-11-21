@@ -828,6 +828,148 @@ public class EnvironmentTests: XCTestCase {
     }
     
     /**
+     Tests our `max` function
+     */
+    func testMax() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(max -100.0 -298.0 -390 -3909 -309498 -1.0 -39)")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, -1)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(max 1.0 2.0 3.0 4.0 5.0)")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 5.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(max 100.0 298 390.0 3909 309498 1.0 39)")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Int, 309498)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(max 100 -298 -390 -3909 -309498 1 39)")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Int, 100)
+        } catch {
+            XCTFail()
+        }
+
+        do {
+            parsed = try Interpreter.parse("(max -100 -298 -390 -3909 -309498 -1 -39)")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Int, -1)
+        } catch {
+            XCTFail()
+        }
+
+        do {
+            parsed = try Interpreter.parse("(max (> 2 1))")
+            let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(max true false)")
+            let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(max $$$)")
+            let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+    }
+    
+    /**
+     Tests our `min` function
+     */
+    func testMin() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(min -100.0 -298.0 -390 -3909 -309498 -1.0 -39)")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Int, -309498)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(min 1.0 2.0 3.0 4.0 5.0)")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 1.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(min 100.0 298 390.0 3909 309498 1.0 39)")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 1.0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(min 100 -298 -390 -3909 -309498 1 39)")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Int, -309498)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(min 100 298 390 3909 309498 1 39)")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Int, 1)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(min (> 2 1))")
+            let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(min true false)")
+            let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(min $$$)")
+            let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+    }
+    
+    /**
      Tests our `not` function
      */
     func testNot() {
@@ -870,7 +1012,7 @@ public class EnvironmentTests: XCTestCase {
             let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
             XCTAssertEqual(result as? Bool, false)
         } catch {
-            XCTPass()
+            XCTFail()
         }
         
         do {

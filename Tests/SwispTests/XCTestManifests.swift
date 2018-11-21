@@ -66,6 +66,8 @@ extension EnvironmentTests {
             ("testAppend", testAppend),
             ("testCar", testCar),
             ("testCdr", testCdr),
+            ("testMax", testMax),
+            ("testMin", testMin),
             ("testNot", testNot),
             ("testCeil", testCeil),
             ("testCopySign", testCopySign),

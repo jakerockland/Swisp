@@ -40,8 +40,8 @@ import Foundation
  //            "list":     { List($0) },
  //            "list?":    { $0 is List },
  //            // "map":     map, // [TODO](https://www.weheartswift.com/higher-order-functions-map-filter-reduce-and-more/)
- //            "max":      max,
- //            "min":      min,
+ - `max`
+ - `min`
  - `not`
  //            "null?":    { $0 == nil },
  //            "number?":  { $0 is Number },
@@ -105,6 +105,76 @@ internal struct Library {
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
         return Array(lis.dropFirst())
+    }
+    
+    /**
+     Static function for `max` operation
+     */
+    static func max(_ args: [Any]) throws -> Any? {
+        // Check that there are inputs
+        guard args.count > 0 else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+        
+        // Calculate maximum double and integer inputs
+        var tempDouble: Double = -Double.infinity
+        var tempInt: Int = Int.min
+        for arg in args {
+            switch (arg) {
+            case let (val as Double):
+                if (val > tempDouble) {
+                    tempDouble = val
+                }
+            case let (val as Int):
+                if (val > tempInt) {
+                    tempInt = val
+                }
+            default:
+                throw SwispError.SyntaxError(message: "invalid procedure input")
+            }
+        }
+        
+        // Find and keep type of maximum between the two maximums
+        if (tempDouble > Double(tempInt)) {
+            return tempDouble
+        } else {
+            return tempInt
+        }
+    }
+    
+    /**
+     Static function for `min` operation
+     */
+    static func min(_ args: [Any]) throws -> Any? {
+        // Check that there are inputs
+        guard args.count > 0 else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+        
+        // Calculate maximum double and integer inputs
+        var tempDouble: Double = Double.infinity
+        var tempInt: Int = Int.max
+        for arg in args {
+            switch (arg) {
+            case let (val as Double):
+                if (val < tempDouble) {
+                    tempDouble = val
+                }
+            case let (val as Int):
+                if (val < tempInt) {
+                    tempInt = val
+                }
+            default:
+                throw SwispError.SyntaxError(message: "invalid procedure input")
+            }
+        }
+        
+        // Find and keep type of maximum between the two maximums
+        if (tempDouble < Double(tempInt)) {
+            return tempDouble
+        } else {
+            return tempInt
+        }
     }
     
     /**
