@@ -828,6 +828,53 @@ public class EnvironmentTests: XCTestCase {
     }
     
     /**
+     Tests our `length` function
+     */
+    func testLength() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(length (quote (1 2 3 4 5)))")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Int, 5)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(length (quote (1 2 3)))")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Int, 3)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(length (quote ()))")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Int, 0)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(length 3)")
+            let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(length (1 2 3 ))")
+            let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+    }
+    
+    /**
      Tests our `max` function
      */
     func testMax() {
@@ -1025,6 +1072,61 @@ public class EnvironmentTests: XCTestCase {
         
         do {
             parsed = try Interpreter.parse("(not $$$)")
+            let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+    }
+    
+    /**
+     Tests our `round` function
+     */
+    func testRound() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(round 3)")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Int, 3)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(round 2.5)")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 3)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(round 2.1)")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, 2)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(round -0.5)")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Double, -1)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(round true)")
+            let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(round -0.5 0.5)")
             let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
             XCTFail()
         } catch {

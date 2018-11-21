@@ -36,7 +36,7 @@ import Foundation
  //            "cons":     { [$0] + $1 },
  //            "eq?":      { $0 === $1 },
  //            "equal?":   { $0 == $1 },
- //            "length":   { $0.count },
+ - `length`
  //            "list":     { List($0) },
  //            "list?":    { $0 is List },
  //            // "map":     map, // [TODO](https://www.weheartswift.com/higher-order-functions-map-filter-reduce-and-more/)
@@ -46,7 +46,7 @@ import Foundation
  //            "null?":    { $0 == nil },
  //            "number?":  { $0 is Number },
  //            "procedure?": { String(type(of: $0)).containsString("->") },
- //            "round":   round,
+ - `round`
  //            "symbol?":  { $0 is Symbol }
  */
 internal struct Library {
@@ -105,6 +105,19 @@ internal struct Library {
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
         return Array(lis.dropFirst())
+    }
+    
+    /**
+     Static function for `length` operation
+     */
+    static func length(_ args: [Any]) throws -> Any? {
+        guard args.count == 1 else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+        guard let lis = args[safe: 0] as? [Any] else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+        return lis.count
     }
     
     /**
@@ -195,6 +208,23 @@ internal struct Library {
             } else {
                 throw SwispError.SyntaxError(message: "invalid procedure input")
             }
+        default:
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+    }
+    
+    /**
+     Static function for `round` operation
+     */
+    static func round(_ args: [Any]) throws -> Any? {
+        guard args.count == 1 else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+        switch (args[safe: 0]) {
+        case let (val as Int):
+            return val
+        case let (val as Double):
+            return Foundation.round(val)
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }

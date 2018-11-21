@@ -76,8 +76,8 @@ public let standardEnv = Env([
     "tan":      Math.tan,
     
     // Angular conversion
-    "degrees": Math.degrees,
-    "radians": Math.radians,
+    "degrees":  Math.degrees,
+    "radians":  Math.radians,
     
     // Hyperbolic functions
     "acosh":    Math.acosh,
@@ -91,7 +91,7 @@ public let standardEnv = Env([
     "erf":      Math.erf,
     "erfc":     Math.erfc,
     "gamma":    Math.gamma,
-    "lgamma":    Math.lgamma,
+    "lgamma":   Math.lgamma,
     
     //            // Misc.
     "abs":      Library.abs,
@@ -103,7 +103,7 @@ public let standardEnv = Env([
     //            "cons":     { [$0] + $1 },
     //            "eq?":      { $0 === $1 },
     //            "equal?":   { $0 == $1 },
-    //            "length":   { $0.count },
+    "length":   Library.length,
     //            "list":     { List($0) },
     //            "list?":    { $0 is List },
     //            // "map":     map, // [TODO](https://www.weheartswift.com/higher-order-functions-map-filter-reduce-and-more/)
@@ -113,6 +113,6 @@ public let standardEnv = Env([
     //            "null?":    { $0 == nil },
     //            "number?":  { $0 is Number },
     //            "procedure?": { String(type(of: $0)).containsString("->") },
-    //            "round":   round,
+    "round":    Library.round,
     //            "symbol?":  { $0 is Symbol }
 ] as [Symbol: Any])
