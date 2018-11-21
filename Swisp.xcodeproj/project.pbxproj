@@ -13,6 +13,9 @@
 		4000B48D21A3814A00F68C5D /* Array+SafeIndexing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4000B48C21A3814A00F68C5D /* Array+SafeIndexing.swift */; };
 		4000B48F21A381BB00F68C5D /* SwispError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4000B48E21A381BB00F68C5D /* SwispError.swift */; };
 		4000B49121A3868A00F68C5D /* Double+e.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4000B49021A3868A00F68C5D /* Double+e.swift */; };
+		4000B49321A3C2C200F68C5D /* SwispCLI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4000B49221A3C2C200F68C5D /* SwispCLI.swift */; };
+		4000B49521A3C33500F68C5D /* Swisp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4000B49421A3C33500F68C5D /* Swisp.swift */; };
+		4000B49B21A4CEEF00F68C5D /* String+isWhitespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4000B49A21A4CEEF00F68C5D /* String+isWhitespace.swift */; };
 		40A5A4C51E14CC6000993A86 /* XCTestCase+XCTPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A5A4C31E14CBD700993A86 /* XCTestCase+XCTPass.swift */; };
 		40F889571E0FC8B900AA93E9 /* SwispTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F889551E0FC89200AA93E9 /* SwispTypes.swift */; };
 		OBJ_27 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* main.swift */; };
@@ -49,6 +52,9 @@
 		4000B48C21A3814A00F68C5D /* Array+SafeIndexing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+SafeIndexing.swift"; sourceTree = "<group>"; };
 		4000B48E21A381BB00F68C5D /* SwispError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwispError.swift; sourceTree = "<group>"; };
 		4000B49021A3868A00F68C5D /* Double+e.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+e.swift"; sourceTree = "<group>"; };
+		4000B49221A3C2C200F68C5D /* SwispCLI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwispCLI.swift; sourceTree = "<group>"; };
+		4000B49421A3C33500F68C5D /* Swisp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swisp.swift; sourceTree = "<group>"; };
+		4000B49A21A4CEEF00F68C5D /* String+isWhitespace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+isWhitespace.swift"; sourceTree = "<group>"; };
 		40A5A4C31E14CBD700993A86 /* XCTestCase+XCTPass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+XCTPass.swift"; sourceTree = "<group>"; };
 		40F8894E1E0F683200AA93E9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		40F889521E0F6CFE00AA93E9 /* .travis.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
@@ -112,6 +118,14 @@
 				4000B49021A3868A00F68C5D /* Double+e.swift */,
 				4000B48E21A381BB00F68C5D /* SwispError.swift */,
 				40F889551E0FC89200AA93E9 /* SwispTypes.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		4000B49C21A4D1EE00F68C5D /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				4000B49A21A4CEEF00F68C5D /* String+isWhitespace.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -182,6 +196,9 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_9 /* main.swift */,
+				4000B49C21A4D1EE00F68C5D /* Shared */,
+				4000B49421A3C33500F68C5D /* Swisp.swift */,
+				4000B49221A3C2C200F68C5D /* SwispCLI.swift */,
 			);
 			path = Swisp;
 			sourceTree = "<group>";
@@ -193,6 +210,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_23 /* Build configuration list for PBXNativeTarget "Swisp" */;
 			buildPhases = (
+				4000B49821A4868400F68C5D /* Resources */,
 				OBJ_26 /* Sources */,
 				OBJ_28 /* Frameworks */,
 			);
@@ -277,12 +295,25 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		4000B49821A4868400F68C5D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		OBJ_26 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
 				OBJ_27 /* main.swift in Sources */,
+				4000B49B21A4CEEF00F68C5D /* String+isWhitespace.swift in Sources */,
+				4000B49321A3C2C200F68C5D /* SwispCLI.swift in Sources */,
+				4000B49521A3C33500F68C5D /* Swisp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,10 +368,11 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = Swisp.xcodeproj/Swisp_Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Swisp.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx @executable_path";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = Swisp;
 				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
 				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -357,10 +389,11 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = Swisp.xcodeproj/Swisp_Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Swisp.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx @executable_path";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = Swisp;
 				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
 				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;

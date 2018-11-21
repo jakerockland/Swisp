@@ -8,12 +8,24 @@ Inspired by [(How to Write a (Lisp) Interpreter (in Python))](http://norvig.com/
 
 ## Usage
 
-To build and run Swisp:
+Swisp can be built and run locally using the Swift compiler:
 
 ```
 git clone https://github.com/jakerockland/Swisp.git
 cd Swisp
 swift build
+.build/debug/Swisp
+```
+
+To run Swisp with an input file containing your Lisp code:
+
+```
+.build/debug/Swisp -i filename
+```
+
+To run Swisp in interactive REPL mode:
+
+```
 .build/debug/Swisp
 ```
 
