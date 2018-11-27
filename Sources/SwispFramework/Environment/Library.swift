@@ -37,8 +37,8 @@ import Foundation
  //            "eq?":      { $0 === $1 },
  //            "equal?":   { $0 == $1 },
  - `length`
- //            "list":     { List($0) },
- //            "list?":    { $0 is List },
+ - `list`
+ - `list?`
  //            // "map":     map, // [TODO](https://www.weheartswift.com/higher-order-functions-map-filter-reduce-and-more/)
  - `max`
  - `min`
@@ -118,6 +118,26 @@ internal struct Library {
             throw SwispError.SyntaxError(message: "invalid procedure input")
         }
         return lis.count
+    }
+    
+    /**
+     Static function for `list` operation
+     */
+    static func list(_ args: [Any]) throws -> Any? {
+        return args
+    }
+    
+    /**
+     Static function for `list?` operation
+     */
+    static func isList(_ args: [Any]) throws -> Any? {
+        guard args.count == 1 else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+        if (args[safe: 0] as? [Any]) != nil {
+            return true
+        }
+        return false
     }
     
     /**

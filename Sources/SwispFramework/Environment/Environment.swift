@@ -104,8 +104,8 @@ public let standardEnv = Env([
     //            "eq?":      { $0 === $1 },
     //            "equal?":   { $0 == $1 },
     "length":   Library.length,
-    //            "list":     { List($0) },
-    //            "list?":    { $0 is List },
+    "list":     Library.list,
+    "list?":    Library.isList,
     //            // "map":     map, // [TODO](https://www.weheartswift.com/higher-order-functions-map-filter-reduce-and-more/)
     "max":      Library.max,
     "min":      Library.min,

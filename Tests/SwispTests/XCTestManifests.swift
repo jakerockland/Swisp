@@ -67,6 +67,8 @@ extension EnvironmentTests {
             ("testCar", testCar),
             ("testCdr", testCdr),
             ("testLength", testLength),
+            ("testList", testList),
+            ("testIsList", testIsList),
             ("testMax", testMax),
             ("testMin", testMin),
             ("testNot", testNot),

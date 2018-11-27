@@ -875,6 +875,100 @@ public class EnvironmentTests: XCTestCase {
     }
     
     /**
+     Tests our `list` function
+     */
+    func testList() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(list 1 2 3 4 5)")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? [Int], [1,2,3,4,5])
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(list 1010101)")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? [Int], [1010101])
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(list (list 1 3) (list 2 4))")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? [[Int]], [[1,3], [2,4]])
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(list 1.0 2.0 3.0 4.0 5.0)")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? [Double], [1,2,3,4,5])
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(list (list 1.0 3.0) (list 2.0 4.0))")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? [[Double]], [[1,3], [2,4]])
+        } catch {
+            XCTFail()
+        }
+    }
+    
+    /**
+     Tests our `list?` function
+     */
+    func testIsList() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(list? (quote (1 2 3 4 5)))")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Bool, true)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(list? 1010101)")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Bool, false)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(list? (quote ()))")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Bool, true)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(list? foo bar)")
+            let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(list? (1 2 3))")
+            let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+    }
+    
+    /**
      Tests our `max` function
      */
     func testMax() {
