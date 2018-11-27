@@ -72,6 +72,7 @@ extension EnvironmentTests {
             ("testMax", testMax),
             ("testMin", testMin),
             ("testNot", testNot),
+            ("testIsNumber", testIsNumber),
             ("testRound", testRound),
             ("testCeil", testCeil),
             ("testCopySign", testCopySign),

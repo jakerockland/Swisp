@@ -111,7 +111,7 @@ public let standardEnv = Env([
     "min":      Library.min,
     "not":      Library.not,
     //            "null?":    { $0 == nil },
-    //            "number?":  { $0 is Number },
+    "number?":  Library.isNumber,
     //            "procedure?": { String(type(of: $0)).containsString("->") },
     "round":    Library.round,
     //            "symbol?":  { $0 is Symbol }

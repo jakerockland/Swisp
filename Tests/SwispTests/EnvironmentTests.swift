@@ -1174,6 +1174,69 @@ public class EnvironmentTests: XCTestCase {
     }
     
     /**
+     Tests our `number?` function
+     */
+    func testIsNumber() {
+        var parsed: Any
+        
+        do {
+            parsed = try Interpreter.parse("(number? true)")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Bool, false)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(number? 12.4)")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Bool, true)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(number? pi)")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Bool, true)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(number? 3)")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Bool, true)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(number? (list 1 2 3))")
+            let result = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTAssertEqual(result as? Bool, false)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(number? 1 2)")
+            let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+        
+        do {
+            parsed = try Interpreter.parse("(number? 1.0 1)")
+            let _ = try Interpreter.eval(parsed, with: &interpreter.globalEnv)
+            XCTFail()
+        } catch {
+            XCTPass()
+        }
+    }
+    
+    /**
      Tests our `round` function
      */
     func testRound() {

@@ -44,7 +44,7 @@ import Foundation
  - `min`
  - `not`
  //            "null?":    { $0 == nil },
- //            "number?":  { $0 is Number },
+ - `number?`
  //            "procedure?": { String(type(of: $0)).containsString("->") },
  - `round`
  //            "symbol?":  { $0 is Symbol }
@@ -220,8 +220,10 @@ internal struct Library {
         switch (args[safe: 0]) {
         case let (val as Bool):
             return !val
-        case let (val as NSNumber):
-            return !Bool(truncating: val)
+        case let (val as Int):
+            return val == 0
+        case let (val as Double):
+            return val == 0
         case let (val as String):
             if let bool = Bool(val) {
                 return !bool
@@ -230,6 +232,23 @@ internal struct Library {
             }
         default:
             throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+    }
+    
+    /**
+     Static function for `number?` operation
+     */
+    static func isNumber(_ args: [Any]) throws -> Any? {
+        guard args.count == 1 else {
+            throw SwispError.SyntaxError(message: "invalid procedure input")
+        }
+        switch (args[safe: 0]) {
+        case (_ as Int):
+            return true
+        case (_ as Double):
+            return true
+        default:
+            return false
         }
     }
     
